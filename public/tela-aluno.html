@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>MetaDex | Tela Aluno</title>
+
+  <script src="./js/sessao.js"></script>
+
+  <link rel="stylesheet" href="css/LandingPage.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="./css/tela-aluno.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body>
+
+  <!-- Inicio Navbar -->
+  <nav class="Nav-Container">
+    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+    <ul class="Nav-Options">
+      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Tela Inicial</a></li>
+      <li><a href="cadastro.html">Pokedex</a></li>
+      <li><a href="cadastro.html">Ranking</a></li>
+      <li><a href="cadastro.html">Simulações</a></li>
+      <li><a href="cadastro.html">Alunos</a></li>
+    </ul>
+    <div class="Button-Container">
+      <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Logar</button>
+      <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Cadastrar\Perfil</button>
+    </div>
+  </nav>
+  <!-- Fim Navbar -->
+
+
+  <div class="container-perfil">
+
+    <div class="avatar-perfil" id="avatarPerfil">GF</div>
+
+    <!-- Dados do aluno -->
+    <div class="dados-aluno">
+      <span class="nome-aluno">Gleison Freitas</span>
+      <div class="separador"></div>
+      <div class="infos">
+        <div class="info-linha">
+          <span class="label">Taxa de vitória</span>
+          <span class="valor">85%</span>
+        </div>
+        <div class="info-linha">
+          <span class="label">Quantidade de pontos</span>
+          <span class="valor">92 pts</span>
+        </div>
+        <div class="info-linha">
+          <span class="label">Campeonatos</span>
+          <span class="valor">6</span>
+        </div>
+        <div class="info-linha">
+          <span class="label">Batalhas totais</span>
+          <span class="valor">247</span>
+        </div>
+        <div class="info-linha">
+          <span class="label">Frequência semanal</span>
+          <span class="valor">5 dias/sem</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráfico de evolução -->
+    <div class="graficos">
+      <span class="graficos-titulo">Evolução de Win Rate — Últimos 6 meses</span>
+      <div class="graficos-canvas-wrap">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+
+    <!-- LISTA DE TIMES -->
+    <div class="lista-times">
+      <h2>Times</h2>
+      <div class="container-times" id="containerTimes">
+        <!-- Times renderizados pelo JavaScript abaixo -->
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  /* ------- GRÁFICO ------- */
+  new Chart(document.getElementById('myChart'), {
+    type: 'line',
+    data: {
+      labels: ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+      datasets: [{
+        label: 'Win Rate',
+        data: [72, 74, 79, 80, 83, 85],
+        borderColor: '#8956B9',
+        backgroundColor: 'rgba(137,86,185,0.07)',
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointBackgroundColor: '#fff',
+        pointBorderColor: '#8956B9',
+        pointBorderWidth: 2,
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: false, min: 60, max: 100,
+          ticks: { callback: v => v + '%', font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.04)' }
+        },
+        x: {
+          ticks: { font: { size: 11 } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+
+
+  /* ------- TIMES ------- */
+  /*
+   * Cada objeto: { nome, tipo, batalhas, wr, corWr }
+   * corWr: '#1D9E75' (bom), '#BA7517' (médio), '#c0392b' (ruim)
+   */
+  const times = [
+    { nome: 'Time Ofensivo A',  tipo: 'Hyper Offense', batalhas: 62, wr: 91, corWr: '#1D9E75' },
+    { nome: 'Time Balance B',   tipo: 'Balance',        batalhas: 88, wr: 85, corWr: '#1D9E75' },
+    { nome: 'Time Tailwind C',  tipo: 'Balance',        batalhas: 47, wr: 79, corWr: '#1D9E75' },
+    { nome: 'Time Trick Room D',tipo: 'Trick Room',     batalhas: 30, wr: 58, corWr: '#BA7517' },
+    { nome: 'Time Stall E',     tipo: 'Stall',          batalhas: 20, wr: 42, corWr: '#c0392b' },
+  ];
+
+  function renderTimes() {
+    const container = document.getElementById('containerTimes');
+    container.innerHTML = times.map(t => `
+      <div class="time">
+        <div class="time-info">
+          <span class="time-nome">${t.nome}</span>
+          <span class="time-tipo">${t.tipo} · ${t.batalhas} batalhas</span>
+        </div>
+        <span class="time-wr" style="color:${t.corWr};">${t.wr}%</span>
+        <button>Detalhes</button>
+      </div>
+    `).join('');
+  }
+
+  renderTimes();
+</script>

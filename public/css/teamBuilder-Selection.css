@@ -1,0 +1,344 @@
+body, html{
+
+    overflow-y: hidden;
+    background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
+
+}
+
+.container {
+
+    display: grid;
+    grid-template-areas: "pesquisa pesquisa"
+    "lista selecionado";
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 70% 30%;
+    width: 100vw;
+    height: 100vh;
+    padding: 6% 2% 1.5% 2%;
+    gap: 2.5%;
+
+}
+
+#barraPesquisa {
+
+    width: 30%;
+    border: solid 2px #7760AE;
+    border-radius: 20px;
+    background-color: #fafafa;
+    padding: 0.5% 2%;
+    outline: none;
+
+}
+
+#barraPesquisa::placeholder {
+
+    color: #7760AE;
+    font-weight: 500;
+
+}
+
+.containerPesquisa{
+    grid-area: pesquisa;
+    display: flex;
+    width: 98%;
+    align-items: center;
+    gap: 2%;
+}
+
+.containerFilter{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-weight: 700;
+    font-size: xx-large;
+    color: #7760AE;
+}
+
+.filter{
+
+    display: flex;
+    align-items: center;
+    width: 37%;
+    padding: 2%;
+    gap: 5.6%;
+    overflow-x: scroll;
+
+}
+
+.filter::-webkit-scrollbar{
+    display: none;
+}
+
+.btnFilter{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5vw;
+    height: 2.5vw;
+    cursor: pointer;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.imgTipo{
+    width: 1.3vw;
+    height: 1.3vw;
+}
+
+#btnSalvar{
+
+    color: #fff;
+    background-color: #7760AE;
+    width: 15%;
+    height: 50%;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 1%;
+
+}
+
+.containerPokemonList{
+    grid-area: lista;
+    display: flex;
+    flex-direction: column;
+    gap: 7%;
+}
+
+.containerAbas{
+
+    display: flex;
+
+}
+
+
+.Aba{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 2px #000;
+    border-bottom: solid 2px #000;
+    width: 11vw;
+    height: 2.5vw;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.primeira{
+    border-left: solid 2px #000;
+    border-top-left-radius: 10px;
+}
+
+.ultima{
+    border-right: solid 2px #000;
+    border-top-right-radius: 10px;
+}
+
+.selectedAba{
+    color: #fff;
+    background-color: #7760AE;
+    border-color: #7760AE;
+    font-weight: 600;   
+}
+
+.line{
+
+    border: solid 1px black;
+}
+
+.containerCard {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 1%;
+}
+
+.containerCard::-webkit-scrollbar{
+    display: none;
+}
+
+.pokemonCard{
+    display: flex;
+    justify-content: space-between;
+    height: 60%;
+    border: solid 2px #D7D5DF;
+    border-radius: 10px;
+    padding: 0 2%;
+    background-color: #fbf9ff;
+
+}
+
+.pokemonContainer{
+    display: flex;
+    align-items: center;
+    width: 30%;
+    gap: 5%;
+}
+
+.pokemonContainer img{
+    height: 100%;
+}
+
+.detalhes{
+    display: grid;
+    grid-template-areas: "nome nome"
+    "tipo1 tipo2";
+    grid-template-columns: 0.5fr 0.5fr;
+    width: 100%;
+    height: 70%;
+    gap: 3%;
+}
+
+.detalhes h3{
+    grid-area: nome;
+    display: flex;
+    align-items: center;
+    padding-left: 3%;
+    font-size: 1.4vw;
+}
+
+.tipo1{
+    grid-area: tipo1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 90%;
+    height: 80%;
+    color: #fafafa;
+}
+
+.tipo2{
+    grid-area: tipo2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 100%;
+    height: 80%;
+    color: #fafafa;
+}
+
+.selecionadosDetalhes .tipo1{
+    width: 90%;
+    height: 50%;
+}
+
+.selecionadosDetalhes .tipo2{
+    width: 90%;
+    height: 50%;
+}
+
+.addButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    color: #fafafa;
+    font-weight: 600;
+    background-color: #7760AE;
+    width: 15%;
+    height: 30%;
+    border-radius: 20px;
+}
+
+.containerPokemonSelected{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
+    border: solid 2px #D7D5DF;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.containerCardSelected{
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.containerCardSelected::-webkit-scrollbar{
+
+    background-color: #fff;
+    width: 0.5vw;
+
+}
+
+.containerCardSelected::-webkit-scrollbar-thumb{
+
+    background-color: #735797;
+    border-radius: 10px;
+    height: 5px;
+    
+}
+
+
+.title{
+    background-color: #7760AE;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    height: 8%;
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.title h3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardSelecionado{
+    display: flex;
+    width: 100%;
+    height: 20%;
+    background-color: #fafafa;
+    padding-right: 3%;
+    border-top: solid 2px #D7D5DF;
+    border-bottom: solid 2px #D7D5DF;
+}
+
+.selecionadosDetalhes{
+    display: grid;
+    grid-template-areas: "nome nome"
+    "tipo1 tipo2";
+    grid-template-columns: 0.4fr 0.4fr;
+    width: 60%;
+}
+
+.selecionadosDetalhes h3{
+    padding-left: 5%;
+    display: flex;
+    grid-area: nome;
+    width: 100%;
+    align-items: center;
+}
+
+.selecionadosDetalhes h3 a{
+    cursor: pointer;
+}
+
+.excluir{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e15e7d;
+    cursor: pointer;
+    width: 10%;
+    height: 40%;
+    align-self: center;
+    border-radius: 10px;
+}
+
+.excluir img{
+    width: 60%;
+}
+
+.filterSelected{
+
+    border: solid 2px #735797;
+
+}

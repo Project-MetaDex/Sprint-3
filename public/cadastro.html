@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+
+  <title>MetaDex | Cadastro</title>
+
+  <script src="./js/sessao.js"></script>
+
+  <link rel="stylesheet" href="css/LandingPage.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/cadastro.css" />
+  <link rel="stylesheet" href="css/pokedex.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <script src="js/sideBar.js"></script>
+</head>
+
+<body>
+
+  <!-- Inicio Navbar -->
+
+    <nav class="Nav-Container">
+
+      <img onclick="Side('Open')" id="options" src="./assets/icon/Icon-Hanburguer.svg" alt="">
+      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+
+      <ul class="Nav-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li><a href="teamBuilder-List.html">Team Buider</a></li>
+        <li><a href="simulacao1.html">Battle Simulator</a></li>
+      </ul>
+
+      <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+      </div>
+    </nav>
+
+    <aside style="display: none;" class="Side-Container">
+      
+      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+      <div class="Side-Flex">
+        <div class="Perfil">
+
+          <img src="assets/icon/Icon-User.svg" alt="">
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+
+        </div>
+
+        <ul class="Side-Options">
+          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+          <li><a href="cadastro.html">Pokedex</a></li>
+          <li><a href="cadastro.html">Ranks</a></li>
+          <li><a href="cadastro.html">Team Buider</a></li>
+          <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
+
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      </div>
+    </aside>
+
+    <!-- Fim Navbar -->
+
+      <div class="formulario-container">
+        
+        <div class="main-cadastro">
+            <h1 class="titulo01">INICIE SUA JORNADA<br>COMPETITIVA</h1>
+            <p class="titulo02">Crie sua conta para acessar o meta e ferramentas de ponta.</p>
+            
+      <div class="div-informacoes">
+      <div class="input-informacoes">
+        <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
+        <input type="text" placeholder="Nome Completo" required>
+      </div>
+
+      <div class="input-informacoes">
+        <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
+        <input type="text" placeholder="Nickname" required>
+      </div>
+
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone"> 
+          <input type="email" placeholder="Endereço de E-mail" required>
+        </div>
+
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
+          <input type="password" placeholder="Sua Senha" required>
+        </div>
+
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
+          <input type="password" placeholder="Confirme sua Senha" required>
+        </div>
+
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon01jpeg-Photoroom.png1" alt="Ícone">
+          <input type="text" placeholder="Token do mentor" required>
+        </div>
+
+      </div>
+      
+                <a href="#" class="botao">CADASTRE-SE AGORA!</a> 
+            <div class="ja-tem-conta">
+                Já tem conta? <a href="login.html">Faça Login</a>
+            </div>
+        </div>
+
+        <div class="imagem-charmander">
+            <img class="fundo-pc" src="assets/imgs/FundoCadastro-Photoroom.png" alt="Fundo">
+            <img class="fundo-ipad" src="assets/imgs/FundoIpadMini.png" alt="Fundo">
+            <img class="charmander" src="assets/imgs/charmanderSENTADO-Photoroom.png" alt="Charizard">
+        </div>
+
+    </div>
+</body>
+</html>
+
+<script>
+
+  // Array para armazenar empresas cadastradas para validação de código de ativação 
+  let listaEmpresasCadastradas = [];
+
+  function cadastrar() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var codigoVar = codigo_input.value;
+    var idEmpresaVincular
+
+    // Verificando se há algum campo em branco
+    if (
+      nomeVar == "" ||
+      emailVar == "" ||
+      senhaVar == "" ||
+      confirmacaoSenhaVar == "" ||
+      codigoVar == ""
+    ) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    // Verificando se o código de ativação é de alguma empresa cadastrada
+    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+        idEmpresaVincular = listaEmpresasCadastradas[i].id
+        console.log("Código de ativação válido.");
+        break;
+      } else {
+        cardErro.style.display = "block";
+        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        finalizarAguardar();
+      }
+    }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        idEmpresaVincularServer: idEmpresaVincular
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // Listando empresas cadastradas 
+  function listar() {
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            listaEmpresasCadastradas.push(empresa);
+
+            console.log("listaEmpresasCadastradas")
+            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>

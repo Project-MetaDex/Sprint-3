@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Builder</title>
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/teamBuilder-Pokemon.css">
+
+</head>
+
+<body onload="ConstruirCardSelectd()">
+
+  <!-- Inicio Navbar -->
+
+  <nav class="Nav-Container">
+
+    <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+
+    <ul class="Nav-Options">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="cadastro.html">Pokedex</a></li>
+      <li><a href="cadastro.html">Ranks</a></li>
+      <li class="Selected"><a href="#"><img src="./assets/icon/Icon-NavSelected.svg" alt="">Team Buider</a></li>
+      <li><a href="cadastro.html">Battle Simulator</a></li>
+    </ul>
+
+    <div class="Button-Container">
+      <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
+      <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
+    </div>
+  </nav>
+
+  <aside style="display: none;" class="Side-Container">
+
+    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+    <div class="Side-Flex">
+      <div class="Perfil">
+
+        <img src="assets/icon/Icon-User.svg" alt="">
+        <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+
+      </div>
+
+      <ul class="Side-Options">
+        <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li>
+        <li><a href="cadastro.html">Pokedex</a></li>
+        <li><a href="cadastro.html">Ranks</a></li>
+        <li><a href="cadastro.html">Team Buider</a></li>
+        <li><a href="cadastro.html">Battle Simulator</a></li>
+      </ul>
+
+      <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+    </div>
+  </aside>
+
+  <!-- Fim Navbar -->
+
+  <div class="container">
+    <div class="containerPokemonEdit">
+      <img class="imgPokemon" src="https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/001.png"
+        alt="">
+
+      <div class="containerDetalhes">
+        <h2 class="nomePokemon">Bulbasaur</h2>
+        <div class="tipos">
+          <span class="etiqueta tipo1 poison"> tipo 01</span>
+          <span class="etiqueta tipo2 normal"> tipo 02</span>
+        </div>
+        <hr>
+        <div class="item">
+          <h3 class="titleItem">Item Carregado</h3>
+          <div class="containerItem">
+            <div class="CardItem">
+              <img src="assets/icon/tipo/Grama.svg" alt="">
+              <span>Item</span>
+              <span class="mais">></span>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="containerHabilidade">
+          <h3>Habilidade</h3>
+          <div class="cardHabilidade">
+            <img src="assets/icon/tipo/Grama.svg" alt="">
+            <span>Draim</span>
+            <span class="mais">></span>
+          </div>
+        </div>
+      </div>
+      <div class="containerGolpes">
+        <h3>Ataques</h3>
+        <ul>
+          <li class="ataques"><img src="assets/icon/tipo/Eletrico.svg" alt=""><span>Ataque 01</span> <span>></span></li>
+          <li class="ataques"><img src="assets/icon/tipo/Fogo.svg" alt=""><span>Ataque 02</span> <span>></span></li>
+          <li class="ataques"><img src="assets/icon/tipo/Terra.svg" alt=""><span>Ataque 03</span> <span>></span></li>
+          <li class="ataques"><img src="assets/icon/tipo/Veneno.svg" alt=""><span>Ataque 04</span> <span>></span></li>
+        </ul>
+      </div>
+
+      <div class="containerStatus">
+        <div class="statusBase">
+          <h3>Status Base</h3>
+
+          <div class="statusGridBase">
+            <div class="statusLinha">
+              <span>HP</span>
+              <strong>114</strong>
+            </div>
+
+            <div class="statusLinha">
+              <span>Ataque</span>
+              <strong>85</strong>
+            </div>
+
+            <div class="statusLinha">
+              <span>Defesa</span>
+              <strong>70</strong>
+            </div>
+
+            <div class="statusLinha">
+              <span>Defesa Esp.</span>
+              <strong>80</strong>
+            </div>
+
+            <div class="statusLinha">
+              <span>Ataque Esp.</span>
+              <strong>85</strong>
+            </div>
+
+            <div class="statusLinha">
+              <span>Velocidade</span>
+              <strong>30</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="statusEdit">
+          <h3>Selecionar Status</h3>
+
+          <div class="statusGridEdit">
+            <div class="statusControle">
+              <span>HP</span>
+              <button onclick="alterarStatus('hp', -1)">−</button>
+              <strong id="hp">0</strong>
+              <button onclick="alterarStatus('hp', 1)">+</button>
+            </div>
+
+            <div class="statusControle">
+              <span>Ataque</span>
+              <button onclick="alterarStatus('ataque', -1)">−</button>
+              <strong id="ataque">0</strong>
+              <button onclick="alterarStatus('ataque', 1)">+</button>
+            </div>
+
+            <div class="statusControle">
+              <span>Defesa</span>
+              <button onclick="alterarStatus('defesa', -1)">−</button>
+              <strong id="defesa">0</strong>
+              <button onclick="alterarStatus('defesa', 1)">+</button>
+            </div>
+
+            <div class="statusControle">
+              <span>Defesa Esp.</span>
+              <button onclick="alterarStatus('defesaEsp', -1)">−</button>
+              <strong id="defesaEsp">0</strong>
+              <button onclick="alterarStatus('defesaEsp', 1)">+</button>
+            </div>
+
+            <div class="statusControle">
+              <span>Ataque Esp.</span>
+              <button onclick="alterarStatus('ataqueEsp', -1)">−</button>
+              <strong id="ataqueEsp">0</strong>
+              <button onclick="alterarStatus('ataqueEsp', 1)">+</button>
+            </div>
+
+            <div class="statusControle">
+              <span>Velocidade</span>
+              <button onclick="alterarStatus('velocidade', -1)">−</button>
+              <strong id="velocidade">0</strong>
+              <button onclick="alterarStatus('velocidade', 1)">+</button>
+            </div>
+          </div>
+
+          <p class="statusRestante">
+            Restam: <strong id="pontosRestantes">508</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="btnContainer">
+      <button id="btnVoltar">Voltar</button>
+      <button id="btnSalvar">Salvar</button>
+    </div>
+
+    <div class="containerPokemonSelected">
+      <div class="title">
+        <h3>Pokémon selecionados</h3>
+      </div>
+
+      <div class="containerCardSelected">
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/teamBuilder-Pokemon.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,384 @@
+
+.pagina-detalhes-pokemon {
+    width: 100%;
+    padding: 38px 70px 70px;
+}
+
+.botao-voltar {
+    background-color:#D84B36 ;
+    color: #ffff;
+    border: none;
+    border-radius: 30px;
+    padding: 11px 30px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 28px;
+    margin-top: 4%;
+}
+
+.area-principal {
+    display: grid;
+    grid-template-columns: 1.05fr 1.35fr 0.95fr;
+    gap: 28px;
+    margin-bottom: 38px;
+}
+
+.card-imagem-pokemon,
+.card-status,
+.card-dados-gerais,
+.card-descricao,
+.card-fraquezas,
+.area-evolucao,
+.card-lista {
+    border-radius: 22px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.card-imagem-pokemon {
+    height: 100%;
+    background-image: url('../assets/imgs/fundo_pokemon_forte.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.20);
+
+}
+    /* background: linear-gradient(160deg, #6945d9, #d65fae, #ff6158); */
+
+.card-imagem-pokemon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.card-status {
+    height: 530px;
+    background-color: rgba(251, 225, 251, 0.92);
+    padding: 42px 38px;
+    box-shadow: 1px 3px 55px rgba(0, 0, 0, 0.30);
+
+}
+
+.titulo-pokemon {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.titulo-pokemon h1 {
+    font-size: 50px;
+    color: #08122f;
+}
+
+.titulo-pokemon span {
+    font-size: 28px;
+    font-weight: 800;
+    color: #8130b5;
+}
+
+.tipos-pokemon {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0 28px;
+}
+
+.tipo,
+.fraqueza,
+.tipo-mini {
+    color: #ffffff;
+    font-weight: 800;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 14px;
+}
+
+.grama {
+    background-color: #43a657;
+}
+
+.veneno {
+    background-color: #8736b7;
+}
+
+.normal {
+    background-color: #7d7d85;
+}
+
+.card-status hr {
+    border: none;
+    height: 1px;
+    background-color: #ded5e7;
+    margin-bottom: 22px;
+}
+
+.card-status h3 {
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.linha-status {
+    display: grid;
+    grid-template-columns: 120px 1fr 40px;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.linha-status p {
+    color: #27324a;
+    font-weight: 500;
+}
+
+.linha-status span {
+    color: #27324a;
+    font-weight: 700;
+    text-align: right;
+}
+
+.barra-status {
+    height: 12px;
+    background-color: #e8ddea;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.barra-status div {
+    height: 100%;
+    background-color: #8335bc;
+    border-radius: 20px;
+}
+
+.card-dados-gerais {
+    height: 530px;
+    background-color: #e9d8b5;
+    padding: 32px 28px;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
+
+}
+
+.card-dados-gerais h2 {
+    margin-bottom: 22px;
+    color: #2b1c14;
+}
+
+.item-dado {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 13px 0 ;
+    border-bottom: 1px solid #c4a068;
+    
+}
+
+.item-dado:last-child {
+    border-bottom: none;
+}
+
+.item-dado span {
+    font-size: 23px;
+    width: 28px;
+    text-align: center;
+}
+
+.item-dado p {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+    color: #2f3747;
+}
+
+.item-dado strong {
+    color: #374151;
+}
+
+.area-informacoes {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 28px;
+    margin-bottom: 38px;
+}
+
+.card-descricao {
+    min-height: 190px;
+    background-color: #d1fac2;
+    padding: 34px 38px;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
+
+}
+
+.card-descricao h2,
+.card-fraquezas h2 {
+    margin-bottom: 22px;
+    color: #1f2937;
+}
+
+.card-descricao p {
+    width: 82%;
+    line-height: 1.7;
+    font-size: 17px;
+    color: #263247;
+}
+
+.card-fraquezas {
+    min-height: 190px;
+    background-color: #f8e7cb;
+    padding: 34px 38px;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
+
+}
+
+.lista-fraquezas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.fogo {
+    background-color: #ee4d25;
+}
+
+.voador {
+    background-color: #4773c8;
+}
+
+.psiquico {
+    background-color: #dc4c91;
+}
+
+.gelo {
+    background-color: #37a9b4;
+}
+
+.area-evolucao {
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 30px;
+    margin-bottom: 38px;
+    
+}
+
+.area-evolucao h2 {
+    text-align: center;
+    margin-bottom: 28px;
+    color: #111827;
+}
+
+.lista-evolucao {
+    display: grid;
+    grid-template-columns: 1fr 45px 1fr 45px 1fr;
+    align-items: center;
+    gap: 22px;
+
+}
+
+.card-evolucao {
+    height: 245px;
+    background-image: url('../assets/imgs/fundo_pokemon_forte.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 15px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.50);
+
+}
+
+.card-evolucao img {
+    position: relative;
+    width: 100%;
+    height: 95%;
+    object-fit: contain;
+}
+
+.card-evolucao div {
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.seta-evolucao {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #111827;
+}
+
+.area-listas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.card-lista {
+    padding: 25px;
+    background-color: #f8bed8;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
+
+}
+
+.card-lista:nth-child(2) {
+    background-color: #cbbef7;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
+
+}
+
+.card-lista:nth-child(3) {
+    background-color: #d7b9e8;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
+
+}
+
+.card-lista h2 {
+    margin-bottom: 22px;
+    color: #151a36;
+}
+
+.item-lista {
+    background-color: rgba(255, 255, 255, 0.78);
+    border-radius: 8px;
+    padding: 16px 12px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 11px;
+    font-size: 15px;
+    color: #283044;
+}
+
+.item-lista span {
+    font-weight: 500;
+}
+
+.item-lista p {
+    font-weight: 700;
+}
+
+.tipo-mini {
+    font-size: 11px;
+    padding: 5px 9px;
+}
+
+.card-lista a {
+    display: block;
+    margin-top: 25px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: #9131a8;
+    border-radius: 20px;
+    width: 55%;
+    margin-left: 45%;
+    margin-top: 0%;
+}

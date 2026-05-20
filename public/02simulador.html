@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador 02</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/02simulador.css">
+
+</head>
+<body>
+
+    <!-- Inicio Navbar -->
+
+    <nav class="Nav-Container">
+
+    
+        <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+    
+    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+
+    <ul class="Nav-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="cadastro.html">Pokedex</a></li>
+        <li><a href="cadastro.html">Ranks</a></li>
+        <li><a href="cadastro.html">Team Buider</a></li>
+        <li><a href="cadastro.html">Battle Simulator</a></li>
+    </ul>
+
+    <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+    </div>
+    </nav>
+
+    <aside style="display: none;" class="Side-Container">
+
+    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+    <div class="Side-Flex">
+        <div class="Perfil">    
+            <img src="assets/icon/Icon-User.svg" alt="">
+            <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+
+        </div>
+
+        <ul class="Side-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="cadastro.html">Pokedex</a></li>
+        <li><a href="cadastro.html">Ranks</a></li>
+        <li><a href="cadastro.html">Team Buider</a></li>
+        <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
+
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+    </div>
+    </aside>
+
+    <!-- Fim Navbar -->
+
+    <div class="titulo-link">
+    <h2>Simulador de Batalha</h2>
+    <a href="#">Voltar</a>
+    </div>
+
+
+    <span class="container-principal">
+
+    <div class="container-pokemon">
+
+        <div class="pokenon-selecionado">
+            <h2>
+                Blaziken
+            </h2>
+            <img src="assets/imgs/Blaziken.png" >
+        </div>
+
+        <div class="container-ataques">
+            <h2>ATAQUES</h2>
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-fogo icon-container"><i class="fas fa-fire"></i></div>
+                    <span>soco</span>
+                </div>
+            </button>
+
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-draco icon-container"><i class="fas fa-dragon"></i></div>
+                    <span>socos</span>
+                </div>
+            </button>
+
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-bug icon-container"><i class="fas fa-bug"></i> </div>
+                    <span>socos</span>
+                </div>
+            </button>
+
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-mao icon-container"><i class="fas fa-hand-fist"></i></div> 
+                    <span>chute</span>
+                </div>
+            </button>
+        </div>
+        
+    </div>
+    
+
+    <div class="container-pokemon">
+        
+        <div class="pokenon-selecionado">
+            <h2>
+                Electabuzz
+            </h2>
+            <img src="assets/imgs/pokemon_Electabuzz.png" >
+        </div>
+
+        <div class="container-ataques">
+            <h2>ATAQUES</h2>
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-eletric icon-container"><i class="fa-solid fa-bolt"></i></div>
+                    <span>soco</span>
+                </div>
+            </button>
+
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-draco icon-container"><i class="fas fa-dragon"></i></div>
+                    <span>soco</span>
+                </div>
+            </button>
+
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-eletric icon-container"><i class="fa-solid fa-bolt"></i> </div>
+                    <span>soco</span>
+                </div>
+            </button>
+
+            <button class="ataques-btn">
+                <div class="ataques">
+                    <div class="icon-engrenagem icon-container"><i class="fa-solid fa-gear"></i></div> 
+                    <span>soco</span>
+                </div>
+            </button>
+        </div>
+        
+    </div>
+
+    </span>
+
+
+
+<div class="detalhes-wrapper">
+
+    <div class="card-detalhes">
+        <h2>DETALHES DA SIMULAÇÃO</h2>
+
+        <div class="conteudo-detalhes">
+            <p class="turno">Turno 1</p>
+
+            <p>Dano Causado: <strong class="verde">X</strong> (Blaziken)</p>
+            <p class="critico laranja">Crítico!</p>
+
+            <p>Dano Causado: <strong class="verde">X</strong> (Electabuzz)</p>
+            <p><strong>Crítico!</strong> Dano no: <strong>Blaziken</strong></p>
+
+            <p>Dano Causado: <strong class="laranja">X</strong> Fogo!!</p>
+        </div>
+    </div>
+
+    <div class="card-detalhes">
+        <h2>DETALHES DA SIMULAÇÃO</h2>
+
+        <div class="conteudo-detalhes">
+            <p class="turno">Turno 1</p>
+
+            <p>Dano Causado: <strong class="verde">X</strong> (Blaziken)</p>
+            <p class="critico laranja">Crítico!</p>
+
+            <p>Dano Causado: <strong class="laranja">X</strong> (Blaziken)</p>
+            <p><strong>Crítico!</strong> Dano no: <strong>Electabuzz</strong></p>
+
+            <p>Dano Causado: <strong class="amarelo">X</strong>, Electro </p>
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>

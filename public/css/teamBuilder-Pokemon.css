@@ -1,0 +1,479 @@
+body, html{
+
+    overflow-y: hidden;
+    background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
+    width: 100%;
+    height: 100%;
+
+}
+
+.container{
+    display: grid;
+    grid-template-areas: "Button Button"
+    "Pokemon Selected";
+    grid-template-rows: 10% 90%;
+    grid-template-columns: 70% 30%;
+    padding: 6% 2% 1% 2%;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.btnContainer{
+
+    width: 100%;
+    height: 100%;
+    grid-area: Button;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#btnSalvar{
+    justify-self: end;
+    color: #fff;
+    background-color: #7760AE;
+    width: 10%;
+    height: 50%;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 1%;
+}
+
+#btnVoltar{
+    justify-self: end;
+    color: #fff;
+    background-color: #7760AE;
+    width: 10%;
+    height: 50%;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.containerPokemonSelected{
+    grid-area: Selected;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+    width: 90%;
+    height: 100%;
+    border: solid 2px #D7D5DF;
+    border-radius: 20px;
+    background-color: #fff;
+}
+
+.containerCardSelected{
+    overflow-y: scroll;
+    height: 100%;
+}
+
+.containerCardSelected::-webkit-scrollbar{
+    background-color: #fff;
+    width: 0.5vw;
+
+}
+
+.containerCardSelected::-webkit-scrollbar-thumb{
+
+    background-color: #735797;
+    border-radius: 10px;
+    height: 5px;
+    
+}
+
+.title{
+    background-color: #7760AE;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    height: 8%;
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.title h3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardSelecionado{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 20%;
+    background-color: #fafafa;
+    padding-right: 3%;
+    border-top: solid 2px #D7D5DF;
+    border-bottom: solid 2px #D7D5DF;
+}
+
+.selecionadosDetalhes{
+    display: grid;
+    grid-template-areas: "nome nome"
+    "tipo1 tipo2";
+    grid-template-columns: 0.4fr 0.4fr;
+    width: 60%;
+}
+
+.selecionadosDetalhes h3{
+    padding-left: 5%;
+    display: flex;
+    grid-area: nome;
+    width: 100%;
+    align-items: center;
+}
+
+.selecionadosDetalhes h3 a{
+    cursor: pointer;
+}
+
+.tipo1{
+    grid-area: tipo1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 90%;
+    height: 80%;
+    color: #fafafa;
+}
+
+.tipo2{
+    grid-area: tipo2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 100%;
+    height: 80%;
+    color: #fafafa;
+}
+
+.selecionadosDetalhes .tipo1{
+    width: 90%;
+    height: 50%;
+}
+
+.selecionadosDetalhes .tipo2{
+    width: 90%;
+    height: 50%;
+}
+
+.containerPokemonEdit{
+
+    display: grid;
+    grid-template-areas: "img detalhe golpes"
+    "status status status";
+    grid-template-columns: .75fr 1fr 1fr;
+    grid-template-rows: 50% 50%;
+    grid-area: Pokemon;
+    justify-self: center;
+    width: 95%;
+    height: 100%;
+    background-color: #fff;
+    padding: 1%;
+    border: solid 2px #D7D5DF;
+    border-radius: 10px;
+    gap: 2%;
+
+}
+
+.imgPokemon {
+
+    width: 100%;
+
+}
+
+.containerDetalhes {
+
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+
+}
+
+.nomePokemon {
+
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+
+}
+
+.tipos{
+
+    display: flex;
+    gap: 2%;
+
+}
+
+.etiqueta{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    width: 35%;
+    height: 100%;
+    color: #fafafa;
+
+}
+
+.item{
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.containerItem{
+
+    display: flex;
+    width: 100%;
+    gap: 5%;
+
+}
+
+.CardItem {
+
+    display: grid;
+    grid-template-areas: "icon nome mais";
+    grid-template-columns: .5fr 1fr .5fr;
+    align-items: center;
+    gap: 5%;
+    background-color: #fafafa;
+    width: 100%;
+    padding: 2% 5%;
+    border-radius: 10px;
+    font-weight: 600;
+    border: solid 1px #D7D5DF;
+}
+
+.mais{
+
+    display: flex;
+    justify-self: end;
+}
+
+.CardItem img{
+
+    width: 50%;
+    justify-self: center;
+
+}
+
+.containerHabilidade{
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5%;
+
+}
+
+.cardHabilidade {
+
+    display: grid;
+    grid-template-areas: "icon nome mais";
+    grid-template-columns: .5fr 1fr .5fr;
+    align-items: center;
+    gap: 5%;
+    background-color: #fafafa;
+    width: 100%;
+    height: 60%;
+    padding: 2% 5%;
+    border-radius: 10px;
+    font-weight: 600;
+    border: solid 1px #D7D5DF;
+
+}
+
+.cardHabilidade img {
+    width: 50%;
+    justify-self: center;
+
+}
+
+.containerGolpes{
+
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+}
+
+.containerGolpes h3{
+    display: flex;
+    width: 100%;
+    padding: 0 10%;
+    
+}
+
+.containerGolpes ul{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+
+.ataques{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 15%;
+    margin-top: 5%;
+    border: solid 1px #D7D5DF;
+    border-radius: 10px;
+    background-color: #fafafa;
+    padding: 1% 5%;
+    
+}
+
+.ataques img{
+
+    height: 80%;
+    width: 10%;
+
+}
+
+.containerStatus {
+    grid-area: status;
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: 3%;
+    width: 100%;
+    height: 95%;
+    padding: 2%;
+    border-radius: 16px;
+    background-color: #fbf9ff;
+    border: solid 1px #D7D5DF;
+}
+
+.statusBase,
+.statusEdit {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}
+
+.statusBase h3,
+.statusEdit h3 {
+    color: #2f2d4f;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.statusGridBase {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 8%;
+}
+
+.statusLinha {
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    align-items: center;
+    background-color: #f5f3fa;
+    border: solid 1px #D7D5DF;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #3a385f;
+}
+
+.statusLinha span {
+    display: flex;
+    border-right: solid 1px #D7D5DF;
+    font-size: 2vh;
+    justify-content: center;
+}
+
+.statusLinha strong {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 600;
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+}
+
+.statusGridEdit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 100%;
+    width: 100%;
+    gap: 8%;
+}
+
+.statusControle {
+    display: grid;
+    grid-template-columns: 1fr .35fr .45fr .35fr;
+    align-items: center;
+    background-color: #f5f3fa;
+    border: solid 1px #D7D5DF;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #3a385f;
+}
+
+.statusControle span {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-left: solid 1px #D7D5DF;
+}
+
+.statusControle strong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: #fafafa;
+    text-align: center;
+    font-weight: 600;
+}
+
+.statusControle button {
+    height: 100%;
+    border: none;
+    background-color: #f1eff8;
+    color: #7760AE;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-left: solid 1px #D7D5DF;
+    border-right: solid 1px #D7D5DF;
+}
+
+.statusControle button:hover {
+    background-color: #e7e0f5;
+}
+
+.statusRestante {
+    align-self: center;
+    margin-top: auto;
+    color: #6B7280;
+    font-weight: 500;
+}
+
+.statusRestante strong {
+    color: #7760AE;
+}

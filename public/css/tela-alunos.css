@@ -1,0 +1,522 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #F8F9FB;
+}
+
+/* ======= ABAS / TABS ======= */
+.tab-buttons {
+    height: 91vh;
+    width: 100%;
+    margin-top: 9vh;
+    padding: 15px 40px;
+}
+
+.tab-btn {
+    background-color: #cacaca;
+    height: 6vh;
+    width: 150px;
+    padding: 5px;
+    border-radius: 10px 10px 0px 0px;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+}
+
+.tab-btn:hover {
+    transition: 0.5s;
+    background-color: #b0b0b0;
+}
+
+.tab-btn.active {
+    background-color: #8956B9;
+    color: #ffffff;
+}
+
+.tab-contents {
+    height: 93%;
+    width: 100%;
+    padding: 10px;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content:not(.hidden) {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* ======= ABA: DASHBOARD GERAL ======= */
+#DashGeral {
+    height: 100%;
+    padding: 10px;
+
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+}
+
+/* --- KPIs --- */
+.kpis {
+    grid-column: 1 / 3;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card-info {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    border-radius: 14px;
+    border-top: 3px solid #8956B9;
+    padding: 16px 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.card-info h4 {
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    font-size: 14px;
+    font-weight: 500;
+    color: #9a9aaa;
+}
+
+.card-info .valor {
+    margin-top: 5px;
+    font-size: 34px;
+    font-weight: 600;
+    color: #1a1525;
+    line-height: 1.5;
+}
+
+/* --- Gráfico --- */
+.grafico {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    /* permite encolher no grid */
+}
+
+.grafico-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1525;
+    flex-shrink: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f5;
+}
+
+.grafico-canvas-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+
+/* --- Painel lateral --- */
+.painel-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* Alunos em risco */
+.list-alunos {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.list-alunos h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1525;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f5;
+    flex-shrink: 0;
+}
+
+/* Cada card de risco — sem altura mínima fixa */
+.card-alunoRisco {
+    background-color: #f8f7fc;
+    border: 1px solid #8956B9;
+    border-radius: 10px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f3eeff;
+    border: 2px solid #8956B9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #8956B9;
+    flex-shrink: 0;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0;
+}
+
+.info strong {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1525;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.info small {
+    font-size: 11px;
+    color: #9a9aaa;
+}
+
+.risco-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.risco-tag.critico {
+    background: #fcebeb;
+    color: #a32d2d;
+}
+
+.risco-tag.atencao {
+    background: #faeeda;
+    color: #854f0b;
+}
+
+/* Arquétipos */
+.card-arquetipos {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-arquetipos h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1525;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f5;
+}
+
+.arquetipo-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.arquetipo-nome {
+    font-size: 12px;
+    color: #000000;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.arquetipo-barra-wrap {
+    flex: 1;
+    height: 7px;
+    background: #f1eff8;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.arquetipo-barra {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.arquetipo-pct {
+    font-size: 11px;
+    font-weight: 600;
+    color: #000000;
+    width: 30px;
+    text-align: right;
+}
+
+/* ======= ABA: LISTA DE ALUNOS ======= */
+#ListAlunos {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 8px 12px;
+    gap: 0;
+}
+
+/* Área rolável dos cards */
+.lista-scroll {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 4px 4px 8px 4px;
+}
+
+.info-aluno {
+    background-color: #FFFFFF;
+    padding: 0 24px;
+    border-radius: 14px;
+    border: 1px solid #e8e8f0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: grid;
+    grid-template-columns: 52px 1.4fr 1.2fr 1fr 1fr auto;
+    align-items: center;
+    gap: 16px;
+    min-height: 80px;
+    transition: box-shadow 0.25s, border-color 0.25s;
+}
+
+.info-aluno:hover {
+    border-color: #A37ACC;
+    box-shadow: 0 4px 14px rgba(163, 122, 204, 0.18);
+}
+
+.imagem-perfil {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f3eeff;
+    border: 2px solid #A37ACC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #8956B9;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.imagem-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.nome {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.nome small {
+    font-size: 10px;
+    color: #b0b0b0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.nome strong {
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1525;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tx-vitoria {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tx-vitoria small {
+    font-size: 10px;
+    color: #b0b0b0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.container-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-bar {
+    background-color: #F4F3F8;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 8px;
+    flex: 1;
+}
+
+.bar-preenchida {
+    background-color: #1D9E75;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.container-bar strong {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1525;
+    min-width: 38px;
+}
+
+.qtd-pontos,
+.qtd-camp {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.qtd-pontos small,
+.qtd-camp small {
+    font-size: 10px;
+    color: #b0b0b0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.qtd-pontos strong,
+.qtd-camp strong {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1525;
+}
+
+.btn-verPerfil {
+    background-color: #f3eeff;
+    border: 1px solid rgba(137, 86, 185, 0.25);
+    border-radius: 10px;
+    color: #8956B9;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-verPerfil:hover {
+    background-color: #8956B9;
+    color: #fff;
+    border-color: #8956B9;
+}
+
+/* Paginação */
+.paginacao {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 10px 4px 4px 4px;
+    flex-shrink: 0;
+}
+
+.paginacao span {
+    font-size: 12px;
+    color: #9a9aaa;
+}
+
+.btn-pag {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e0e0ea;
+    background: #fff;
+    color: #555;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-pag:hover:not(:disabled) {
+    border-color: #8956B9;
+    color: #8956B9;
+}
+
+.btn-pag.ativo {
+    background: #8956B9;
+    border-color: #8956B9;
+    color: #fff;
+}
+
+.btn-pag:disabled {
+    opacity: 0.35;
+    cursor: default;
+}

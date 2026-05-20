@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Mentor</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/PerfilMentor.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+<body>
+
+    
+    <!-- Inicio Navbar -->
+
+    <nav class="Nav-Container">
+
+    
+        <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+    
+    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+
+    <ul class="Nav-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="cadastro.html">Pokedex</a></li>
+        <li><a href="cadastro.html">Ranks</a></li>
+        <li><a href="cadastro.html">Team Buider</a></li>
+        <li><a href="cadastro.html">Battle Simulator</a></li>
+    </ul>
+
+    <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+    </div>
+    </nav>
+
+    <aside style="display: none;" class="Side-Container">
+
+    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+    <div class="Side-Flex">
+        <div class="Perfil">    
+            <img src="assets/icon/Icon-User.svg" alt="">
+            <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+
+        </div>
+
+        <ul class="Side-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="cadastro.html">Pokedex</a></li>
+        <li><a href="cadastro.html">Ranks</a></li>
+        <li><a href="cadastro.html">Team Buider</a></li>
+        <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
+
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+    </div>
+    </aside>
+
+    <!-- Fim Navbar -->
+
+  <main class="pagina-aluno">
+
+    <div class="conteudo-aluno">
+
+        <div class="menu-lateral">
+
+            <div class="card-perfil">
+                <img class="imagem-perfil" src="assets/imgs/FotoPerfil_Mentor.png" alt="Foto da aluna">
+
+                <span class="nome-aluno">Fernanda Caramico</span>
+                <span class="tipo-aluno">Mentor Competitivo</span>
+            </div>
+
+            <div class="opcoes-perfil">
+
+                <div class="opcao-menu opcao-ativa">
+                    <span class="icone-menu">
+                        <i class="bi bi-grid"></i>
+                    </span>
+                    <span>Visão geral</span>
+                </div>
+
+                <div class="opcao-menu">
+                    <span class="icone-menu">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <span>Editar perfil</span>
+                </div>
+
+                <div class="opcao-menu">
+                    <span class="icone-menu">
+                        <i class="bi bi-people"></i>
+                    </span>
+                    <span>Alunos</span>
+                </div>
+
+                <div class="opcao-menu">
+                    <span class="icone-menu">
+                        <i class="bi bi-box-arrow-left"></i>
+                    </span>
+                    <span>Logout</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="area-principal">
+
+            <div class="card-sobre">
+
+                <div class="texto-sobre">
+                    <span class="titulo-card">Sobre mim</span>
+
+                    <span class="descricao-aluno">
+                        Mentor de VGC com foco em coaching baseado em dados e estratégia.
+                        Ajudo jogadores a tomar melhores decisões, construir times sólidos e evoluir com consistência.
+                    </span>
+                </div>
+
+                <div class="informacoes-aluno">
+
+                    <div class="caixa-informacao">
+                        <span class="icone-informacao">
+                            <i class="bi bi-trophy"></i>
+                        </span>
+
+                        <div class="texto-informacao">
+                            <span class="rotulo-informacao">Formato favorito</span>
+                            <span class="valor-informacao">VGC</span>
+                        </div>
+                    </div>
+
+                    <div class="caixa-informacao">
+                        <span class="icone-informacao">
+                            <i class="bi bi-globe-americas"></i>
+                        </span>
+
+                        <div class="texto-informacao">
+                            <span class="rotulo-informacao">Região</span>
+                            <span class="valor-informacao">Brasil</span>
+                        </div>
+                    </div>
+
+                    <div class="caixa-informacao">
+                        <span class="icone-informacao">
+                            <i class="bi bi-person-badge"></i>
+                        </span>
+
+                        <div class="texto-informacao">
+                            <span class="rotulo-informacao">Membro desde</span>
+                            <span class="valor-informacao"> Mar 2024</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cards-estatisticas">
+
+                <div class="card-estatistica">
+                    <div class="circulo-icone">
+                        <span class="icone-estatistica">
+                            <i class="bi bi-mortarboard"></i>
+                        </span>
+                    </div>
+
+                    <span class="titulo-estatistica">Alunos Ativos</span>
+                    <span class="numero-estatistica">24</span>
+                </div>
+
+                <div class="card-estatistica">
+                    <div class="circulo-icone">
+                        <span class="icone-estatistica">
+                            <i class="bi bi-calendar-week"></i>
+                        </span>
+                    </div>
+
+                    <span class="titulo-estatistica">Sessões do mês</span>
+                    <span class="numero-estatistica">35</span>
+                </div>
+
+                <div class="card-estatistica">
+                    <div class="circulo-icone">
+                        <span class="icone-grupo">
+                            <i class="bi bi-people"></i>
+                        </span>
+                    </div>
+
+                    <span class="titulo-estatistica">Times Acompanhados</span>
+                    <span class="numero-estatistica">12</span>
+                </div>
+
+                <div class="card-estatistica">
+                    <div class="circulo-icone">
+                        <span class="icone-estatistica">
+                            <i class="bi bi-bar-chart"></i>
+                        </span>
+                    </div>
+
+                    <span class="titulo-estatistica">Partidas analisadas</span>
+                    <span class="numero-estatistica">43</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-resumo">
+
+                <span class="titulo-card">Resumo do Mentor</span>
+
+                <div class="conteudo-resumo">
+
+                    <div class="item-resumo">
+                        <span class="icone-especialidade">
+                            <i class="bi bi-patch-check"></i>
+                        </span>
+
+                        <div class="texto-resumo">
+                            <span class="titulo-resumo">Especialidade</span>
+                            <span class="descricao-resumo">
+                                Análise de dados, leitura de meta e construção de times.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="item-resumo">
+                        <span class="icone-cerebro">
+                            <i class="bi bi-cpu"></i>
+                        </span>
+
+                        <div class="texto-resumo">
+                            <span class="titulo-resumo">Método de treino</span>
+                            <span class="descricao-resumo">
+                                Treinos personalizados com foco em decisão e execução.
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="item-resumo">
+                        <span class="icone-resumo">
+                            <i class="bi bi-clock"></i>
+                        </span>
+
+                        <div class="texto-resumo">
+                            <span class="titulo-resumo">Disponibilidade</span>
+                            <span class="descricao-resumo">
+                                Segunda a sexta, 14h – 22h (BRT)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+    </div>
+
+</main>
+</body>
+</html>

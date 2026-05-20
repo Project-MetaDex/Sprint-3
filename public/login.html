@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+
+  <title>MetaDex | Cadastro</title>
+
+  <script src="./js/sessao.js"></script>
+
+  <link rel="stylesheet" href="css/LandingPage.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/pokedex.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <script src="js/sideBar.js"></script>
+</head>
+
+
+<body>
+
+  <!-- Inicio Navbar -->
+
+    <nav class="Nav-Container">
+
+      <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+
+      <ul class="Nav-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li><a href="teamBuilder-List.html">Team Buider</a></li>
+        <li><a href="simulacao1.html">Battle Simulator</a></li>
+      </ul>
+
+      <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+      </div>
+    </nav>
+
+    <aside style="display: none;" class="Side-Container">
+      
+      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+      <div class="Side-Flex">
+        <div class="Perfil">
+
+          <img src="assets/icon/Icon-User.svg" alt="">
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+
+        </div>
+
+        <ul class="Side-Options">
+          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+          <li><a href="cadastro.html">Pokedex</a></li>
+          <li><a href="cadastro.html">Ranks</a></li>
+          <li><a href="cadastro.html">Team Buider</a></li>
+          <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
+
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      </div>
+    </aside>
+
+    <!-- Fim Navbar -->
+
+      <div class="formulario-container">
+        
+        <div class="main-cadastro">
+            <h1 class="titulo01">BEM-VINDO DE VOLTA,<br>TREINADOR</h1>
+            <p class="titulo02">Faça login gerenciar seu time, ver estatistícas e batalhar!!.</p>
+            
+      <div class="div-informacoes">
+       <div class="input-informacoes">
+         <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
+         <input type="text" placeholder="Nome Completo" required>
+       </div><br>
+
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone"> 
+          <input type="email" placeholder="Endereço de E-mail" required>
+        </div><br>
+
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
+          <input type="password" placeholder="Sua Senha" required>
+        </div>
+<!-- 
+        <div class="input-informacoes">
+          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
+          <input type="password" placeholder="Confirme sua Senha" required>
+        </div> -->
+      </div>
+
+                <a href="#" class="botao">CADASTRE-SE AGORA!</a> 
+
+            <div class="ja-tem-conta">
+                Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a>
+            </div>
+        </div>
+
+        <div class="imagem-charmander">
+            <img class="fundo-pc" src="assets/imgs/FundoCadastro-Photoroom.png" alt="Fundo">
+            <img class="fundo-ipad" src="assets/imgs/FundoIpadMini.png" alt="Fundo">
+            <img class="charmander" src="assets/imgs/charizardSENTADO (1).png" >
+        </div>
+
+    </div>
+</body>
+</html>
+
+
+<script>
+    function entrar() {
+        var nomeVar = nome_input.value;
+        var senhaVar = senha_input.value;
+
+        if (nomeVar == "" || senhaVar == "") {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML = "Preencha todos os campos para entrar.";
+            setTimeout(sumirMensagem, 5000);
+            return false;
+        } 
+
+        console.log("FORM LOGIN: ", nomeVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                
+                cardErro.style.display = "block";
+                cardErro.style.borderColor = "green";
+                mensagem_erro.style.color = "green";
+                mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando...";
+                
+                setTimeout(function () {
+                    window.location = "index.html"; 
+                }, 1500); 
+
+            } else {
+                console.log("Houve um erro ao tentar realizar o login!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    cardErro.style.display = "block";
+                    cardErro.style.borderColor = "red";
+                    mensagem_erro.style.color = "red";
+                    mensagem_erro.innerHTML = texto;
+                    setTimeout(sumirMensagem, 5000);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+</script>

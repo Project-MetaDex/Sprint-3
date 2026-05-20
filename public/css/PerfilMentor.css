@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+
+
+body {
+    background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
+    color: #090A3D;
+}
+
+.pagina-aluno {
+    width: 100%;
+    min-height: 100vh;
+    padding: 90px 32px 0px;
+}
+
+.conteudo-aluno {
+    display: grid;
+    grid-template-columns: 270px 1fr 450px;
+    gap: 32px;
+    width: 100%;
+}
+
+
+
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.card-perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 18px;
+    background-color: #ffffff;
+    border: 1px solid #ece8f8;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(65, 45, 130, 0.08);
+}
+
+.imagem-perfil {
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #d8ccff;
+    margin-bottom: 22px;
+}
+
+.nome-aluno {
+    font-size: 22px;
+    font-weight: 700;
+    color: #08093f;
+    text-align: center;
+}
+
+.tipo-aluno {
+    font-size: 16px;
+    font-weight: 600;
+    color: #5c34c8;
+    margin-top: 4px;
+}
+
+.opcoes-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.opcao-menu {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    height: 55px;
+    padding: 0 18px;
+    background-color: #ffffff;
+    border: 1px solid #ece8f8;
+    border-radius: 14px;
+    color: #171552;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(65, 45, 130, 0.05);
+    cursor: pointer;
+}
+
+.opcao-ativa {
+    background: linear-gradient(135deg, #4b2cc4, #814ef8);
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(83, 50, 196, 0.28);
+}
+
+.icone-menu {
+    font-size: 24px;
+}
+
+.area-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.card-sobre,
+.card-resumo {
+    background-color: #ffffff;
+    border: 1px solid #ece8f8;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(30, 25, 44, 0.40);
+    
+}
+
+.card-sobre {
+    padding: 34px;
+}
+
+.texto-sobre {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 34px;
+}
+
+.titulo-card {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #08093f;
+}
+
+.descricao-aluno {
+    display: block;
+    max-width: 720px;
+    font-size: 16px;
+    line-height: 1.75;
+    font-weight: 500;
+    color: #19194f;
+}
+
+.informacoes-aluno {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.caixa-informacao {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 82px;
+    padding: 18px;
+    border: 1px solid #ece8f8;
+    border-radius: 16px;
+    background-color: #f3e1ff;
+    box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.15);
+
+}
+
+.icone-informacao {
+    font-size: 34px;
+    color: #5b35c9;
+}
+
+.texto-informacao {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rotulo-informacao {
+    font-size: 13px;
+    font-weight: 500;
+    color: #363066;
+}
+
+.valor-informacao {
+    font-size: 16px;
+    font-weight: 700;
+    color: #090A3D;
+}
+
+
+.cards-estatisticas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.card-estatistica {
+    min-height: 230px;
+    padding: 24px 16px;
+    background-color: #ffffff;
+    border: 1px solid #ece8f8;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(65, 45, 130, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.circulo-icone {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: #eee8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.circulo-icone span {
+    font-size: 34px;
+    color: #5b35c9;
+}
+
+.titulo-estatistica {
+    font-size: 15px;
+    font-weight: 700;
+    color: #171552;
+}
+
+.numero-estatistica {
+    font-size: 36px;
+    font-weight: 800;
+    color: #08093f;
+    line-height: 1;
+}
+
+
+.card-resumo {
+    padding: 26px;
+    position: relative;
+    height: 90%;
+    border-radius: 28px;
+    background: linear-gradient(145deg, #c6b1fb, #eac6f0);
+    box-shadow: 0 16px 36px rgba(73, 45, 132, 0.25);
+}
+
+.conteudo-resumo {
+    display:flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+
+}
+
+.item-resumo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 120px;
+    padding: 16px;
+    border: 1px solid #ece8f8;
+    border-radius: 16px;
+    background-color: #ffffff;
+}
+
+.icone-resumo {
+    font-size: 34px;
+    color: #5b35c9;
+}
+
+.texto-resumo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.titulo-resumo {
+    font-size: 14px;
+    font-weight: 700;
+    color: #171552;
+}
+
+.descricao-resumo {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #312c66;
+}
+
+
+
+.icone-menu,
+.icone-informacao,
+.icone-estatistica,
+.icone-resumo,
+.icone-cerebro,
+.icone-especialidade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone-menu i,
+.icone-informacao i,
+.icone-estatistica i,
+.icone-resumo i {
+    line-height: 1;
+}
+
+
+
+.icone-menu {
+    width: 28px;
+    height: 28px;
+}
+
+.icone-menu i {
+    font-size: 24px;
+    color: #5b35c9;
+}
+
+.opcao-ativa .icone-menu i {
+    color: #ffffff;
+}
+
+.icone-especialidade i {
+    font-size: 25px;
+    color: #5b35c9;
+
+}
+
+.icone-cerebro i {
+    font-size: 24px;
+    color: #5b35c9;
+
+}
+
+
+
+
+
+

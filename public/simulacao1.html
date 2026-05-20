@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulacao 1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/simulacao1.css">
+
+</head>
+<body>
+    <!-- Inicio Navbar -->
+
+    <nav class="Nav-Container">
+
+      <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+
+      <ul class="Nav-Options">
+        <li><a href="index.html">Home</a></li> 
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li><a href="teamBuilder-List.html">Team Buider</a></li>
+        <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="cadastro.html">Battle Simulator</a></li>
+      </ul>
+
+      <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+      </div>
+    </nav>
+
+    <aside style="display: none;" class="Side-Container">
+      
+      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+      <div class="Side-Flex">
+        <div class="Perfil">
+
+          <img src="assets/icon/Icon-User.svg" alt="">
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+
+        </div>
+
+        <ul class="Side-Options">
+          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+          <li><a href="cadastro.html">Pokedex</a></li>
+          <li><a href="cadastro.html">Ranks</a></li>
+          <li><a href="cadastro.html">Team Buider</a></li>
+          <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
+
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      </div>
+    </aside>
+
+    <!-- Fim Navbar -->
+
+
+    <h1>SIMULADOR DE BATALHA 01 </h1>
+    <a class="adversario" href="#">Selecionar Adversário </a>
+
+  <span class="conteiner-principal">
+    
+
+      <div class="pokemon-selecionado">
+
+      <img src="https://db.pokemongohub.net/_next/image?url=%2Fimages%2Fofficial%2Ffull%2F150.webp&w=640&q=75">
+
+    <div class="status-container">
+      <h2>Mewtwo </h2>
+
+      <div class="status-row">
+        <span class="status-label">HP</span>
+        <span class="status-number">78</span>
+        <div class="bar-background">
+          <div class="bar-fill" style="width: 52%;"></div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span class="status-label">Attack</span>
+        <span class="status-number">84</span>
+        <div class="bar-background">
+            <div class="bar-fill" style="width: 56%;"></div>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span class="status-label">Sp. Atk</span>
+        <span class="status-number">109</span>
+        <div class="bar-background">
+            <div class="bar-fill" style="width: 72%;"></div>
+        </div>
+      </div>
+      
+      <div class="status-row">
+        <span class="status-label">Attack</span>
+        <span class="status-number">84</span>
+        <div class="bar-background">
+            <div class="bar-fill" style="width: 56%;"></div>
+        </div>
+      </div>
+
+            <div class="status-row">
+        <span class="status-label">Attack</span>
+        <span class="status-number">24</span>
+        <div class="bar-background">
+            <div class="bar-fill" style="width: 26%;"></div>
+        </div>
+      </div>
+
+            <div class="status-row">
+        <span class="status-label">Attack</span>
+        <span class="status-number">54</span>
+        <div class="bar-background">
+            <div class="bar-fill" style="width: 45%;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+
+    <div class="slots-ataque-selecionado">
+      <h3>Ataques selecionados</h3>
+
+      <button class="button-ataque-selecionado">
+        <div class="ataque">
+          <div class="icon-engrenagem icon-container"><i class="fa-solid fa-gear"></i></div>
+          <span>voar</span>
+        </div>
+      </button>
+
+      <button class="button-ataque-selecionado">
+        <div class="ataque">
+          <div class="icon-mao icon-container"><i class="fas fa-hand-fist"></i></div> 
+          <span>soco</span>
+        </div>
+      </button>
+
+      <button class="button-ataque-selecionado">
+        <div class="ataque">
+          <div class="icon-draco icon-container"><i class="fas fa-dragon"></i></div> 
+          <span>chute</span>
+        </div>
+      </button>
+
+      <button class="button-ataque-selecionado">
+        <div class="ataque">
+          <div class="icon-engrenagem icon-container"><i class="fa-solid fa-gear"></i></div> 
+          <span>especial</span>
+        </div>
+      </button>
+    </div>
+
+  <div class="button-troca">
+    <button id="btn-modalidade-a" class="btn-grupo-1 active" onclick="trocarAba('conteudo-modalidade-a', 'btn-modalidade-a', 'grupo-1')">Modalidade A</button>
+    <button id="btn-modalidade-b" class="btn-grupo-1" onclick="trocarAba('conteudo-modalidade-b', 'btn-modalidade-b', 'grupo-1')">Modalidade B</button>
+    <button id="btn-modalidade-c" class="btn-grupo-1" onclick="trocarAba('conteudo-modalidade-c', 'btn-modalidade-c', 'grupo-1')">Modalidade C</button>
+  </div>
+
+  <div class="button-troca">
+    <button id="btn-modalidade-d" class="btn-grupo-2 active" onclick="trocarAba('conteudo-modalidade-d', 'btn-modalidade-d', 'grupo-2')">Itens</button>
+    <button id="btn-modalidade-e" class="btn-grupo-2" onclick="trocarAba('conteudo-modalidade-e', 'btn-modalidade-e', 'grupo-2')">Modalidade E</button>
+    <button id="btn-modalidade-f" class="btn-grupo-2" onclick="trocarAba('conteudo-modalidade-f', 'btn-modalidade-f', 'grupo-2')">Modalidade F</button>
+    <button id="btn-ataques" class="btn-grupo-2" onclick="trocarAba('conteudo-ataques', 'btn-ataques', 'grupo-2')">Ataques</button>
+  </div>
+
+
+  <div id="conteudo-modalidade-a" class="container-principal-pokemon conteudo-grupo-1">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom.png" alt=""><span>Pikachu</span></div>
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (1).png" alt=""><span>Charmander</span></div>
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (2).png" alt=""><span>Bulbasaur</span></div>
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (3).png" alt=""><span>Squirtle</span></div>
+    </div>
+  </div>
+
+  <div id="conteudo-modalidade-b" class="container-principal-pokemon conteudo-grupo-1 hidden">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="#" alt=""><span>Flor</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Flor</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Flor</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Flor</span></div>
+    </div>
+  </div>
+
+  <div id="conteudo-modalidade-c" class="container-principal-pokemon conteudo-grupo-1 hidden">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo C</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo C</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo C</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo C</span></div>
+    </div>
+  </div>
+
+
+  <div id="conteudo-modalidade-d" class="container-principal-pokemon conteudo-grupo-2">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (4).png" alt=""><span>Maça</span></div>
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (5).png" alt=""><span>Concha</span></div>
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (6).png" alt=""><span>Mochila</span></div>
+      <div class="card-pokemon"><img src="assets/imgs/image-Photoroom (7).png" alt=""><span>Abacaxi</span></div>
+    </div>
+  </div>
+
+  <div id="conteudo-modalidade-e" class="container-principal-pokemon conteudo-grupo-2 hidden">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo E</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo E</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo E</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo E</span></div>
+    </div>
+  </div>
+
+  <div id="conteudo-modalidade-f" class="container-principal-pokemon conteudo-grupo-2 hidden">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo F</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo F</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo F</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Conteúdo F</span></div>
+    </div>
+  </div>
+
+  <div id="conteudo-ataques" class="container-principal-pokemon conteudo-grupo-2 hidden">
+    <div class="pesquisa">
+      <input type="text" placeholder="Pesquisar" class="pesquisa-input"> 
+      <button onclick="pesquisar_pokemon()">Pesquisar</button>
+    </div>
+    <div class="cards-escolha">
+      <div class="card-pokemon"><img src="#" alt=""><span>Ataque 1</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Ataque 2</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Ataque 3</span></div>
+      <div class="card-pokemon"><img src="#" alt=""><span>Ataque 4</span></div>
+    </div>
+  </div>
+
+</span>
+
+<script>
+function trocarAba(idConteudo, idBotao, classeGrupo) {
+    document.querySelectorAll('.conteudo-' + classeGrupo).forEach(aba => {
+        aba.classList.add('hidden');
+    });
+
+    document.querySelectorAll('.btn-' + classeGrupo).forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    document.getElementById(idConteudo).classList.remove('hidden');
+    document.getElementById(idBotao).classList.add('active');
+}
+</script>
+
+</body>
+</html>

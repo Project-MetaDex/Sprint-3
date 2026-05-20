@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Inicio config css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  font-family: 'Poppins';
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+html, body{
+
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #101828;
+
+}
+
+/* Fim reset css */
+
+/* Inicio declaração de cores */
+
+:root {
+
+  --Bg-nav: rgba(33, 33, 33, 0.85);
+  --Bg-footer: #212121;
+  --Text-verde01: #41995C;
+  --Text-verde02: #07EF4E;
+  --Button-verde01: #00D94C;
+  --Button-verde02: #5DCE84;
+  --Card-verde: #00A310;
+  --Card-laranja: #DD5C00;
+  --Card-azul: #0C0075;
+  --Laranja-koraidon: #D84B36;
+  --Azul-miraidon: #2D305F;
+  --Button-gradiend: linear-gradient(90deg, var(--Laranja-koraidon) 0%, var(--Azul-miraidon) 91%);
+
+}
+
+/* Fim declaração de cores */
+
+
+
+/* Inicio Navbar css */
+
+.Nav-Container {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Bg-nav);
+  width: 100vw;
+  height: 4vw;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+
+}
+
+#options{
+
+  display: none;
+
+}
+
+#logo {
+
+  height: 80%;
+
+}
+
+.Nav-Options {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 40%;
+  margin: 0 3% 0 15%;
+  gap: 5%;
+
+  font-size: .7vw;
+  font-weight: 600;
+  color: #DADADA;
+
+}
+
+.Nav-Container li{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+
+}
+
+.Nav-Container li a {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.Nav-Options li a:hover {
+
+    color: #ffffff;
+
+}
+
+.Nav-Options img{
+
+    height: 2vw;
+
+}
+
+.Selected{
+
+    color: #FFF;
+
+}
+
+.Button-Container{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    width: 20%;
+    height: 100%;
+
+}
+
+.Button-Nav {
+
+    color: #FFFFFF;
+    font-size: .8vw;
+    font-weight: 600;
+    width: 60%;
+    height: 50%;
+    border-radius: 10px;
+    border: 2px solid #FFF;
+    cursor: pointer;
+
+}
+
+.Cadastro {
+
+    background-color: var(--Laranja-koraidon);
+
+}
+
+.Login {
+
+    background-color: var(--Azul-miraidon);
+    
+}
+
+/* Fim Navbar css */
+
+/* Inicio tipos */
+
+.steel {
+    background-color: #b7b7ce;
+}
+
+.water {
+    background-color: #6390f0;
+}
+
+.dragon {
+    background-color: #6f35fc;
+}
+
+.electric {
+    background-color: #f7d02c;
+}
+
+.fairy {
+    background-color: #d685ad;
+}
+
+.ghost {
+    background-color: #735797;
+}
+
+.fire {
+    background-color: #ee8130;
+}
+
+.ice {
+    background-color: #96d9d6;
+}
+
+.bug {
+    background-color: #a6b91a;
+}
+
+.fighting {
+    background-color: #c22e28;
+}
+
+.normal {
+    background-color: #a8a77a;
+}
+
+.rock {
+    background-color: #b6a136;
+}
+
+.grass {
+    background-color: #7ac74c;
+}
+
+.psychic {
+    background-color: #f95587;
+}
+
+.dark {
+    background-color: #705746;
+}
+
+.ground {
+    background-color: #e2bf65;
+}
+
+.poison {
+    background-color: #a33ea1;
+}
+
+.flying {
+    background-color: #a98ff3;
+}
+

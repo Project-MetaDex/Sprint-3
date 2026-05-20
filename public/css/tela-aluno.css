@@ -1,0 +1,329 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #F8F9FB;
+}
+
+/* ======= LAYOUT PRINCIPAL ======= */
+.container-perfil {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1.5fr;
+    grid-template-rows: 1fr 1.4fr;
+    gap: 20px;
+    padding: 20px 32px;
+    margin-top: 9vh;
+    height: 91vh;
+}
+
+.avatar-perfil {
+    background: #f3eeff;
+    border: 3px solid #A37ACC;
+    border-radius: 50%;
+    font-size: 50px;
+    font-weight: 550;
+    aspect-ratio: 1 / 1;
+    grid-column: 1;
+    grid-row: 1;
+    height: 85%;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8956B9;
+    letter-spacing: 2px;
+    user-select: none;
+}
+
+/* ======== DADOS DO ALUNO ======= */
+.dados-aluno {
+    grid-column: 2;
+    grid-row: 1;
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.nome-aluno {
+    font-size: clamp(14px, 1.3vw, 20px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #1a1525;
+    line-height: 1.2;
+}
+
+.separador {
+    width: 100%;
+    height: 1px;
+    background: #f0f0f5;
+    flex-shrink: 0;
+}
+
+.infos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.info-linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding: 0 10px;
+}
+
+.info-linha .label {
+    font-size: 15px;
+    color: #9a9aaa;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.info-linha .valor {
+    font-size: clamp(13px, 1vw, 15px);
+    font-weight: 600;
+    color: #1a1525;
+    text-align: right;
+}
+
+/* ======= COACH INSIGHTS ======= */
+.coach-insights {
+    grid-column: 3;
+    grid-row: 1;
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.coach-insights h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1525;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f5;
+    flex-shrink: 0;
+}
+
+/*
+ * COACH INSIGHTS — O QUE É:
+ * São alertas gerados automaticamente a partir dos dados do aluno.
+ * Em vez do mentor analisar cada partida manualmente, o sistema
+ * calcula padrões e exibe aqui os pontos críticos e positivos.
+ * Quando o banco de dados estiver integrado, esses itens serão
+ * gerados dinamicamente pela API.
+ */
+.insight-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 11px;
+    border-radius: 9px;
+    border-left: 3px solid;
+    flex-shrink: 0;
+}
+
+.insight-item.danger {
+    background: #fff5f5;
+    border-color: #c0392b;
+}
+
+.insight-item.warn {
+    background: #fffbf0;
+    border-color: #BA7517;
+}
+
+.insight-item.ok {
+    background: #f0faf5;
+    border-color: #1D9E75;
+}
+
+.insight-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.insight-item.danger .insight-dot {
+    background: #c0392b;
+}
+
+.insight-item.warn .insight-dot {
+    background: #BA7517;
+}
+
+.insight-item.ok .insight-dot {
+    background: #1D9E75;
+}
+
+.insight-item p {
+    font-size: clamp(11px, 0.85vw, 13px);
+    line-height: 1.45;
+    color: #333;
+}
+
+.insight-item p strong {
+    font-weight: 600;
+}
+
+/* ======= GRÁFICO DE EVOLUÇÃO ======= */
+.graficos {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    background-color: #FFFFFF;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+}
+
+.graficos-titulo {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1525;
+    flex-shrink: 0;
+}
+
+.graficos-canvas-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+}
+
+
+/*
+* LISTA DE TIMES — ESTRUTURA PARA O BANCO:
+* Cada .time será gerado dinamicamente pela API.
+* Não há altura fixa — o container tem overflow-y: auto,
+* então aparece scroll se o aluno tiver muitos times.
+*/
+
+/* ======= LISTA DE TIMES ======= */
+.lista-times {
+    grid-column: 3;
+    /* grid-row: 2; */
+    grid-row: 1 / 3;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #edf2f7;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+}
+
+.lista-times h2 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1525;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f5;
+    flex-shrink: 0;
+}
+
+.container-times {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    /* scroll se tiver muitos times */
+    flex: 1;
+    min-height: 0;
+}
+
+/* Cada time sem altura mínima fixa — cresce conforme a quantidade */
+.time {
+    background-color: #f8f7fc;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+}
+
+.time:hover {
+    border-color: #A37ACC;
+}
+
+.time-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.time-nome {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1525;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.time-tipo {
+    font-size: 13px;
+    color: #9a9aaa;
+}
+
+.time-wr {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1D9E75;
+    flex-shrink: 0;
+}
+
+.time button {
+    background-color: #f3eeff;
+    border: 1px solid rgba(137, 86, 185, 0.2);
+    border-radius: 8px;
+    color: #8956B9;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.time button:hover {
+    background-color: #8956B9;
+    color: #fff;
+    border-color: #8956B9;
+}
