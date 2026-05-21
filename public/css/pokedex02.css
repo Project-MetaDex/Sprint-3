@@ -5,21 +5,23 @@
 }
 
 .botao-voltar {
+    display: flex;
     background-color:#D84B36 ;
-    color: #ffff;
-    border: none;
+    width: 15%;
+    padding: 4px 5px;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 3%;
+    margin-bottom: 2%;
     border-radius: 30px;
-    padding: 11px 30px;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: 18px;
-    margin-bottom: 28px;
-    margin-top: 4%;
+    border: none;
+    color: white;
+    border: solid 4px rgb(255, 161, 161);
 }
 
 .area-principal {
     display: grid;
-    grid-template-columns: 1.05fr 1.35fr 0.95fr;
+    grid-template-columns: 1fr 1.30fr 0.90fr;
     gap: 28px;
     margin-bottom: 38px;
 }
@@ -59,7 +61,7 @@
 
 .card-status {
     height: 530px;
-    background-color: rgba(251, 225, 251, 0.92);
+    background-color:#eee7ff;
     padding: 42px 38px;
     box-shadow: 1px 3px 55px rgba(0, 0, 0, 0.30);
 
@@ -156,7 +158,7 @@
 
 .card-dados-gerais {
     height: 530px;
-    background-color: #e9d8b5;
+    background-color: #fff3dc;
     padding: 32px 28px;
     box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
 
@@ -172,7 +174,7 @@
     align-items: center;
     gap: 18px;
     padding: 13px 0 ;
-    border-bottom: 1px solid #c4a068;
+    border-bottom: 1px solid #e9c489;
     
 }
 
@@ -206,11 +208,12 @@
 
 .card-descricao {
     min-height: 190px;
-    background-color: #d1fac2;
+    background-color: #ffe7e7;
     padding: 34px 38px;
     box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
 
 }
+
 
 .card-descricao h2,
 .card-fraquezas h2 {
@@ -227,7 +230,7 @@
 
 .card-fraquezas {
     min-height: 190px;
-    background-color: #f8e7cb;
+    background-color: #ffe7e7;
     padding: 34px 38px;
     box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
 
@@ -314,25 +317,26 @@
 
 .area-listas {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px;
 }
 
 .card-lista {
-    padding: 25px;
-    background-color: #f8bed8;
+    padding: 20px;
+    background-color: #ffebf2;
     box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
 
 }
 
 .card-lista:nth-child(2) {
-    background-color: #cbbef7;
+    background-color: #e9efff;
     box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
 
 }
 
+
 .card-lista:nth-child(3) {
-    background-color: #d7b9e8;
+    background-color:#eee6ff;
     box-shadow: 1px 3px 20px rgba(0, 0, 0, 0.30);
 
 }
@@ -373,12 +377,12 @@
     margin-top: 25px;
     text-align: center;
     color: #ffffff;
-    font-weight: 800;
+    font-weight: 500;
     text-decoration: none;
     font-size: 18px;
     background-color: #9131a8;
     border-radius: 20px;
     width: 55%;
     margin-left: 45%;
-    margin-top: 0%;
+    margin-top: 5%;
 }
