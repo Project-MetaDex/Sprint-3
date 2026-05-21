@@ -1,43 +1,46 @@
 var usuarioModel = require("../models/usuarioModel");
 
 function autenticar(req, res) {
+    var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
 
-    if (email == undefined) {
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 
-        usuarioModel.autenticar(email, senha)
+        usuarioModel.autenticar(nome, email, senha)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
 
-                    if (resultadoAutenticar.length == 1) {
-                        console.log(resultadoAutenticar);
-
-                        aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                            .then((resultadoAquarios) => {
-                                if (resultadoAquarios.length > 0) {
-                                    res.json({
-                                        id: resultadoAutenticar[0].id,
-                                        email: resultadoAutenticar[0].email,
-                                        nome: resultadoAutenticar[0].nome,
-                                        senha: resultadoAutenticar[0].senha,
-                                        aquarios: resultadoAquarios
-                                    });
-                                } else {
-                                    res.status(204).json({ aquarios: [] });
-                                }
-                            })
-                    } else if (resultadoAutenticar.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    if (resultadoAutenticar.length == 0) {
+                        return res.status(403).send("Nome, Email e/ou senha inválido(s)");
+                    } else if (resultadoAutenticar.length > 1) {
+                        return res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                     }
+
+                    var tipo = resultadoAutenticar[0].tokenMentor != null ? "Mentor" : "Aluno";
+
+                    // Retorna dos dados para salvar na sessionStorage do front-end
+                    res.json({
+                        idUsuario: resultadoAutenticar[0].idUsuario,
+                        nome: resultadoAutenticar[0].nome,
+                        email: resultadoAutenticar[0].email,
+                        nickname: resultadoAutenticar[0].nickname,
+                        fkMentor: resultadoAutenticar[0].fkMentor,
+                        tokenMentor: resultadoAutenticar[0].tokenMentor,
+                        tipo: tipo,
+                        posicaoRanking: resultadoAutenticar[0].posicaoRanking,
+                        qtdVitorias: resultadoAutenticar[0].qtdVitorias,
+                        qtdDerrotas: resultadoAutenticar.qtdDerrotas
+                    });
+                    
                 }
             ).catch(
                 function (erro) {
@@ -78,6 +81,8 @@ function cadastrar(req, res) {
                 // Se a lista vier vazia, o token não existe no banco
                 if (resultadoBusca.length == 0) {
                     return res.status(400).send("Token do mentor inválido ou não encontrado!");
+                } else if (resultadoBusca.length > 1) {
+                    return res.status(400).send("Mais de um mentor com o mesmo tokem!")
                 }
 
                 // Pegando o ID do Mentor
