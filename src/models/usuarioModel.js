@@ -34,8 +34,20 @@ function cadastrar(nome, email, senha, nickname, fkMentor) {
     return database.executar(instrucaoSql);
 }
 
+function atualizarPerfil(nome, senha, nickname, idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, senha, nickname, idUsuario);
+
+    var instrucaoSql = `
+    UPDATE usuario SET nome = '${nome}', senha = '${senha}', nickname = '${nickname}' WHERE idUsuario = '${idUsuario}';
+    `;
+    console.log("Atualizando usuário no sistema: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     autenticar,
     cadastrar,
-    buscarMentorPorToken
+    buscarMentorPorToken,
+    atualizarPerfil
 };
