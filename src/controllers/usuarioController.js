@@ -146,8 +146,32 @@ function atualizarPerfil(req, res) {
 
 }
 
+function deletarConta(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    if (idUsuario === undefined) {
+        res.status(400).send("Seu idUsuario está undefined!");
+    } else {
+
+        usuarioModel.deletarConta(idUsuario)
+            .then(
+                function (resultadoDeletar) {
+                    res.json(resultadoDeletar);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao deletar a conta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            })
+
+
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    atualizarPerfil
+    atualizarPerfil,
+    deletarConta
 }
