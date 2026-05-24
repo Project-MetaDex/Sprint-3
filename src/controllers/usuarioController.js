@@ -85,7 +85,7 @@ function autenticar(req, res) {
                         return res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                     }
 
-                    var tipo = resultadoAutenticar[0].tokenMentor != null ? "Mentor" : "Aluno";
+                    var tipoConta = resultadoAutenticar[0].tokenMentor != null ? "Mentor" : "Aluno";
 
                     // Retorna dos dados para salvar na sessionStorage do front-end
                     res.json({
@@ -95,7 +95,7 @@ function autenticar(req, res) {
                         nickname: resultadoAutenticar[0].nickname,
                         fkMentor: resultadoAutenticar[0].fkMentor,
                         tokenMentor: resultadoAutenticar[0].tokenMentor,
-                        tipo: tipo,
+                        tipoConta: tipoConta,
                         posicaoRanking: resultadoAutenticar[0].posicaoRanking,
                         qtdVitorias: resultadoAutenticar[0].qtdVitorias,
                         qtdDerrotas: resultadoAutenticar.qtdDerrotas
@@ -169,9 +169,33 @@ function deletarConta(req, res) {
     }
 }
 
+function listarAlunos(req, res) {
+    var idMentor = req.params.idMentor;
+
+    if (idMentor == undefined) {
+        return res.status(400).send("O ID do mentor está undefined!");
+    } else {
+
+        usuarioModel.listarAlunos(idMentor)
+            .then(function (resultadoLista) {
+                if (resultadoLista.length > 0) {
+                    res.status(200).json(resultadoLista);
+                } else {
+                    res.status(204).send("Nenhum aluno cadastrado para este mentor.");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao listar alunos! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     atualizarPerfil,
-    deletarConta
+    deletarConta,
+    listarAlunos
 }

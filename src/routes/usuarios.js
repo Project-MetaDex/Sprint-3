@@ -19,4 +19,8 @@ router.delete("/deletarConta/:idUsuario", function (req, res) {
     usuarioController.deletarConta(req, res);
 });
 
+router.get("/listarAlunos/:idMentor", function (req, res) {
+    usuarioController.listarAlunos(req, res);
+});
+
 module.exports = router;
