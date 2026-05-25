@@ -170,6 +170,17 @@ html, body{
     
 }
 
+.Button-Container a{
+display: flex;
+align-items: center;
+justify-content: end;
+}
+
+.user{
+    width: 14%;
+    filter: invert(100%);
+}
+
 /* Fim Navbar css */
 
 /* Inicio tipos */
