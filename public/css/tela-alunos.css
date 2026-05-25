@@ -64,7 +64,6 @@ body {
         opacity: 0;
         transform: translateY(5px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -88,8 +87,7 @@ body {
 
 /* --- KPIs --- */
 .kpis {
-    grid-column: 1 / 3;
-
+    grid-column: 1 / 4;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -102,7 +100,6 @@ body {
     border-radius: 14px;
     border-top: 3px solid #8956B9;
     padding: 16px 18px;
-
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -135,7 +132,6 @@ body {
     flex-direction: column;
     gap: 10px;
     min-height: 0;
-    /* permite encolher no grid */
 }
 
 .grafico-titulo {
@@ -145,6 +141,30 @@ body {
     flex-shrink: 0;
     padding-bottom: 8px;
     border-bottom: 1px solid #f0f0f5;
+}
+
+/* Legenda do scatter */
+.scatter-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.scatter-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #555;
+}
+
+.scatter-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid;
+    flex-shrink: 0;
 }
 
 .grafico-canvas-wrap {
@@ -162,7 +182,9 @@ body {
     overflow-y: auto;
 }
 
-/* Alunos em risco */
+
+
+/* Alunos em risco / destaque — card base compartilhado */
 .list-alunos {
     background-color: #FFFFFF;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -183,10 +205,9 @@ body {
     flex-shrink: 0;
 }
 
-/* Cada card de risco — sem altura mínima fixa */
+/* Card de risco */
 .card-alunoRisco {
     background-color: #f8f7fc;
-    border: 1px solid #8956B9;
     border-radius: 10px;
     padding: 9px 12px;
     display: flex;
@@ -194,20 +215,32 @@ body {
     gap: 15px;
 }
 
+/* Card de destaque */
+.card-alunoDestaque {
+    background-color: #f8f7fc;
+    border-radius: 10px;
+    padding: 9px 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Avatar base */
 .avatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
     background: #f3eeff;
-    border: 2px solid #8956B9;
+    border: 2px solid;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 11px;
     font-weight: 700;
-    color: #8956B9;
     flex-shrink: 0;
 }
+
+/* Avatar destaque — sobrescreve cores do avatar base */
 
 .info {
     display: flex;
@@ -231,77 +264,15 @@ body {
     color: #9a9aaa;
 }
 
-.risco-tag {
+/* Badge destaque */
+.badge-destaque {
     font-size: 10px;
     font-weight: 600;
-    padding: 3px 8px;
+    padding: 3px 9px;
     border-radius: 20px;
+    background: #e1f5ee;
     white-space: nowrap;
     flex-shrink: 0;
-}
-
-.risco-tag.critico {
-    background: #fcebeb;
-    color: #a32d2d;
-}
-
-.risco-tag.atencao {
-    background: #faeeda;
-    color: #854f0b;
-}
-
-/* Arquétipos */
-.card-arquetipos {
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border: 1px solid #edf2f7;
-    border-radius: 14px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.card-arquetipos h3 {
-    font-size: 15px;
-    font-weight: 600;
-    color: #1a1525;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #f0f0f5;
-}
-
-.arquetipo-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.arquetipo-nome {
-    font-size: 12px;
-    color: #000000;
-    width: 100px;
-    flex-shrink: 0;
-}
-
-.arquetipo-barra-wrap {
-    flex: 1;
-    height: 7px;
-    background: #f1eff8;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.arquetipo-barra {
-    height: 100%;
-    border-radius: 5px;
-}
-
-.arquetipo-pct {
-    font-size: 11px;
-    font-weight: 600;
-    color: #000000;
-    width: 30px;
-    text-align: right;
 }
 
 /* ======= ABA: LISTA DE ALUNOS ======= */
@@ -313,7 +284,6 @@ body {
     gap: 0;
 }
 
-/* Área rolável dos cards */
 .lista-scroll {
     flex: 1;
     overflow-y: auto;
@@ -420,7 +390,6 @@ body {
 }
 
 .bar-preenchida {
-    background-color: #1D9E75;
     height: 100%;
     border-radius: 5px;
 }
