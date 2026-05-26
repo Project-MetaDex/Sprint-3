@@ -1,5 +1,6 @@
 var usuarioModel = require("../models/usuarioModel");
 
+// Função para Cadastro de Usuário
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
@@ -60,6 +61,7 @@ function cadastrar(req, res) {
     }
 }
 
+// Função para Logar na conta
 function autenticar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
@@ -113,6 +115,7 @@ function autenticar(req, res) {
 
 }
 
+// Função para atualizar dados do Perfil
 function atualizarPerfil(req, res) {
     var nome = req.body.nomeServer;
     var senha = req.body.senhaServer;
@@ -146,6 +149,7 @@ function atualizarPerfil(req, res) {
 
 }
 
+// Função para deletar conta
 function deletarConta(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -169,6 +173,7 @@ function deletarConta(req, res) {
     }
 }
 
+// Função para listar alunos do Mentor a partir da fkMentor
 function listarAlunos(req, res) {
     var idMentor = req.params.idMentor;
 
