@@ -7,7 +7,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var nickname = req.body.nicknameServer;
-    var tokenMentor = req.body.fkMentorServer;
+    var tokenMentor = req.body.tokenServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -95,12 +95,9 @@ function autenticar(req, res) {
                         nome: resultadoAutenticar[0].nome,
                         email: resultadoAutenticar[0].email,
                         nickname: resultadoAutenticar[0].nickname,
-                        fkMentor: resultadoAutenticar[0].fkMentor,
                         tokenMentor: resultadoAutenticar[0].tokenMentor,
                         tipoConta: tipoConta,
-                        posicaoRanking: resultadoAutenticar[0].posicaoRanking,
-                        qtdVitorias: resultadoAutenticar[0].qtdVitorias,
-                        qtdDerrotas: resultadoAutenticar.qtdDerrotas
+                        dataCadastro: resultadoAutenticar[0].dataCadastro
                     });
 
                 }
@@ -197,10 +194,53 @@ function listarAlunos(req, res) {
     }
 }
 
+function dadosPerfilMentor(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    if (idUsuario == undefined) {
+        return res.status(400).send('O ID do Mentor está undefined!');
+    } else {
+
+        usuarioModel.dadosPerfilMentor()
+            .then(function (resultadoPerfil) {
+                res.status(200).json(resultadoPerfil);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao pegar dados do Mentor! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+
+    }
+
+}
+
+function dadosPerfilAluno(req, res) {
+    var idUsuario = req.params.idUsuario;
+
+    if (idUsuario == undefined) {
+        return res.status(400).send('O ID do Aluno está undefined!');
+    } else {
+
+        usuarioModel.dadosPerfilMentor()
+            .then(function (resultadoPerfil) {
+                res.status(200).json(resultadoPerfil);
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                console.log("\nHouve um erro ao pegar dados do Aluno! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     atualizarPerfil,
     deletarConta,
-    listarAlunos
+    listarAlunos,
+    dadosPerfilMentor,
+    dadosPerfilAluno
 }

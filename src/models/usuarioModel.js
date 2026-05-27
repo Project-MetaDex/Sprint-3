@@ -15,7 +15,7 @@ function cadastrar(nome, email, senha, nickname, fkMentor) {
 function autenticar(nome, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function autenticar(): ", nome, email, senha)
     var instrucaoSql = `
-        SELECT idUsuario, nome, email, nickname, fkMentor, tokenMentor, posicaoRanking, qtdVitorias, qtdDerrotas FROM usuario 
+        SELECT idUsuario, nome, email, nickname, tokenMentor, dataCadastro FROM usuario 
         WHERE nome = '${nome}' AND email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -26,7 +26,7 @@ function buscarMentorPorToken(tokenMentor) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarMentorPorToken():", tokenMentor);
 
     var instrucaoSql = `
-        SELECT idUsuario FROM usuario WHERE tokenMentor = ${tokenMentor};
+        SELECT idUsuario FROM usuario WHERE tokenMentor = '${tokenMentor}';
     `;
     console.log("Buscando mentor pelo token: " + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -62,6 +62,18 @@ function listarAlunos(idMentor) {
     return database.executar(instrucaoSql);
 }
 
+// AINDA PRECISA SER VALIDADO
+function dadosPerfilMentor(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function dadosPerfilMentor():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT COUNT(*) AS alunosAtivos FROM Usuario WHERE fkMentor = ${idUsuario};
+    `;
+
+    console.log("Puxando dados do Usuário: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     autenticar,
@@ -69,5 +81,6 @@ module.exports = {
     buscarMentorPorToken,
     atualizarPerfil,
     deletarConta,
-    listarAlunos
+    listarAlunos,
+    dadosPerfilMentor
 };

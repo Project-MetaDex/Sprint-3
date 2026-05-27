@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
 
-  <title>MetaDex | Cadastro</title>
+  <title>MetaDex | Login</title>
 
-  <script src="./js/sessao.js"></script>
+  <!-- <script src="./js/sessao.js"></script> -->
 
   <link rel="stylesheet" href="css/LandingPage.css">
   <link rel="stylesheet" href="css/global.css">
@@ -78,17 +78,17 @@
       <div class="div-informacoes">
        <div class="input-informacoes">
          <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
-         <input type="text" placeholder="Nome Completo" required>
+         <input id="nome_input" type="text" placeholder="Nome Completo" required>
        </div><br>
 
         <div class="input-informacoes">
           <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone"> 
-          <input type="email" placeholder="Endereço de E-mail" required>
+          <input id="email_input" type="email" placeholder="Endereço de E-mail" required>
         </div><br>
 
         <div class="input-informacoes">
           <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
-          <input type="password" placeholder="Sua Senha" required>
+          <input id="senha_input" type="password" placeholder="Sua Senha" required>
         </div>
 <!-- 
         <div class="input-informacoes">
@@ -97,7 +97,7 @@
         </div> -->
       </div>
 
-                <a href="#" class="botao">CADASTRE-SE AGORA!</a> 
+                <a href="#" class="botao" onclick="realizarLogin()">ENTRAR!</a> 
 
             <div class="ja-tem-conta">
                 Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a>
@@ -116,20 +116,21 @@
 
 
 <script>
-    function entrar() {
+    
+    function realizarLogin() {
+        
         var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
-        if (nomeVar == "" || senhaVar == "") {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML = "Preencha todos os campos para entrar.";
-            setTimeout(sumirMensagem, 5000);
+        if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+            alert("Por favor, preencha todos os campos!");
             return false;
-        } 
+        }
 
-        console.log("FORM LOGIN: ", nomeVar);
-        console.log("FORM SENHA: ", senhaVar);
+        console.log(`Iniciando autenticação para o usuario: ${nomeVar} ${emailVar}`);
 
+        // 3. FETCH (POST): Envia os dados estruturados para o seu Node.js
         fetch("/usuarios/autenticar", {
             method: "POST",
             headers: {
@@ -137,38 +138,40 @@
             },
             body: JSON.stringify({
                 nomeServer: nomeVar,
+                emailServer: emailVar,
                 senhaServer: senhaVar
             })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
+        })
+        .then(function (resposta) {
             if (resposta.ok) {
-                console.log(resposta);
-                
-                cardErro.style.display = "block";
-                cardErro.style.borderColor = "green";
-                mensagem_erro.style.color = "green";
-                mensagem_erro.innerHTML = "Login realizado com sucesso! Redirecionando...";
-                
-                setTimeout(function () {
-                    window.location = "index.html"; 
-                }, 1500); 
+                resposta.json().then(function (dadosUsuario) {
+                    console.log("Login autorizado! Dados salvos na sessão:", dadosUsuario);
+
+                    sessionStorage.ID_USUARIO = dadosUsuario.idUsuario;
+                    sessionStorage.NOME_USUARIO = dadosUsuario.nome;
+                    sessionStorage.EMAIL_USUARIO = dadosUsuario.email;
+                    sessionStorage.NICK_USUARIO = dadosUsuario.nickname;
+                    sessionStorage.TOKEN_MENTOR = dadosUsuario.tokenMentor;
+                    sessionStorage.TIPO_USUARIO = dadosUsuario.tipoConta;
+                    sessionStorage.DATA_CADASTRO = dadosUsuario.dataCadastro;
+
+                    // Condição para direcionar para a tela correta:
+                    if (dadosUsuario.tipoConta == "Mentor") {
+                        window.location = "PerfilMentor.html";
+                    } else {
+                        window.location = "PerfilAluno.html";
+                    }
+                });
 
             } else {
-                console.log("Houve um erro ao tentar realizar o login!");
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    cardErro.style.display = "block";
-                    cardErro.style.borderColor = "red";
-                    mensagem_erro.style.color = "red";
-                    mensagem_erro.innerHTML = texto;
-                    setTimeout(sumirMensagem, 5000);
-                });
+                console.log("Erro na autenticação: Credenciais inválidas.");
+                alert("Dados de login incorretos! Verifique suas credenciais.");
             }
-
-        }).catch(function (erro) {
-            console.log(erro);
         })
+        .catch(function (erroDeRede) {
+            console.log("Erro de conexão com o servidor:", erroDeRede);
+            alert("Não foi possível conectar ao servidor.");
+        });
 
         return false;
     }
