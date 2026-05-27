@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
 <link rel="stylesheet" href="css/ranking.css">
+<link rel="stylesheet" href="css/global.css">
 </head>
 <body>
 
@@ -22,10 +23,11 @@
       <li><a href="simulacao1.html">Battle Simulator</a></li>
     </ul>
 
-    <div class="Button-Container">
-      <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
-      <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
-    </div>
+        <div class="Button-Container">
+            <a  href="#">
+                <img src="assets/imgs/iconeUSER.png" class="user">
+            </a>
+        </div>
   </nav>
 
   <aside style="display: none;" class="Side-Container">
@@ -171,7 +173,7 @@
             <button onclick="switchTab(this,'tab-ataques')">Ataques</button>
           </div>
           <div class="container-principal-pokemon">
-           
+          
             <div class="tab-panel active" id="tab-parceiros">
               <div class="partners-grid" id="partners-grid">
                 <div class="detail-loading" style="grid-column:1/-1">Carregando parceiros…</div>
@@ -191,5 +193,6 @@
   </div>
 
 <script src="js/ranking.js"></script>
+
 </body>
 </html>

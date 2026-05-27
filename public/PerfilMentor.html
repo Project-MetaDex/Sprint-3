@@ -20,20 +20,22 @@
 
 
         <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+    
+    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
 
-        <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
-
-        <ul class="Nav-Options">
-            <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
-            <li><a href="cadastro.html">Pokedex</a></li>
-            <li><a href="cadastro.html">Ranks</a></li>
-            <li><a href="cadastro.html">Team Buider</a></li>
-            <li><a href="cadastro.html">Battle Simulator</a></li>
-        </ul>
+    <ul class="Nav-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
+        <li><a href="cadastro.html">Pokedex</a></li>
+        <li><a href="cadastro.html">Ranks</a></li>
+        <li><a href="cadastro.html">Team Buider</a></li>
+        <li><a href="cadastro.html">Battle Simulator</a></li>
+    </ul>
 
         <div class="Button-Container">
-            <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
-            <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
+            <a  href="#">
+                <img src="assets/imgs/iconeUSER.png" class="user">
+            </a>
+
         </div>
     </nav>
 
@@ -65,52 +67,43 @@
 
     <main class="pagina-aluno">
 
-        <div class="conteudo-aluno">
-
-            <div class="menu-lateral">
-
-                <div class="card-perfil">
-                    <img class="imagem-perfil" src="assets/imgs/FotoPerfil_Mentor.png" alt="Foto da aluna">
-
-                    <span id="nomeMentor" class="nome-aluno">Mentor</span>
-                    <span class="tipo-aluno">Mentor Competitivo</span>
+    <div class="conteudo-aluno">
+        <aside class="perfil-sidebar">
+            <div class="perfil-card">
+                <div class="avatar-box">
+                    <img class="imagem-perfil" src="assets/imgs/FotoPerfil_Mentor.png" alt="Foto da aluna" />
                 </div>
 
-                <div class="opcoes-perfil">
+                <h1 class="nome-aluno">Fernanda Caramico</h1>
+                <span class="tipo-aluno">Mentor Competitivo</span>
 
-                    <div class="opcao-menu opcao-ativa">
-                        <span class="icone-menu">
-                            <i class="bi bi-grid"></i>
-                        </span>
+
+                <nav class="opcoes-perfil" aria-label="Menu do perfil">
+                    <a class="opcao-menu opcao-ativa" href="#">
+                        <span class="icone-menu"><i class="bi bi-grid"></i></span>
                         <span>Visão geral</span>
-                    </div>
+                    </a>
 
-                    <div class="opcao-menu">
-                        <span class="icone-menu">
-                            <i class="bi bi-person"></i>
-                        </span>
+                    <a class="opcao-menu" href="#">
+                        <span class="icone-menu"><i class="bi bi-person"></i></span>
                         <span>Editar perfil</span>
-                    </div>
+                    </a>
 
-                    <div class="opcao-menu">
-                        <span class="icone-menu">
-                            <i class="bi bi-people"></i>
-                        </span>
+                    <a class="opcao-menu" href="#">
+                        <span class="icone-menu"><i class="bi bi-people"></i></span>
                         <span>Alunos</span>
-                    </div>
+                    </a>
 
-                    <div class="opcao-menu">
-                        <span class="icone-menu">
-                            <i class="bi bi-box-arrow-left"></i>
-                        </span>
-                        <span>Logout</span>
-                    </div>
-
-                </div>
-
+                    <a class="opcao-menu opcao-sair" href="index.html">
+                        <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
+                        <span>Sair da conta</span>
+                    </a>
+                </nav>
             </div>
+        </aside>
 
-            <div class="area-principal">
+
+        <div class="area-principal">
 
                 <div class="card-sobre">
 
@@ -131,10 +124,9 @@
                                 <i class="bi bi-trophy"></i>
                             </span>
 
-                            <div class="texto-informacao">
-                                <span class="rotulo-informacao">Formato favorito</span>
-                                <span class="valor-informacao">VGC</span>
-                            </div>
+                        <div class="texto-informacao">
+                            <span class="rotulo-informacao">Formato favorito</span>
+                            <span class="valor-informacao">2V2</span>
                         </div>
 
                         <div class="caixa-informacao">
@@ -187,23 +179,17 @@
                         <span class="numero-estatistica">35</span>
                     </div>
 
-                    <div class="card-estatistica">
-                        <div class="circulo-icone">
-                            <span class="icone-grupo">
-                                <i class="bi bi-people"></i>
-                            </span>
-                        </div>
+                    <span class="titulo-estatistica">Alunos em Risco</span>
+                    <span class="numero-estatistica">4</span>
+                </div>
 
                         <span class="titulo-estatistica">Times Acompanhados</span>
                         <span class="numero-estatistica">12</span>
                     </div>
 
-                    <div class="card-estatistica">
-                        <div class="circulo-icone">
-                            <span class="icone-estatistica">
-                                <i class="bi bi-bar-chart"></i>
-                            </span>
-                        </div>
+                    <span class="titulo-estatistica">Alunos em Destaque</span>
+                    <span class="numero-estatistica">3</span>
+                </div>
 
                         <span class="titulo-estatistica">Partidas analisadas</span>
                         <span class="numero-estatistica">43</span>
@@ -213,52 +199,40 @@
 
             </div>
 
-            <div class="card-resumo">
+        </div>
 
-                <span class="titulo-card">Resumo do Mentor</span>
+    <aside class="resumo-coluna">
+        <article class="painel-card card-resumo">
+            <h2 class="titulo-card">Resumo do Mentor</h2>
 
-                <div class="conteudo-resumo">
-
-                    <div class="item-resumo">
-                        <span class="icone-especialidade">
-                            <i class="bi bi-patch-check"></i>
-                        </span>
-
-                        <div class="texto-resumo">
-                            <span class="titulo-resumo">Especialidade</span>
-                            <span class="descricao-resumo">
-                                Análise de dados, leitura de meta e construção de times.
-                            </span>
-                        </div>
+            <div class="conteudo-resumo">
+                <div class="item-resumo resumo-objetivo">
+                    <span class="icone-resumo"><i class="bi bi-bullseye"></i></span>
+                    <div class="texto-resumo">
+                        <strong class="titulo-resumo">Especialidade</strong>
+                        <span class="descricao-resumo">Treinos personalizados com foco em decisão e execução.</span>
                     </div>
+                </div>
 
-                    <div class="item-resumo">
-                        <span class="icone-cerebro">
-                            <i class="bi bi-cpu"></i>
-                        </span>
-
-                        <div class="texto-resumo">
-                            <span class="titulo-resumo">Método de treino</span>
-                            <span class="descricao-resumo">
-                                Treinos personalizados com foco em decisão e execução.
-                            </span>
-                        </div>
+                <div class="item-resumo resumo-estudo">
+                    <span class="icone-resumo"><i class="bi bi-book"></i></span>
+                    <div class="texto-resumo">
+                        <strong class="titulo-resumo">Método de treino</strong>
+                        <span class="descricao-resumo">Speed control, matchups e construção de times.</span>
                     </div>
+                </div>
 
-                    <div class="item-resumo">
-                        <span class="icone-resumo">
-                            <i class="bi bi-clock"></i>
-                        </span>
-
-                        <div class="texto-resumo">
-                            <span class="titulo-resumo">Disponibilidade</span>
-                            <span class="descricao-resumo">
-                                Segunda a sexta, 14h – 22h (BRT)
-                            </span>
-                        </div>
+                <div class="item-resumo resumo-mentoria">
+                    <span class="icone-resumo"><i class="bi bi-calendar3"></i></span>
+                    <div class="texto-resumo">
+                        <strong class="titulo-resumo">Disponibilidade</strong>
+                        <span class="descricao-resumo"> Segunda a sexta, 14h – 22h (BRT)</span>
                     </div>
                 </div>
             </div>
+        </article>
+
+    </aside>
 
 
         </div>
