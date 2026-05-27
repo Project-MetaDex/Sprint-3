@@ -135,6 +135,20 @@
     var confimacaoSenhaVar = confimacaoSenha.value;
     var tokenVar = tokenMentor.value;
 
+    if (nomeVar == "" || nicknameVar == "" || emailVar == "" || senhaVar == "" || confimacaoSenhaVar == "" || tokenVar == "") {
+      alert("Por favor, preencha todos os campos!");
+      return false;
+    } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
+      alert("Por favor, insira um endereço de e-mail válido!");
+      return false;
+    } else if (senhaVar.length < 8) {
+      alert("A senha deve conter pelo menos 8 caracteres!");
+      return false;
+    } if (senhaVar != confimacaoSenhaVar) {
+      alert("A senha e a confirmação de senha não coincidem!");
+      return false;
+    }
+
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
@@ -166,7 +180,7 @@
 
       });
 
-      return false;
+    return false;
   }
 
 </script>
