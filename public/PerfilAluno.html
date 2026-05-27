@@ -74,8 +74,8 @@
                         <img class="imagem-perfil" src="assets/imgs/foto_perfil_aluna.png" alt="Foto da aluna" />
                     </div>
 
-                    <h1 class="nome-aluno">Cíntia Miranda</h1>
-                    <span class="tipo-aluno">miranda_metagames</span>
+                    <h1 id="nome" class="nome-aluno">Treinador</h1>
+                    <span id="nickname" class="tipo-aluno">@nickname</span>
 
 
                     <nav class="opcoes-perfil" aria-label="Menu do perfil">
@@ -119,7 +119,7 @@
                             <span class="icone-info-stat"><i class="bi bi-trophy-fill"></i></span>
                             <div>
                                 <span class="rotulo-stat">Total vitórias</span>
-                                <strong class="valor-stat">50</strong>
+                                <strong id="qtdVitorias" class="valor-stat">-</strong>
 
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                             <span class="icone-info-stat"><i class="bi bi-x-circle"></i></span>
                             <div>
                                 <span class="rotulo-stat">Total derrotas</span>
-                                <strong class="valor-stat">50</strong>
+                                <strong id="qtdDerrotas" class="valor-stat">-</strong>
 
                             </div>
                         </div>
@@ -137,7 +137,7 @@
                             <span class="icone-info-stat"><i class="bi bi-star"></i></span>
                             <div>
                                 <span class="rotulo-stat">Pontos</span>
-                                <strong class="valor-stat">500Pt</strong>
+                                <strong class="valor-stat">0Pt</strong>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
                         <span class="circulo-icone"><i class="bi bi-award"></i></span>
                         <div>
                             <span class="titulo-estatistica">Posição no ranking</span>
-                            <strong class="numero-estatistica">4°</strong>
+                            <strong id="posicaoRanking" class="numero-estatistica">-</strong>
                         </div>
                     </div>
 
@@ -196,7 +196,7 @@
                         <span class="circulo-icone"><i class="bi bi-shield-check"></i></span>
                         <div>
                             <span class="titulo-estatistica">Times salvos</span>
-                            <strong class="numero-estatistica">6</strong>
+                            <strong class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
@@ -249,3 +249,24 @@
 </body>
 
 </html>
+<script>
+    window.onload = function() {
+        console.log("Iniciando carregamento do perfil do Aluno...");
+
+        if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('nome').innerHTML = sessionStorage.NOME_USUARIO;
+        }
+        if (sessionStorage.NICK_USUARIO) {
+            document.getElementById('nickname').innerHTML = '@' + sessionStorage.NICK_USUARIO;
+        }
+
+
+
+
+
+
+        // 2. CHAMADAS PARA AS PRÓXIMAS ROTAS (Dispararemos os fetches aqui no futuro!)
+        // carregarStatusGeral();
+        // carregarTimePrincipal();
+    }
+</script>
