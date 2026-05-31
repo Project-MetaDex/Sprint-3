@@ -22,12 +22,12 @@
             width: 100vw;  
         }
 
-        /* informações formulario */
         .main-cadastro {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 4%; 
+            padding: 0 0 0 3%; 
+            width: 42%;
         }
 
         .titulo01 {
@@ -45,7 +45,6 @@
             max-width: 90%;
         }
 
-        /* Inputs */
         .div-informacoes {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -88,7 +87,6 @@
             border-color: #d85c1c;
         }
 
-        /* Botão */
         .botao {
             width: 100%;
             padding: 15px;
@@ -108,8 +106,7 @@
         .botao:hover {
             background-color: #bd4f0f;
         }
-       
-        /* ja tem conta */
+
         .ja-tem-conta {
             text-align: center;
             font-size: 0.95rem;
