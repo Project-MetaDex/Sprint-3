@@ -216,24 +216,28 @@
 
         <section class="area-listas">
 
-        <div class="card-lista">
-            <div class="cabecalho-lista">
-                <h2>Lista de Ataques</h2>
-                <span class="contador-lista">0</span>
+            <div class="card-lista">
+                <div class="cabecalho-lista">
+                    <h2>Lista de Ataques</h2>
+                    <span id="contador-ataques" class="contador-lista">0</span>
+                </div>
+
+                <div id="lista-ataques" class="lista-scroll" aria-live="polite">
+                    <p class="mensagem-lista">Carregando ataques...</p>
+                </div>
             </div>
 
-            <ul id="lista-ataques-pokeapi" class="lista-scroll"></ul>
-        </div>
+            <div class="card-lista">
+                <div class="cabecalho-lista">
+                    <h2>Lista de TMs</h2>
+                    <span id="contador-tms" class="contador-lista">0</span>
+                </div>
 
-        <div class="card-lista">
-            <div class="cabecalho-lista">
-                <h2>Lista de TMs</h2>
-                <span class="contador-lista">0</span>
+                <div id="lista-tms" class="lista-scroll" aria-live="polite">
+                    <p class="mensagem-lista">Carregando TMs...</p>
+                </div>
             </div>
 
-                <ul id="lista-tms-pokeapi" class="lista-scroll"></ul>
-        </div>
-        
         </section>
 
     </main>
