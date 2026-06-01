@@ -215,7 +215,6 @@ function dadosPerfilAluno(req, res) {
                 console.log("\nHouve um erro ao pegar dados do Aluno! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             });
-
     }
 }
 

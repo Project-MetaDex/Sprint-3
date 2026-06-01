@@ -282,5 +282,20 @@
             .catch(function (erroDeRede) {
                 console.log("Erro de conexão com o servidor:", erroDeRede);
             });
+
+        fetch(`/equipespokemonsMaisUsados/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (listaPokemons) {
+                        console.log("Seus 4 Pokémons mais usados:", listaPokemons);
+                    });
+                }
+
+            }).catch(function (erroDeRede) {
+                console.log("Erro de conexão com o servidor:", erroDeRede);
+            });
+
     }
 </script>
