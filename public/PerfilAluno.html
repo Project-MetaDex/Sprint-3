@@ -29,9 +29,9 @@
         </ul>
 
         <div class="Button-Container">
-        <a  href="#">
-        <img src="assets/imgs/iconeUSER.png" class="user">
-        </a>
+            <a href="#">
+                <img src="assets/imgs/iconeUSER.png" class="user">
+            </a>
 
         </div>
 
@@ -137,7 +137,7 @@
                             <span class="icone-info-stat"><i class="bi bi-star"></i></span>
                             <div>
                                 <span class="rotulo-stat">Pontos</span>
-                                <strong class="valor-stat">0Pt</strong>
+                                <strong class="valor-stat">- Pts</strong>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                         <span class="circulo-icone"><i class="bi bi-shield-check"></i></span>
                         <div>
                             <span class="titulo-estatistica">Times salvos</span>
-                            <strong class="numero-estatistica">-</strong>
+                            <strong id="qtdTimes" class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                         <span class="circulo-icone"><i class="bi bi-bar-chart-line"></i></span>
                         <div>
                             <span class="titulo-estatistica">Partidas analisadas</span>
-                            <strong class="numero-estatistica">43</strong>
+                            <strong class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
@@ -250,7 +250,7 @@
 
 </html>
 <script>
-    window.onload = function() {
+    window.onload = function () {
         console.log("Iniciando carregamento do perfil do Aluno...");
 
         if (sessionStorage.NOME_USUARIO) {
@@ -261,12 +261,26 @@
         }
 
 
+        fetch(`/usuarios/dadosPerfilAluno/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
 
+                    resposta.json().then(function (dadosAluno) {
+                        console.log("Dados do perfil recebidos com sucesso:", dadosAluno);
 
-
-
-        // 2. CHAMADAS PARA AS PRÓXIMAS ROTAS (Dispararemos os fetches aqui no futuro!)
-        // carregarStatusGeral();
-        // carregarTimePrincipal();
+                        document.getElementById("qtdVitorias").innerHTML = dadosAluno.qtdVitorias;
+                        document.getElementById("qtdDerrotas").innerHTML = dadosAluno.qtdDerrotas;
+                        document.getElementById("posicaoRanking").innerHTML = dadosAluno.posicaoRanking;
+                        document.getElementById("qtdTimes").innerHTML = dadosAluno.timesSalvos;
+                    });
+                } else {
+                    console.error("Erro na resposta do servidor ao carregar dados do perfil.");
+                }
+            })
+            .catch(function (erroDeRede) {
+                console.log("Erro de conexão com o servidor:", erroDeRede);
+            });
     }
 </script>

@@ -62,12 +62,13 @@ function listarAlunos(idMentor) {
     return database.executar(instrucaoSql);
 }
 
-// AINDA PRECISA SER VALIDADO
-function dadosPerfilMentor(idUsuario) {
+function dadosPerfilAluno(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function dadosPerfilMentor():", idUsuario);
 
     var instrucaoSql = `
-        SELECT COUNT(*) AS alunosAtivos FROM Usuario WHERE fkMentor = ${idUsuario};
+        SELECT qtdVitorias, qtdDerrotas, posicaoRanking,
+            (SELECT COUNT(*) FROM Equipe WHERE fkUsuario = idUsuario) AS timesSalvos
+                FROM Usuario WHERE idUsuario = ${idUsuario};
     `;
 
     console.log("Puxando dados do Usuário: \n" + instrucaoSql);
@@ -82,5 +83,5 @@ module.exports = {
     atualizarPerfil,
     deletarConta,
     listarAlunos,
-    dadosPerfilMentor
+    dadosPerfilAluno
 };

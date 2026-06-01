@@ -194,27 +194,7 @@ function listarAlunos(req, res) {
     }
 }
 
-function dadosPerfilMentor(req, res) {
-    var idUsuario = req.params.idUsuario;
-
-    if (idUsuario == undefined) {
-        return res.status(400).send('O ID do Mentor está undefined!');
-    } else {
-
-        usuarioModel.dadosPerfilMentor()
-            .then(function (resultadoPerfil) {
-                res.status(200).json(resultadoPerfil);
-            })
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao pegar dados do Mentor! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
-
-    }
-
-}
-
+// Função para pegar dados do Aluno
 function dadosPerfilAluno(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -222,9 +202,13 @@ function dadosPerfilAluno(req, res) {
         return res.status(400).send('O ID do Aluno está undefined!');
     } else {
 
-        usuarioModel.dadosPerfilMentor()
+        usuarioModel.dadosPerfilAluno(idUsuario)
             .then(function (resultadoPerfil) {
-                res.status(200).json(resultadoPerfil);
+                if (resultadoPerfil.length > 0) {
+                    res.status(200).json(resultadoPerfil[0]);
+                } else {
+                    res.status(204).send("Nenhum dado encontrado para este ID.");
+                }
             })
             .catch(function (erro) {
                 console.log(erro);
@@ -241,6 +225,5 @@ module.exports = {
     atualizarPerfil,
     deletarConta,
     listarAlunos,
-    dadosPerfilMentor,
     dadosPerfilAluno
 }
