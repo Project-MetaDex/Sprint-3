@@ -29,12 +29,10 @@
         <li><a href="cadastro.html">Battle Simulator</a></li>
     </ul>
 
-        <div class="Button-Container">
-            <a  href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
-
-        </div>
+    <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+    </div>
     </nav>
 
     <aside style="display: none;" class="Side-Container">
@@ -65,49 +63,40 @@
   <main class="pagina-aluno">
 
     <div class="conteudo-aluno">
+        <aside class="perfil-sidebar">
+            <div class="perfil-card">
+                <div class="avatar-box">
+                    <img class="imagem-perfil" src="assets/imgs/FotoPerfil_Mentor.png" alt="Foto da aluna" />
+                </div>
 
-        <div class="menu-lateral">
-
-            <div class="card-perfil">
-                <img class="imagem-perfil" src="assets/imgs/FotoPerfil_Mentor.png" alt="Foto da aluna">
-
-                <span class="nome-aluno">Fernanda Caramico</span>
+                <h1 class="nome-aluno">Fernanda Caramico</h1>
                 <span class="tipo-aluno">Mentor Competitivo</span>
+
+
+                <nav class="opcoes-perfil" aria-label="Menu do perfil">
+                    <a class="opcao-menu opcao-ativa" href="#">
+                        <span class="icone-menu"><i class="bi bi-grid"></i></span>
+                        <span>Visão geral</span>
+                    </a>
+
+                    <a class="opcao-menu" href="#">
+                        <span class="icone-menu"><i class="bi bi-person"></i></span>
+                        <span>Editar perfil</span>
+                    </a>
+
+                    <a class="opcao-menu" href="#">
+                        <span class="icone-menu"><i class="bi bi-people"></i></span>
+                        <span>Alunos</span>
+                    </a>
+
+                    <a class="opcao-menu opcao-sair" href="index.html">
+                        <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
+                        <span>Sair da conta</span>
+                    </a>
+                </nav>
             </div>
+        </aside>
 
-            <div class="opcoes-perfil">
-
-                <div class="opcao-menu opcao-ativa">
-                    <span class="icone-menu">
-                        <i class="bi bi-grid"></i>
-                    </span>
-                    <span>Visão geral</span>
-                </div>
-
-                <div class="opcao-menu">
-                    <span class="icone-menu">
-                        <i class="bi bi-person"></i>
-                    </span>
-                    <span>Editar perfil</span>
-                </div>
-
-                <div class="opcao-menu">
-                    <span class="icone-menu">
-                        <i class="bi bi-people"></i>
-                    </span>
-                    <span>Alunos</span>
-                </div>
-
-                <div class="opcao-menu">
-                    <span class="icone-menu">
-                        <i class="bi bi-box-arrow-left"></i>
-                    </span>
-                    <span>Logout</span>
-                </div>
-
-            </div>
-
-        </div>
 
         <div class="area-principal">
 
@@ -131,7 +120,7 @@
 
                         <div class="texto-informacao">
                             <span class="rotulo-informacao">Formato favorito</span>
-                            <span class="valor-informacao">VGC</span>
+                            <span class="valor-informacao">2V2</span>
                         </div>
                     </div>
 
@@ -181,8 +170,8 @@
                         </span>
                     </div>
 
-                    <span class="titulo-estatistica">Sessões do mês</span>
-                    <span class="numero-estatistica">35</span>
+                    <span class="titulo-estatistica">Alunos em Risco</span>
+                    <span class="numero-estatistica">4</span>
                 </div>
 
                 <div class="card-estatistica">
@@ -192,8 +181,8 @@
                         </span>
                     </div>
 
-                    <span class="titulo-estatistica">Times Acompanhados</span>
-                    <span class="numero-estatistica">12</span>
+                    <span class="titulo-estatistica">Alunos em Destaque</span>
+                    <span class="numero-estatistica">3</span>
                 </div>
 
                 <div class="card-estatistica">
@@ -211,55 +200,39 @@
 
         </div>
 
-        <div class="card-resumo">
+    <aside class="resumo-coluna">
+        <article class="painel-card card-resumo">
+            <h2 class="titulo-card">Resumo do Mentor</h2>
 
-                <span class="titulo-card">Resumo do Mentor</span>
-
-                <div class="conteudo-resumo">
-
-                    <div class="item-resumo">
-                        <span class="icone-especialidade">
-                            <i class="bi bi-patch-check"></i>
-                        </span>
-
-                        <div class="texto-resumo">
-                            <span class="titulo-resumo">Especialidade</span>
-                            <span class="descricao-resumo">
-                                Análise de dados, leitura de meta e construção de times.
-                            </span>
-                        </div>
+            <div class="conteudo-resumo">
+                <div class="item-resumo resumo-objetivo">
+                    <span class="icone-resumo"><i class="bi bi-bullseye"></i></span>
+                    <div class="texto-resumo">
+                        <strong class="titulo-resumo">Especialidade</strong>
+                        <span class="descricao-resumo">Treinos personalizados com foco em decisão e execução.</span>
                     </div>
+                </div>
 
-                    <div class="item-resumo">
-                        <span class="icone-cerebro">
-                            <i class="bi bi-cpu"></i>
-                        </span>
-
-                        <div class="texto-resumo">
-                            <span class="titulo-resumo">Método de treino</span>
-                            <span class="descricao-resumo">
-                                Treinos personalizados com foco em decisão e execução.
-                            </span>
-                        </div>
+                <div class="item-resumo resumo-estudo">
+                    <span class="icone-resumo"><i class="bi bi-book"></i></span>
+                    <div class="texto-resumo">
+                        <strong class="titulo-resumo">Método de treino</strong>
+                        <span class="descricao-resumo">Speed control, matchups e construção de times.</span>
                     </div>
+                </div>
 
-                    <div class="item-resumo">
-                        <span class="icone-resumo">
-                            <i class="bi bi-clock"></i>
-                        </span>
-
-                        <div class="texto-resumo">
-                            <span class="titulo-resumo">Disponibilidade</span>
-                            <span class="descricao-resumo">
-                                Segunda a sexta, 14h – 22h (BRT)
-                            </span>
-                        </div>
+                <div class="item-resumo resumo-mentoria">
+                    <span class="icone-resumo"><i class="bi bi-calendar3"></i></span>
+                    <div class="texto-resumo">
+                        <strong class="titulo-resumo">Disponibilidade</strong>
+                        <span class="descricao-resumo"> Segunda a sexta, 14h – 22h (BRT)</span>
                     </div>
                 </div>
             </div>
-        
+        </article>
 
-    </div>
+    </aside>
+
 
 </main>
 </body>

@@ -25,9 +25,10 @@
             <li><a href="cadastro.html">Battle Simulator</a></li>
         </ul>
         <div class="Button-Container">
-            <a href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
+        <a  href="#">
+        <img src="assets/imgs/iconeUSER.png" class="user">
+        </a>
+
         </div>
     </nav>
 
@@ -62,8 +63,9 @@
                         <img class="imagem-perfil" src="assets/imgs/User_sem_ft.png" alt="Foto da aluna" />
                     </div>
 
-                    <h1 id="nome" class="nome-aluno">Cíntia Miranda</h1>
-                    <span id="nickname" class="tipo-aluno">miranda_metagames</span>
+                    <h1 class="nome-aluno">Cíntia Miranda</h1>
+                    <span class="tipo-aluno">miranda_metagames</span>
+
 
                     <nav class="opcoes-perfil" aria-label="Menu do perfil">
                         <a class="opcao-menu opcao-ativa" href="#" id="menu-visao" onclick="mostrarSecao('visao-geral'); return false;">
@@ -81,7 +83,7 @@
                             <span>Meu progresso</span>
                         </a>
 
-                        <a class="opcao-menu opcao-sair" href="index.html">
+                        <a class="opcao-menu opcao-sair" href="#" onclick="sairDaConta()">
                             <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
                             <span>Sair da conta</span>
                         </a>
@@ -103,6 +105,7 @@
                             <div>
                                 <span class="rotulo-stat">Total vitórias</span>
                                 <strong class="valor-stat">50</strong>
+
                             </div>
                         </div>
 
@@ -111,6 +114,7 @@
                             <div>
                                 <span class="rotulo-stat">Total derrotas</span>
                                 <strong class="valor-stat">50</strong>
+
                             </div>
                         </div>
 
@@ -118,7 +122,7 @@
                             <span class="icone-info-stat"><i class="bi bi-star"></i></span>
                             <div>
                                 <span class="rotulo-stat">Pontos</span>
-                                <strong class="valor-stat">500Pt</strong>
+                                <strong class="valor-stat">- Pts</strong>
                             </div>
                         </div>
                     </div>
@@ -133,21 +137,24 @@
                     </div>
 
                     <div class="time-principal">
-                        <div class="pokemon-card tipo-eletrico">
-                            <img src="assets/imgs/image-Photoroom.png" alt="Pikachu" />
-                            <strong>Pikachu</strong>
-                            <span><i class="bi bi-lightning-fill"></i> Elétrico</span>
+                        <div id="card_1" class="pokemon-card">
+                            <img id="poke_img_1" src="./assets/icon/Logo-Nav.svg" alt="Pokemon 1" />
+                            <strong id="poke_nome_1">Carregando...</strong>
+                            <span id="poke_tipo_1"> TIPO</span>
                         </div>
+
                         <div class="pokemon-card tipo-fogo">
                             <img src="assets/imgs/004.png" alt="Charmander" />
                             <strong>Charmander</strong>
                             <span><i class="bi bi-fire"></i> Fogo</span>
                         </div>
+
                         <div class="pokemon-card tipo-planta">
                             <img src="assets/imgs/001.png" alt="Bulbasaur" />
                             <strong>Bulbasaur</strong>
                             <span><i class="bi bi-leaf-fill"></i> Planta</span>
                         </div>
+
                         <div class="pokemon-card tipo-agua">
                             <img src="assets/imgs/007.png" alt="Squirtle" />
                             <strong>Squirtle</strong>
@@ -161,7 +168,7 @@
                         <span class="circulo-icone"><i class="bi bi-award"></i></span>
                         <div>
                             <span class="titulo-estatistica">Posição no ranking</span>
-                            <strong class="numero-estatistica">4°</strong>
+                            <strong id="posicaoRanking" class="numero-estatistica">-</strong>
                         </div>
                     </div>
                     <div class="metrica-item metrica-times">
@@ -169,13 +176,15 @@
                         <div>
                             <span class="titulo-estatistica">Times salvos</span>
                             <strong class="numero-estatistica">6</strong>
+
                         </div>
                     </div>
                     <div class="metrica-item metrica-partidas">
                         <span class="circulo-icone"><i class="bi bi-bar-chart-line"></i></span>
                         <div>
-                            <span class="titulo-estatistica">Total de partidas</span>
+                            <span class="titulo-estatistica">Partidas analisadas</span>
                             <strong class="numero-estatistica">43</strong>
+
                         </div>
                     </div>
                 </section>
@@ -296,3 +305,146 @@
     <script src="js/PerfilAluno.js"></script>
 </body>
 </html>
+<script>
+    function sairDaConta() {
+        // Limpando o sessionStorage
+        sessionStorage.clear();
+        
+        // Redirecionando para a tela de index
+        window.location.href = "index.html";
+    }
+
+    window.onload = function () {
+        console.log("Iniciando carregamento do perfil do Aluno...");
+
+        if (sessionStorage.NOME_USUARIO) {
+            document.getElementById('nome').innerHTML = sessionStorage.NOME_USUARIO;
+        }
+        if (sessionStorage.NICK_USUARIO) {
+            document.getElementById('nickname').innerHTML = '@' + sessionStorage.NICK_USUARIO;
+        }
+
+
+        fetch(`/usuarios/dadosPerfilAluno/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+
+                    resposta.json().then(function (dadosAluno) {
+                        console.log("Dados do perfil recebidos com sucesso:", dadosAluno);
+
+                        document.getElementById("qtdVitorias").innerHTML = dadosAluno.qtdVitorias;
+                        document.getElementById("qtdDerrotas").innerHTML = dadosAluno.qtdDerrotas;
+                        document.getElementById("posicaoRanking").innerHTML = dadosAluno.posicaoRanking;
+                        document.getElementById("qtdTimes").innerHTML = dadosAluno.timesSalvos;
+                    });
+                } else {
+                    console.error("Erro na resposta do servidor ao carregar dados do perfil.");
+                }
+            })
+            .catch(function (erroDeRede) {
+                console.log("Erro de conexão com o servidor:", erroDeRede);
+            });
+
+        fetch(`/equipes/pokemonsMaisUsados/${sessionStorage.ID_USUARIO}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function (listaPokemons) {
+                        console.log("Seus 4 Pokémons mais usados:", listaPokemons);
+
+                        for (var i = 0; i < listaPokemons.length; i++) {
+
+                            var nomeDoBanco = listaPokemons[i].nomePokemon;
+
+                            var numeroCard = i + 1;
+
+                            buscarDadosNaPokeAPI(nomeDoBanco, numeroCard);
+                        }
+
+                    });
+                }
+
+            }).catch(function (erroDeRede) {
+                console.log("Erro de conexão com o servidor:", erroDeRede);
+            });
+
+
+        const coresTipos = {
+            fire:       {borda: "#f08030", fundo1: "#fff2eb", fundo2: "#ffd8c8", badge: "#f08030"},
+            water:      {borda: "#6890f0",fundo1: "#eef7ff", fundo2: "#dbeeff", badge: "#6890f0"},
+            grass:      {borda: "#78c850", fundo1: "#eefbea", fundo2: "#daf5d6", badge: "#78c850"},
+            electric:   {borda: "#f8d030", fundo1: "#fffbe4", fundo2: "#fff1b8", badge: "#f8d030"},
+            ghost:      {borda: "#705898", fundo1: "#f3efff", fundo2: "#e2dcff", badge: "#705898"},
+            dragon:     {borda: "#7038f8", fundo1: "#f2f2ff", fundo2: "#dcdcff", badge: "#7038f8"},
+            dark:       {borda: "#705848", fundo1: "#f1ece8", fundo2: "#e1d8d0", badge: "#705848"},
+            psychic:    {borda: "#f85888", fundo1: "#ffe8f1", fundo2: "#ffd3e5", badge: "#f85888"},
+            ice:        {borda: "#98d8d8", fundo1: "#efffff", fundo2: "#d9ffff", badge: "#98d8d8"},
+            fighting:   {borda: "#c03028", fundo1: "#ffe9e7", fundo2: "#ffd4d0", badge: "#c03028"}
+        };
+
+        const iconesTipos = {
+            fire: "bi-fire",
+            water: "bi-droplet-fill",
+            grass: "bi-flower1",
+            electric: "bi-lightning-fill",
+            ghost: "bi-moon-stars-fill",
+            dragon: "bi-stars",
+            psychic: "bi-eye-fill",
+            rock: "bi-triangle-fill",
+            ground: "bi-globe",
+            flying: "bi-wind",
+            steel: "bi-shield-fill",
+            fairy: "bi-stars",
+            dark: "bi-moon-fill",
+            ice: "bi-snow",
+            fighting: "bi-hand-index-thumb-fill"
+        };
+
+
+        function buscarDadosNaPokeAPI(nomePokemon, numeroCard) {
+            // Faz a requisição na API pública usando o nome textual em minúsculo
+            fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`)
+                .then(function (respostaAPI) {
+                    if (respostaAPI.ok) {
+                        respostaAPI.json().then(function (dadosPoke) {
+                            console.log(`Dados da PokéAPI para ${nomePokemon}:`, dadosPoke);
+
+                            var urlImagemOficial = dadosPoke.sprites.front_default;
+                            // var urlImagemOficial = dadosPoke.sprites.other["official-artwork"].front_default;
+
+                            var tipoIngles = dadosPoke.types[0].type.name;
+
+                            var card = document.getElementById(`card_${numeroCard}`);
+                            var cores = coresTipos[tipoIngles];
+                            if (cores) {
+                                card.style.setProperty("--cor-borda", cores.borda);
+                                card.style.setProperty("--cor-fundo1", cores.fundo1);
+                                card.style.setProperty("--cor-fundo2", cores.fundo2);
+                                card.style.setProperty("--cor-badge", cores.badge);
+                            }
+
+                            var tipoFormatado = tipoIngles.toUpperCase();
+
+                            var nomeFormatado = nomePokemon.charAt(0).toUpperCase() + nomePokemon.slice(1);
+
+                            // ícones do Bootstrap baseado no elemento
+                            var icone = iconesTipos[tipoIngles] || "bi-app-indicator";
+
+                            document.getElementById(`poke_img_${numeroCard}`).src = urlImagemOficial;
+                            document.getElementById(`poke_nome_${numeroCard}`).innerHTML = nomeFormatado;
+                            document.getElementById(`poke_tipo_${numeroCard}`).innerHTML = `<i class="bi ${icone}"></i> ${tipoFormatado}`;
+                        });
+                    } else {
+                        console.error(`Pokémon ${nomePokemon} não encontrado na PokéAPI.`);
+                    }
+                })
+                .catch(function (erro) {
+                    console.error("Erro de rede ao conectar na PokéAPI:", erro);
+                });
+        }
+
+    }
+</script>
