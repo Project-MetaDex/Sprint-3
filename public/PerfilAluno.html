@@ -99,7 +99,7 @@
                             <span>Configurações</span>
                         </a>
 
-                        <a class="opcao-menu opcao-sair" href="index.html">
+                        <a class="opcao-menu opcao-sair" href="#" onclick="sairDaConta()">
                             <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
                             <span>Sair da conta</span>
                         </a>
@@ -250,6 +250,14 @@
 
 </html>
 <script>
+    function sairDaConta() {
+        // Limpando o sessionStorage
+        sessionStorage.clear();
+        
+        // Redirecionando para a tela de index
+        window.location.href = "index.html";
+    }
+
     window.onload = function () {
         console.log("Iniciando carregamento do perfil do Aluno...");
 
