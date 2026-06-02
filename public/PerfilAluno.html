@@ -63,9 +63,8 @@
                         <img class="imagem-perfil" src="assets/imgs/User_sem_ft.png" alt="Foto da aluna" />
                     </div>
 
-                    <h1 class="nome-aluno">Cíntia Miranda</h1>
-                    <span class="tipo-aluno">miranda_metagames</span>
-
+                    <h1 id="nome" class="nome-aluno">Treinador</h1>
+                    <span id="nickname" class="tipo-aluno">@metadex</span>
 
                     <nav class="opcoes-perfil" aria-label="Menu do perfil">
                         <a class="opcao-menu opcao-ativa" href="#" id="menu-visao" onclick="mostrarSecao('visao-geral'); return false;">
@@ -104,7 +103,7 @@
                             <span class="icone-info-stat"><i class="bi bi-trophy-fill"></i></span>
                             <div>
                                 <span class="rotulo-stat">Total vitórias</span>
-                                <strong class="valor-stat">50</strong>
+                                <strong id="qtdVitorias" class="valor-stat">-</strong>
 
                             </div>
                         </div>
@@ -113,7 +112,7 @@
                             <span class="icone-info-stat"><i class="bi bi-x-circle"></i></span>
                             <div>
                                 <span class="rotulo-stat">Total derrotas</span>
-                                <strong class="valor-stat">50</strong>
+                                <strong id="qtdDerrotas" class="valor-stat">-</strong>
 
                             </div>
                         </div>
@@ -143,22 +142,22 @@
                             <span id="poke_tipo_1"> TIPO</span>
                         </div>
 
-                        <div class="pokemon-card tipo-fogo">
-                            <img src="assets/imgs/004.png" alt="Charmander" />
-                            <strong>Charmander</strong>
-                            <span><i class="bi bi-fire"></i> Fogo</span>
+                        <div id="card_2" class="pokemon-card">
+                            <img id="poke_img_2" src="./assets/icon/Logo-Nav.svg" alt="Charmander" />
+                            <strong id="poke_nome_2">Carregando...</strong>
+                            <span id="poke_tipo_2"> TIPO</span>
                         </div>
 
-                        <div class="pokemon-card tipo-planta">
-                            <img src="assets/imgs/001.png" alt="Bulbasaur" />
-                            <strong>Bulbasaur</strong>
-                            <span><i class="bi bi-leaf-fill"></i> Planta</span>
+                        <div id="card_3" class="pokemon-card">
+                            <img id="poke_img_3" src="./assets/icon/Logo-Nav.svg" alt="Bulbasaur" />
+                            <strong id="poke_nome_3">Carregando...</strong>
+                            <span id="poke_tipo_3"> TIPO</span>
                         </div>
 
-                        <div class="pokemon-card tipo-agua">
-                            <img src="assets/imgs/007.png" alt="Squirtle" />
-                            <strong>Squirtle</strong>
-                            <span><i class="bi bi-droplet-fill"></i> Água</span>
+                        <div id="card_4" class="pokemon-card">
+                            <img id="poke_img_4" src="./assets/icon/Logo-Nav.svg" alt="Squirtle" />
+                            <strong id="poke_nome_4">Carregando...</strong>
+                            <span id="poke_tipo_4"> TIPO</span>
                         </div>
                     </div>
                 </article>
@@ -175,15 +174,15 @@
                         <span class="circulo-icone"><i class="bi bi-shield-check"></i></span>
                         <div>
                             <span class="titulo-estatistica">Times salvos</span>
-                            <strong class="numero-estatistica">6</strong>
+                            <strong id="qtdTimes" class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
                     <div class="metrica-item metrica-partidas">
                         <span class="circulo-icone"><i class="bi bi-bar-chart-line"></i></span>
                         <div>
-                            <span class="titulo-estatistica">Partidas analisadas</span>
-                            <strong class="numero-estatistica">43</strong>
+                            <span class="titulo-estatistica">Partidas realizadas</span>
+                            <strong class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
