@@ -77,7 +77,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>Main</mainClass>
+                                    <mainClass>org.zapto.metadex.Main</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

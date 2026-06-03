@@ -14,7 +14,7 @@ public class S3Provider {
     private final AwsCredentialsProvider credentials;
 
     public S3Provider() {
-        getCredentialsAws();
+//        getCredentialsAws();
         this.credentials = DefaultCredentialsProvider.create();
     }
 
