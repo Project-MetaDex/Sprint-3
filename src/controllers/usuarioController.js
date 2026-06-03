@@ -114,34 +114,54 @@ function autenticar(req, res) {
 
 // Função para atualizar dados do Perfil
 function atualizarPerfil(req, res) {
-    var nome = req.body.nomeServer;
-    var senha = req.body.senhaServer;
-    var nickname = req.body.nicknameServer;
     var idUsuario = req.params.idUsuario;
+    var nome = req.body.nomeServer;
+    var nickname = req.body.nicknameServer;
+    var senhaAtual = req.body.senhaAtualServer;
+    var senhaNova = req.body.senhaNovaServer;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Seu senha está undefined!");
     } else if (nickname == undefined) {
         res.status(400).send("Sua nickname está undefined!");
     } else if (idUsuario == undefined) {
         res.status(400).send("Seu idUsuario está undefined!");
     } else {
 
-        usuarioModel.atualizarPerfil(nome, senha, nickname, idUsuario)
-            .then(
-                function (resultadoAtualizar) {
-                    res.json(resultadoAtualizar);
+        usuarioModel.buscarSenhaAtual(idUsuario)
+            .then(function (resultadoSenha) {
+                var senhaBanco = resultadoSenha[0].senha;
+                var senhaFinal = senhaBanco;
+
+                if (senhaNova && senhaNova.trim() != "") {
+
+                    if (senhaAtual != senhaBanco) {
+                        return res.status(400).send("Senha atual incorreta");
+                    }
+
+                    senhaFinal = senhaNova;
                 }
-            )
-            .catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao atualizar cadastro! Erro: ",erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            )
+
+                usuarioModel.atualizarPerfil(nome, senhaFinal, nickname, idUsuario)
+                    .then(
+                        function (resultadoAtualizar) {
+                            res.json(resultadoAtualizar);
+                        }
+                    )
+                    .catch(
+                        function (erro) {
+                            console.log(erro);
+                            console.log("\nHouve um erro ao atualizar cadastro! Erro: ", erro.sqlMessage);
+                            res.status(500).json(erro.sqlMessage);
+                        }
+                    );
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                res.status(500).json(erro);
+            });
+
     }
 
 }
@@ -158,13 +178,13 @@ function deletarConta(req, res) {
             .then(
                 function (resultadoDeletar) {
                     res.json(resultadoDeletar);
-            }
-        ).catch(
-            function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao deletar a conta! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            })
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao deletar a conta! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                })
 
 
     }
@@ -194,27 +214,7 @@ function listarAlunos(req, res) {
     }
 }
 
-function dadosPerfilMentor(req, res) {
-    var idUsuario = req.params.idUsuario;
-
-    if (idUsuario == undefined) {
-        return res.status(400).send('O ID do Mentor está undefined!');
-    } else {
-
-        usuarioModel.dadosPerfilMentor()
-            .then(function (resultadoPerfil) {
-                res.status(200).json(resultadoPerfil);
-            })
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao pegar dados do Mentor! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
-
-    }
-
-}
-
+// Função para pegar dados do Aluno
 function dadosPerfilAluno(req, res) {
     var idUsuario = req.params.idUsuario;
 
@@ -222,16 +222,19 @@ function dadosPerfilAluno(req, res) {
         return res.status(400).send('O ID do Aluno está undefined!');
     } else {
 
-        usuarioModel.dadosPerfilMentor()
+        usuarioModel.dadosPerfilAluno(idUsuario)
             .then(function (resultadoPerfil) {
-                res.status(200).json(resultadoPerfil);
+                if (resultadoPerfil.length > 0) {
+                    res.status(200).json(resultadoPerfil[0]);
+                } else {
+                    res.status(204).send("Nenhum dado encontrado para este ID.");
+                }
             })
             .catch(function (erro) {
                 console.log(erro);
                 console.log("\nHouve um erro ao pegar dados do Aluno! Erro: ", erro.sqlMessage);
                 res.status(500).json(erro.sqlMessage);
             });
-
     }
 }
 
@@ -241,6 +244,5 @@ module.exports = {
     atualizarPerfil,
     deletarConta,
     listarAlunos,
-    dadosPerfilMentor,
     dadosPerfilAluno
 }

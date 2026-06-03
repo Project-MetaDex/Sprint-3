@@ -12,12 +12,9 @@
 
 <body>
     <!-- Inicio Navbar -->
-
     <nav class="Nav-Container">
         <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="" />
-
         <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="" />
-
         <ul class="Nav-Options">
             <li class="Selected">
                 <img src="./assets/icon/Icon-NavSelected.svg" alt="" /><a href="index.html">Home</a>
@@ -27,29 +24,23 @@
             <li><a href="cadastro.html">Team Buider</a></li>
             <li><a href="cadastro.html">Battle Simulator</a></li>
         </ul>
-
         <div class="Button-Container">
         <a  href="#">
         <img src="assets/imgs/iconeUSER.png" class="user">
         </a>
 
         </div>
-
     </nav>
 
     <aside style="display: none" class="Side-Container">
         <button onclick="Side('Close')">
             <img id="Close-Side" src="assets/icon/Icon-Close.svg" alt="" />
         </button>
-
         <div class="Side-Flex">
             <div class="Perfil">
                 <img src="assets/icon/Icon-User.svg" alt="" />
-                <button class="Button-Side Login-Side" onclick="window.location.href = './login.html'">
-                    Entrar
-                </button>
+                <button class="Button-Side Login-Side" onclick="window.location.href = './login.html'">Entrar</button>
             </div>
-
             <ul class="Side-Options">
                 <li class="Selected">
                     <img src="./assets/icon/Icon-NavSelected.svg" alt="" /><a href="index.html">Home</a>
@@ -59,11 +50,9 @@
                 <li><a href="cadastro.html">Team Buider</a></li>
                 <li><a href="cadastro.html">Battle Simulator</a></li>
             </ul>
-
             <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="" />
         </div>
     </aside>
-
     <!-- Fim Navbar -->
 
     <main class="pagina-aluno">
@@ -71,20 +60,19 @@
             <aside class="perfil-sidebar">
                 <div class="perfil-card">
                     <div class="avatar-box">
-                        <img class="imagem-perfil" src="assets/imgs/foto_perfil_aluna.png" alt="Foto da aluna" />
+                        <img class="imagem-perfil" src="assets/imgs/User_sem_ft.png" alt="Foto da aluna" />
                     </div>
 
                     <h1 id="nome" class="nome-aluno">Treinador</h1>
-                    <span id="nickname" class="tipo-aluno">@nickname</span>
-
+                    <span id="nickname" class="tipo-aluno">@metadex</span>
 
                     <nav class="opcoes-perfil" aria-label="Menu do perfil">
-                        <a class="opcao-menu opcao-ativa" href="#">
+                        <a class="opcao-menu opcao-ativa" href="#" id="menu-visao" onclick="mostrarSecao('visao-geral'); return false;">
                             <span class="icone-menu"><i class="bi bi-grid"></i></span>
                             <span>Visão geral</span>
                         </a>
 
-                        <a class="opcao-menu" href="#">
+                        <a class="opcao-menu" href="#" id="menu-editar" onclick="mostrarSecao('editar-perfil'); return false;">
                             <span class="icone-menu"><i class="bi bi-person"></i></span>
                             <span>Editar perfil</span>
                         </a>
@@ -94,12 +82,7 @@
                             <span>Meu progresso</span>
                         </a>
 
-                        <a class="opcao-menu" href="#">
-                            <span class="icone-menu"><i class="bi bi-gear"></i></span>
-                            <span>Configurações</span>
-                        </a>
-
-                        <a class="opcao-menu opcao-sair" href="index.html">
+                        <a class="opcao-menu opcao-sair" href="#" onclick="sairDaConta()">
                             <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
                             <span>Sair da conta</span>
                         </a>
@@ -107,7 +90,8 @@
                 </div>
             </aside>
 
-            <section class="perfil-main">
+            <!-- VISAO GERAL -->
+            <section class="perfil-main" id="secao-visao-geral">
                 <article class="painel-card status-card">
                     <div class="titulo-com-icone">
                         <img src="assets/imgs/pokebolaIcon04-Photoroom.png" width="40">
@@ -137,7 +121,7 @@
                             <span class="icone-info-stat"><i class="bi bi-star"></i></span>
                             <div>
                                 <span class="rotulo-stat">Pontos</span>
-                                <strong class="valor-stat">0Pt</strong>
+                                <strong class="valor-stat">- Pts</strong>
                             </div>
                         </div>
                     </div>
@@ -147,38 +131,33 @@
                     <div class="cabecalho-card">
                         <div class="titulo-com-icone titulo-menor">
                             <span class="icone-titulo"><i class="bi bi-controller"></i></span>
-                            <h2>Meu time principal</h2>
+                            <h2>Pokémon mais usados</h2>
                         </div>
-
-                        <button class="botao-gerenciar">
-                            <i class="bi bi-pencil"></i>
-                            Gerenciar time
-                        </button>
                     </div>
 
                     <div class="time-principal">
-                        <div class="pokemon-card tipo-eletrico">
-                            <img src="assets/imgs/image-Photoroom.png" alt="Pikachu" />
-                            <strong>Pikachu</strong>
-                            <span><i class="bi bi-lightning-fill"></i> Elétrico</span>
+                        <div id="card_1" class="pokemon-card">
+                            <img id="poke_img_1" src="./assets/icon/Logo-Nav.svg" alt="Pokemon 1" />
+                            <strong id="poke_nome_1">Carregando...</strong>
+                            <span id="poke_tipo_1"> TIPO</span>
                         </div>
 
-                        <div class="pokemon-card tipo-fogo">
-                            <img src="assets/imgs/004.png" alt="Charmander" />
-                            <strong>Charmander</strong>
-                            <span><i class="bi bi-fire"></i> Fogo</span>
+                        <div id="card_2" class="pokemon-card">
+                            <img id="poke_img_2" src="./assets/icon/Logo-Nav.svg" alt="Charmander" />
+                            <strong id="poke_nome_2">Carregando...</strong>
+                            <span id="poke_tipo_2"> TIPO</span>
                         </div>
 
-                        <div class="pokemon-card tipo-planta">
-                            <img src="assets/imgs/001.png" alt="Bulbasaur" />
-                            <strong>Bulbasaur</strong>
-                            <span><i class="bi bi-leaf-fill"></i> Planta</span>
+                        <div id="card_3" class="pokemon-card">
+                            <img id="poke_img_3" src="./assets/icon/Logo-Nav.svg" alt="Bulbasaur" />
+                            <strong id="poke_nome_3">Carregando...</strong>
+                            <span id="poke_tipo_3"> TIPO</span>
                         </div>
 
-                        <div class="pokemon-card tipo-agua">
-                            <img src="assets/imgs/007.png" alt="Squirtle" />
-                            <strong>Squirtle</strong>
-                            <span><i class="bi bi-droplet-fill"></i> Água</span>
+                        <div id="card_4" class="pokemon-card">
+                            <img id="poke_img_4" src="./assets/icon/Logo-Nav.svg" alt="Squirtle" />
+                            <strong id="poke_nome_4">Carregando...</strong>
+                            <span id="poke_tipo_4"> TIPO</span>
                         </div>
                     </div>
                 </article>
@@ -191,82 +170,136 @@
                             <strong id="posicaoRanking" class="numero-estatistica">-</strong>
                         </div>
                     </div>
-
                     <div class="metrica-item metrica-times">
                         <span class="circulo-icone"><i class="bi bi-shield-check"></i></span>
                         <div>
                             <span class="titulo-estatistica">Times salvos</span>
-                            <strong class="numero-estatistica">-</strong>
+                            <strong id="qtdTimes" class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
-
                     <div class="metrica-item metrica-partidas">
                         <span class="circulo-icone"><i class="bi bi-bar-chart-line"></i></span>
                         <div>
-                            <span class="titulo-estatistica">Partidas analisadas</span>
-                            <strong class="numero-estatistica">43</strong>
+                            <span class="titulo-estatistica">Partidas realizadas</span>
+                            <strong id="totalBatalhas" class="numero-estatistica">-</strong>
 
                         </div>
                     </div>
                 </section>
             </section>
 
-            <aside class="resumo-coluna">
-                <article class="painel-card card-resumo">
-                    <h2 class="titulo-card">Resumo do aluno</h2>
+            <!-- INICIO DO EDITAR PERFIL  -->
+            <section class="perfil-main" id="secao-editar-perfil" style="display:none;">
+                <article class="painel-card editar-card">
+                    <div class="titulo-com-icone">
+                        <span class="icone-titulo"><i class="bi bi-person-gear"></i></span>
+                        <h2>Editar Perfil</h2>
+                    </div>
 
-                    <div class="conteudo-resumo">
-                        <div class="item-resumo resumo-objetivo">
-                            <span class="icone-resumo"><i class="bi bi-bullseye"></i></span>
-                            <div class="texto-resumo">
-                                <strong class="titulo-resumo">Objetivo atual</strong>
-                                <span class="descricao-resumo">Melhorar leitura de board e posicionamento.</span>
+                    <div class="editar-form">
+
+                    
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-nome">
+                                <i class="bi bi-person-fill"></i>
+                                Nome 
+                            </label>
+                            <input class="campo-input" type="text" id="edit-nome" placeholder="Seu nome completo" />
+                        </div>
+
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-nick">
+                                <i class="bi bi-at"></i>
+                                Nickname
+                            </label>
+                            <div class="input-prefixo-wrap">
+                                <span class="input-prefixo">@</span>
+                                <input class="campo-input com-prefixo" type="text" id="edit-nick" placeholder="seu_nick" />
                             </div>
                         </div>
 
-                        <div class="item-resumo resumo-estudo">
-                            <span class="icone-resumo"><i class="bi bi-book"></i></span>
-                            <div class="texto-resumo">
-                                <strong class="titulo-resumo">Foco de estudo</strong>
-                                <span class="descricao-resumo">Speed control, matchups e construção de times.</span>
+                        <div class="divisor-secao"><span>Segurança</span></div>
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-senha-atual">
+                                <i class="bi bi-lock-fill"></i>
+                                Senha atual
+                            </label>
+                            <div class="input-senha-wrap">
+                                <input class="campo-input" type="password" id="edit-senha-atual" placeholder="Digite sua senha atual" />
+                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-atual', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <div class="item-resumo resumo-mentoria">
-                            <span class="icone-resumo"><i class="bi bi-calendar3"></i></span>
-                            <div class="texto-resumo">
-                                <strong class="titulo-resumo">Próxima mentoria</strong>
-                                <span class="descricao-resumo">Quinta-feira, 19h</span>
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-senha-nova">
+                                <i class="bi bi-lock"></i>
+                                Nova senha
+                            </label>
+                            <div class="input-senha-wrap">
+                                <input class="campo-input" type="password" id="edit-senha-nova" placeholder="Digite a nova senha" />
+                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-nova', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
                             </div>
                         </div>
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-senha-conf">
+                                <i class="bi bi-lock-fill"></i>
+                                Confirmar nova senha
+                            </label>
+                            <div class="input-senha-wrap">
+                                <input class="campo-input" type="password" id="edit-senha-conf" placeholder="Repita a nova senha" />
+                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-conf', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        =
+                        <div class="divisor-secao"><span>Preferências</span></div>
+
+                        <div class="campo-grupo campo-toggle-grupo">
+                            <div class="toggle-info">
+                                <span class="campo-label toggle-label">
+                                    <i class="bi bi-bell-fill"></i>
+                                    Notificações Javamail
+                                </span>
+                                <span class="toggle-desc"></span>
+                            </div>
+                            <label class="switch" for="toggle-notif" aria-label="Ativar notificações">
+                                <input type="checkbox" id="toggle-notif" checked />
+                                <span class="slider">
+                                    <span class="slider-icon on"><i class="bi bi-bell-fill"></i></span>
+                                    <span class="slider-icon off"><i class="bi bi-bell-slash-fill"></i></span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="toast-feedback" id="toast-feedback" style="display:none;"></div>
+
+                        <div class="editar-acoes">
+                            <button class="btn-cancelar" onclick="mostrarSecao('visao-geral')">
+                                <i class="bi bi-x-lg"></i>
+                                Cancelar
+                            </button>
+                            <button class="btn-salvar" onclick="salvarPerfil()">
+                                <i class="bi bi-check-lg"></i>
+                                Salvar mudanças
+                            </button>
+                        </div>
+
                     </div>
                 </article>
+            </section>
 
-            </aside>
         </section>
     </main>
+    <script src="js/PerfilAluno.js"></script>
 </body>
-
 </html>
-<script>
-    window.onload = function() {
-        console.log("Iniciando carregamento do perfil do Aluno...");
-
-        if (sessionStorage.NOME_USUARIO) {
-            document.getElementById('nome').innerHTML = sessionStorage.NOME_USUARIO;
-        }
-        if (sessionStorage.NICK_USUARIO) {
-            document.getElementById('nickname').innerHTML = '@' + sessionStorage.NICK_USUARIO;
-        }
-
-
-
-
-
-
-        // 2. CHAMADAS PARA AS PRÓXIMAS ROTAS (Dispararemos os fetches aqui no futuro!)
-        // carregarStatusGeral();
-        // carregarTimePrincipal();
-    }
-</script>

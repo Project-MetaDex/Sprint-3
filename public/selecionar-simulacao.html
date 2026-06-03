@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selecinar Simulacao</title>
+    <title>Selecionar Simulacao</title>
     <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/selecinar-simulacao.css">
-    
+    <link rel="stylesheet" href="css/selecionar-simulacao.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     
@@ -26,7 +26,7 @@
       </ul>
 
         <div class="Button-Container">
-            <a  href="#">
+            <a href="#">
                 <img src="assets/imgs/iconeUSER.png" class="user">
             </a>
         </div>
@@ -41,12 +41,12 @@
         <div class="Perfil">
 
           <img src="assets/icon/Icon-User.svg" alt="">
-          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
 
         </div>
 
         <ul class="Side-Options">
-          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
+          <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
           <li><a href="cadastro.html">Pokedex</a></li>
           <li><a href="cadastro.html">Ranks</a></li>
           <li><a href="cadastro.html">Team Buider</a></li>
@@ -59,7 +59,7 @@
 
     <!-- Fim Navbar -->
 
-    <!-- Inicio lista de times -->
+    <!-- Inicio lista de simulações -->
 
     <div class="container">
 
@@ -69,19 +69,17 @@
                 <p>Escolha uma simulação para analisar estratégias e acompanhar o desempenho no competitivo.</p>
             </div>
 
-            <button id="novoTime">+ Novo Time</button>
+            <button id="novaSimulacao">+ Nova Simulação</button>
         </div>
 
         <input type="text" id="barraPesquisa" placeholder="Pesquisar">
 
-        <div class="cardTimes">
-            
-        </div>
+        <div class="containerCard"></div>
 
     </div>
 
-    <!-- Fim lista de times -->
+    <!-- Fim lista de simulações -->
 
-    
+    <script src="js/selecionar-simulacao.js"></script>
 </body>
 </html>
