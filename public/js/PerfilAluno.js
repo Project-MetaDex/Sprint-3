@@ -2,12 +2,12 @@
 //  PerfilAluno.js — Lógica da página de perfil
 // ================================================
 function sairDaConta() {
-        // Limpando o sessionStorage
-        sessionStorage.clear();
-        
-        // Redirecionando para a tela de index
-        window.location.href = "index.html";
-    }
+    // Limpando o sessionStorage
+    sessionStorage.clear();
+
+    // Redirecionando para a tela de index
+    window.location.href = "index.html";
+}
 
 window.onload = function () {
     console.log("Iniciando carregamento do perfil do Aluno...");
@@ -24,125 +24,126 @@ window.onload = function () {
     preencherCamposEdicao();
 
     fetch(`/usuarios/dadosPerfilAluno/${sessionStorage.ID_USUARIO}`, {
-            method: "GET"
+        method: "GET"
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+
+                resposta.json().then(function (dadosAluno) {
+                    console.log("Dados do perfil recebidos com sucesso:", dadosAluno);
+
+                    document.getElementById("qtdVitorias").innerHTML = dadosAluno.qtdVitorias;
+                    document.getElementById("qtdDerrotas").innerHTML = dadosAluno.qtdDerrotas;
+                    document.getElementById("posicaoRanking").innerHTML = dadosAluno.posicaoRanking;
+                    document.getElementById("qtdTimes").innerHTML = dadosAluno.timesSalvos;
+                    document.getElementById("totalBatalhas").innerHTML = dadosAluno.totalBatalhas;
+                });
+            } else {
+                console.error("Erro na resposta do servidor ao carregar dados do perfil.");
+            }
         })
-            .then(function (resposta) {
-                if (resposta.ok) {
+        .catch(function (erroDeRede) {
+            console.log("Erro de conexão com o servidor:", erroDeRede);
+        });
 
-                    resposta.json().then(function (dadosAluno) {
-                        console.log("Dados do perfil recebidos com sucesso:", dadosAluno);
+    fetch(`/equipes/pokemonsMaisUsados/${sessionStorage.ID_USUARIO}`, {
+        method: "GET"
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (listaPokemons) {
+                    console.log("Seus 4 Pokémons mais usados:", listaPokemons);
 
-                        document.getElementById("qtdVitorias").innerHTML = dadosAluno.qtdVitorias;
-                        document.getElementById("qtdDerrotas").innerHTML = dadosAluno.qtdDerrotas;
-                        document.getElementById("posicaoRanking").innerHTML = dadosAluno.posicaoRanking;
-                        document.getElementById("qtdTimes").innerHTML = dadosAluno.timesSalvos;
-                    });
-                } else {
-                    console.error("Erro na resposta do servidor ao carregar dados do perfil.");
-                }
-            })
-            .catch(function (erroDeRede) {
-                console.log("Erro de conexão com o servidor:", erroDeRede);
-            });
+                    for (var i = 0; i < listaPokemons.length; i++) {
 
-        fetch(`/equipes/pokemonsMaisUsados/${sessionStorage.ID_USUARIO}`, {
-            method: "GET"
-        })
-            .then(function (resposta) {
-                if (resposta.ok) {
-                    resposta.json().then(function (listaPokemons) {
-                        console.log("Seus 4 Pokémons mais usados:", listaPokemons);
+                        var nomeDoBanco = listaPokemons[i].nomePokemon;
 
-                        for (var i = 0; i < listaPokemons.length; i++) {
+                        var numeroCard = i + 1;
 
-                            var nomeDoBanco = listaPokemons[i].nomePokemon;
+                        buscarDadosNaPokeAPI(nomeDoBanco, numeroCard);
+                    }
 
-                            var numeroCard = i + 1;
+                });
+            }
 
-                            buscarDadosNaPokeAPI(nomeDoBanco, numeroCard);
+        }).catch(function (erroDeRede) {
+            console.log("Erro de conexão com o servidor:", erroDeRede);
+        });
+
+
+    const coresTipos = {
+        fire: { borda: "#f08030", fundo1: "#fff2eb", fundo2: "#ffd8c8", badge: "#f08030" },
+        water: { borda: "#6890f0", fundo1: "#eef7ff", fundo2: "#dbeeff", badge: "#6890f0" },
+        grass: { borda: "#78c850", fundo1: "#eefbea", fundo2: "#daf5d6", badge: "#78c850" },
+        electric: { borda: "#f8d030", fundo1: "#fffbe4", fundo2: "#fff1b8", badge: "#f8d030" },
+        ghost: { borda: "#705898", fundo1: "#f3efff", fundo2: "#e2dcff", badge: "#705898" },
+        dragon: { borda: "#7038f8", fundo1: "#f2f2ff", fundo2: "#dcdcff", badge: "#7038f8" },
+        dark: { borda: "#705848", fundo1: "#f1ece8", fundo2: "#e1d8d0", badge: "#705848" },
+        psychic: { borda: "#f85888", fundo1: "#ffe8f1", fundo2: "#ffd3e5", badge: "#f85888" },
+        ice: { borda: "#98d8d8", fundo1: "#efffff", fundo2: "#d9ffff", badge: "#98d8d8" },
+        fighting: { borda: "#c03028", fundo1: "#ffe9e7", fundo2: "#ffd4d0", badge: "#c03028" }
+    };
+
+    const iconesTipos = {
+        fire: "bi-fire",
+        water: "bi-droplet-fill",
+        grass: "bi-flower1",
+        electric: "bi-lightning-fill",
+        ghost: "bi-moon-stars-fill",
+        dragon: "bi-stars",
+        psychic: "bi-eye-fill",
+        rock: "bi-triangle-fill",
+        ground: "bi-globe",
+        flying: "bi-wind",
+        steel: "bi-shield-fill",
+        fairy: "bi-stars",
+        dark: "bi-moon-fill",
+        ice: "bi-snow",
+        fighting: "bi-hand-index-thumb-fill"
+    };
+
+
+    function buscarDadosNaPokeAPI(nomePokemon, numeroCard) {
+        // Faz a requisição na API pública usando o nome textual em minúsculo
+        fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`)
+            .then(function (respostaAPI) {
+                if (respostaAPI.ok) {
+                    respostaAPI.json().then(function (dadosPoke) {
+                        console.log(`Dados da PokéAPI para ${nomePokemon}:`, dadosPoke);
+
+                        var urlImagemOficial = dadosPoke.sprites.front_default;
+                        // var urlImagemOficial = dadosPoke.sprites.other["official-artwork"].front_default;
+
+                        var tipoIngles = dadosPoke.types[0].type.name;
+
+                        var card = document.getElementById(`card_${numeroCard}`);
+                        var cores = coresTipos[tipoIngles];
+                        if (cores) {
+                            card.style.setProperty("--cor-borda", cores.borda);
+                            card.style.setProperty("--cor-fundo1", cores.fundo1);
+                            card.style.setProperty("--cor-fundo2", cores.fundo2);
+                            card.style.setProperty("--cor-badge", cores.badge);
                         }
 
+                        var tipoFormatado = tipoIngles.toUpperCase();
+
+                        var nomeFormatado = nomePokemon.charAt(0).toUpperCase() + nomePokemon.slice(1);
+
+                        // ícones do Bootstrap baseado no elemento
+                        var icone = iconesTipos[tipoIngles] || "bi-app-indicator";
+
+                        document.getElementById(`poke_img_${numeroCard}`).src = urlImagemOficial;
+                        document.getElementById(`poke_nome_${numeroCard}`).innerHTML = nomeFormatado;
+                        document.getElementById(`poke_tipo_${numeroCard}`).innerHTML = `<i class="bi ${icone}"></i> ${tipoFormatado}`;
                     });
+                } else {
+                    console.error(`Pokémon ${nomePokemon} não encontrado na PokéAPI.`);
                 }
-
-            }).catch(function (erroDeRede) {
-                console.log("Erro de conexão com o servidor:", erroDeRede);
+            })
+            .catch(function (erro) {
+                console.error("Erro de rede ao conectar na PokéAPI:", erro);
             });
-
-
-        const coresTipos = {
-            fire:       {borda: "#f08030", fundo1: "#fff2eb", fundo2: "#ffd8c8", badge: "#f08030"},
-            water:      {borda: "#6890f0",fundo1: "#eef7ff", fundo2: "#dbeeff", badge: "#6890f0"},
-            grass:      {borda: "#78c850", fundo1: "#eefbea", fundo2: "#daf5d6", badge: "#78c850"},
-            electric:   {borda: "#f8d030", fundo1: "#fffbe4", fundo2: "#fff1b8", badge: "#f8d030"},
-            ghost:      {borda: "#705898", fundo1: "#f3efff", fundo2: "#e2dcff", badge: "#705898"},
-            dragon:     {borda: "#7038f8", fundo1: "#f2f2ff", fundo2: "#dcdcff", badge: "#7038f8"},
-            dark:       {borda: "#705848", fundo1: "#f1ece8", fundo2: "#e1d8d0", badge: "#705848"},
-            psychic:    {borda: "#f85888", fundo1: "#ffe8f1", fundo2: "#ffd3e5", badge: "#f85888"},
-            ice:        {borda: "#98d8d8", fundo1: "#efffff", fundo2: "#d9ffff", badge: "#98d8d8"},
-            fighting:   {borda: "#c03028", fundo1: "#ffe9e7", fundo2: "#ffd4d0", badge: "#c03028"}
-        };
-
-        const iconesTipos = {
-            fire: "bi-fire",
-            water: "bi-droplet-fill",
-            grass: "bi-flower1",
-            electric: "bi-lightning-fill",
-            ghost: "bi-moon-stars-fill",
-            dragon: "bi-stars",
-            psychic: "bi-eye-fill",
-            rock: "bi-triangle-fill",
-            ground: "bi-globe",
-            flying: "bi-wind",
-            steel: "bi-shield-fill",
-            fairy: "bi-stars",
-            dark: "bi-moon-fill",
-            ice: "bi-snow",
-            fighting: "bi-hand-index-thumb-fill"
-        };
-
-
-        function buscarDadosNaPokeAPI(nomePokemon, numeroCard) {
-            // Faz a requisição na API pública usando o nome textual em minúsculo
-            fetch(`https://pokeapi.co/api/v2/pokemon/${nomePokemon.toLowerCase()}`)
-                .then(function (respostaAPI) {
-                    if (respostaAPI.ok) {
-                        respostaAPI.json().then(function (dadosPoke) {
-                            console.log(`Dados da PokéAPI para ${nomePokemon}:`, dadosPoke);
-
-                            var urlImagemOficial = dadosPoke.sprites.front_default;
-                            // var urlImagemOficial = dadosPoke.sprites.other["official-artwork"].front_default;
-
-                            var tipoIngles = dadosPoke.types[0].type.name;
-
-                            var card = document.getElementById(`card_${numeroCard}`);
-                            var cores = coresTipos[tipoIngles];
-                            if (cores) {
-                                card.style.setProperty("--cor-borda", cores.borda);
-                                card.style.setProperty("--cor-fundo1", cores.fundo1);
-                                card.style.setProperty("--cor-fundo2", cores.fundo2);
-                                card.style.setProperty("--cor-badge", cores.badge);
-                            }
-
-                            var tipoFormatado = tipoIngles.toUpperCase();
-
-                            var nomeFormatado = nomePokemon.charAt(0).toUpperCase() + nomePokemon.slice(1);
-
-                            // ícones do Bootstrap baseado no elemento
-                            var icone = iconesTipos[tipoIngles] || "bi-app-indicator";
-
-                            document.getElementById(`poke_img_${numeroCard}`).src = urlImagemOficial;
-                            document.getElementById(`poke_nome_${numeroCard}`).innerHTML = nomeFormatado;
-                            document.getElementById(`poke_tipo_${numeroCard}`).innerHTML = `<i class="bi ${icone}"></i> ${tipoFormatado}`;
-                        });
-                    } else {
-                        console.error(`Pokémon ${nomePokemon} não encontrado na PokéAPI.`);
-                    }
-                })
-                .catch(function (erro) {
-                    console.error("Erro de rede ao conectar na PokéAPI:", erro);
-                });
-        }
+    }
 
 };
 
@@ -151,20 +152,20 @@ window.onload = function () {
  * @param {'visao-geral' | 'editar-perfil'} secao
  */
 function mostrarSecao(secao) {
-    const secaoVisao  = document.getElementById('secao-visao-geral');
+    const secaoVisao = document.getElementById('secao-visao-geral');
     const secaoEditar = document.getElementById('secao-editar-perfil');
-    const menuVisao   = document.getElementById('menu-visao');
-    const menuEditar  = document.getElementById('menu-editar');
+    const menuVisao = document.getElementById('menu-visao');
+    const menuEditar = document.getElementById('menu-editar');
 
     if (secao === 'editar-perfil') {
-        secaoVisao.style.display  = 'none';
+        secaoVisao.style.display = 'none';
         secaoEditar.style.display = 'flex';
         menuVisao.classList.remove('opcao-ativa');
         menuEditar.classList.add('opcao-ativa');
         preencherCamposEdicao();
     } else {
         secaoEditar.style.display = 'none';
-        secaoVisao.style.display  = 'flex';
+        secaoVisao.style.display = 'flex';
         menuEditar.classList.remove('opcao-ativa');
         menuVisao.classList.add('opcao-ativa');
         esconderToast();
@@ -196,12 +197,12 @@ function preencherCamposEdicao() {
  * Valida e salva as alterações do perfil
  */
 function salvarPerfil() {
-    const nome     = document.getElementById('edit-nome').value.trim();
-    const nick     = document.getElementById('edit-nick').value.trim();
-    const senhaAt  = document.getElementById('edit-senha-atual').value;
-    const senhaNv  = document.getElementById('edit-senha-nova').value;
-    const senhaCf  = document.getElementById('edit-senha-conf').value;
-    const notifOn  = document.getElementById('toggle-notif').checked;
+    const nome = document.getElementById('edit-nome').value.trim();
+    const nick = document.getElementById('edit-nick').value.trim();
+    const senhaAt = document.getElementById('edit-senha-atual').value;
+    const senhaNv = document.getElementById('edit-senha-nova').value;
+    const senhaCf = document.getElementById('edit-senha-conf').value;
+    const notifOn = document.getElementById('toggle-notif').checked;
 
     // Validação básica
     if (!nome) {
@@ -216,8 +217,8 @@ function salvarPerfil() {
             mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Informe sua senha atual para alterá-la.');
             return;
         }
-        if (senhaNv.length < 6) {
-            mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> A nova senha precisa ter pelo menos 6 caracteres.');
+        if (senhaNv.length < 8) {
+            mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> A nova senha precisa ter pelo menos 8 caracteres.');
             return;
         }
         if (senhaNv !== senhaCf) {
@@ -235,12 +236,57 @@ function salvarPerfil() {
     document.getElementById('nome').innerHTML = nome;
     document.getElementById('nickname').innerHTML = '@' + (nick || sessionStorage.NICK_USUARIO || 'nickname');
 
-    mostrarToast('sucesso', '<i class="bi bi-check-circle-fill"></i> Perfil atualizado com sucesso!');
 
-    // Limpa campos de senha após salvar
-    ['edit-senha-atual', 'edit-senha-nova', 'edit-senha-conf'].forEach(id => {
-        document.getElementById(id).value = '';
-    });
+    fetch(`/usuarios/atualizarPerfil/${sessionStorage.ID_USUARIO}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nomeServer: nome,
+            nicknameServer: nick,
+            senhaAtualServer: senhaAt,
+            senhaNovaServer: senhaNv
+        })
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+
+                console.log("Perfil atualizado com sucesso!");
+
+                // Atualiza os dados da sessão
+                sessionStorage.NOME_USUARIO = nome;
+                sessionStorage.NICK_USUARIO = nick;
+
+                mostrarToast('sucesso', '<i class="bi bi-check-circle-fill"></i> Perfil atualizado com sucesso!');
+
+                // Limpa campos de senha após salvar
+                ['edit-senha-atual', 'edit-senha-nova', 'edit-senha-conf'].forEach(id => {
+                    document.getElementById(id).value = '';
+                });
+
+                setTimeout(function () {
+                    mostrarSecao('secao-visao-geral');
+                }, 2000);
+
+            } else {
+                resposta.text().then(function (mensagemErro) {
+
+                    console.log("Erro retornado pelo servidor:");
+                    console.log(mensagemErro);
+
+                    mostrarToast(
+                        'erro',
+                        `<i class="bi bi-exclamation-circle-fill"></i> ${mensagemErro}`
+                    );
+
+                });
+            }
+        })
+        .catch(function (erroDeRede) {
+            console.log("Erro de conexão com o servidor:", erroDeRede);
+        });
+
 }
 
 /**
@@ -276,7 +322,7 @@ function mostrarToast(tipo, mensagem) {
     clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => {
         toast.style.display = 'none';
-    }, 4000);
+    }, 2000);
 }
 
 function esconderToast() {
