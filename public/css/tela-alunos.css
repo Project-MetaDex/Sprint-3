@@ -179,7 +179,7 @@ body {
     flex-direction: column;
     gap: 14px;
     min-height: 0;
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 
@@ -194,6 +194,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 13px;
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
 }
 
 .list-alunos h3 {
