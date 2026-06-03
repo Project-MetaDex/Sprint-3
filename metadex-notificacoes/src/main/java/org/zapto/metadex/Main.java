@@ -11,7 +11,7 @@ public class Main {
         EmailConfig emailConfig = new EmailConfig();
         EmailService emailService = new EmailService(emailConfig);
 
-        String sql = "SELECT email FROM usuario";
+        String sql = "SELECT email FROM usuario WHERE notificacao = true";
 
         List<String> email = ConnectionFactory.createConnection().queryForList(sql, String.class);
 
