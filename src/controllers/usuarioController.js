@@ -97,7 +97,8 @@ function autenticar(req, res) {
                         nickname: resultadoAutenticar[0].nickname,
                         tokenMentor: resultadoAutenticar[0].tokenMentor,
                         tipoConta: tipoConta,
-                        dataCadastro: resultadoAutenticar[0].dataCadastro
+                        dataCadastro: resultadoAutenticar[0].dataCadastro,
+                        notificacao: resultadoAutenticar[0].notificacao 
                     });
 
                 }
@@ -119,6 +120,7 @@ function atualizarPerfil(req, res) {
     var nickname = req.body.nicknameServer;
     var senhaAtual = req.body.senhaAtualServer;
     var senhaNova = req.body.senhaNovaServer;
+    var notificacao = req.body.notificacaoServer;
 
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
@@ -142,7 +144,7 @@ function atualizarPerfil(req, res) {
                     senhaFinal = senhaNova;
                 }
 
-                usuarioModel.atualizarPerfil(nome, senhaFinal, nickname, idUsuario)
+                usuarioModel.atualizarPerfil(nome, senhaFinal, nickname, notificacao, idUsuario)
                     .then(
                         function (resultadoAtualizar) {
                             res.json(resultadoAtualizar);

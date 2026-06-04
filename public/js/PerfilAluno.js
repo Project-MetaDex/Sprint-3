@@ -191,6 +191,9 @@ function preencherCamposEdicao() {
         const el = document.getElementById(id);
         if (el) el.value = '';
     });
+
+    var statusNotificacaoBanco = sessionStorage.NOTIFICACAO;
+    document.getElementById("toggle-notif").checked = (statusNotificacaoBanco == 1);
 }
 
 /**
@@ -236,6 +239,9 @@ function salvarPerfil() {
     document.getElementById('nome').innerHTML = nome;
     document.getElementById('nickname').innerHTML = '@' + (nick || sessionStorage.NICK_USUARIO || 'nickname');
 
+    var isCheckedNotif = document.getElementById("toggle-notif").checked;
+
+    const notificacao = isCheckedNotif ? 1 : 0;
 
     fetch(`/usuarios/atualizarPerfil/${sessionStorage.ID_USUARIO}`, {
         method: "PUT",
@@ -246,7 +252,8 @@ function salvarPerfil() {
             nomeServer: nome,
             nicknameServer: nick,
             senhaAtualServer: senhaAt,
-            senhaNovaServer: senhaNv
+            senhaNovaServer: senhaNv,
+            notificacaoServer: notificacao
         })
     })
         .then(function (resposta) {
@@ -257,6 +264,7 @@ function salvarPerfil() {
                 // Atualiza os dados da sessão
                 sessionStorage.NOME_USUARIO = nome;
                 sessionStorage.NICK_USUARIO = nick;
+                sessionStorage.NOTIFICACAO = notificacao;
 
                 mostrarToast('sucesso', '<i class="bi bi-check-circle-fill"></i> Perfil atualizado com sucesso!');
 
