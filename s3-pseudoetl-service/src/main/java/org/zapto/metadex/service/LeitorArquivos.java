@@ -17,12 +17,8 @@ import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,15 +38,14 @@ public class LeitorArquivos{
         return 0.0;
     }
 
-    public List<Pokemon> extrairDados(String caminhoArquivo) {
+    public List<Pokemon> extrairDados(InputStream arquivo) {
         List<Pokemon> pokemonExtraidos = new ArrayList<>();
 
         try (
-                InputStream arquivo = new FileInputStream(caminhoArquivo);
                 Workbook workbook = new XSSFWorkbook(arquivo);
         ) {
 
-            System.out.printf("Iniciando leitura do arquivo %s%n", caminhoArquivo);
+            System.out.println("Iniciando leitura do arquivo via stream S3");
             int Controw = 0;
             Sheet sheet = workbook.getSheetAt(0);
             for (Row row : sheet) {
@@ -101,14 +96,11 @@ public class LeitorArquivos{
 
         S3Client s3Client = new S3Provider().getS3Client();
         String bucketName = "metadex-25042026";
-        String caminhoArquivos = "arquivos/";
-        List<String> arquivos = new ArrayList<>();
         List<Pokemon> pokemonsRegistrados = new ArrayList<>();
-
+        LeitorArquivos leitorArquivos = new LeitorArquivos();
+        List<Pokemon> pokemonExtraidos = new ArrayList<>();
 
         try {
-
-            Files.createDirectories(new File(caminhoArquivos).toPath());
 
             ListObjectsRequest requisicao = ListObjectsRequest.builder()
                     .bucket(bucketName)
@@ -117,40 +109,23 @@ public class LeitorArquivos{
 
             for (S3Object object : objects) {
 
-                File arquivoLocal = new File(caminhoArquivos + object.key());
-
-                if (arquivoLocal.exists()) {
-                    System.out.println("Arquivo já existe localmente (pulando download): " + object.key());
-                    Log log = new Log("Arquivo já existe localmente (pulando download): " + object.key(), Tipos.Alerta);
-                    log.postLog(log);
-                    arquivos.add(caminhoArquivos + object.key());
-                    continue;
-                }
-
                 GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                         .bucket(bucketName)
                         .key(object.key())
                         .build();
 
-                try (InputStream inputStream = s3Client.getObject(getObjectRequest, ResponseTransformer.toInputStream())) {
-                    Files.copy(inputStream, arquivoLocal.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                }
-                System.out.println("Arquivo baixado: " + object.key());
-                Log log = new Log("Arquivo baixado: " + object.key(), Tipos.Registro);
+                System.out.println("Lendo arquivo do S3: " + object.key());
+                Log log = new Log("Lendo arquivo do S3: " + object.key(), Tipos.Registro);
                 log.postLog(log);
-                arquivos.add(caminhoArquivos + object.key());
-            }
-        } catch (IOException | S3Exception e) {
-            System.err.println("Erro ao fazer download dos arquivos: " + e.getMessage());
-            Log log = new Log("Erro ao fazer download dos arquivos: " + e.getMessage(),Tipos.Error);
-            log.postLog(log);
-        }
 
-        LeitorArquivos leitorArquivos = new LeitorArquivos();
-        List<Pokemon> pokemonExtraidos = new ArrayList<>();
-        for (String arquivo : arquivos) {
-            pokemonExtraidos.addAll(leitorArquivos.extrairDados(arquivo));
-            Log log = new Log("Iniciando Leitura de Arquivos", Tipos.Registro);
+                try (InputStream inputStream = s3Client.getObject(getObjectRequest, ResponseTransformer.toInputStream())) {
+                    pokemonExtraidos.addAll(leitorArquivos.extrairDados(inputStream));
+                }
+            }
+
+        } catch (IOException | S3Exception e) {
+            System.err.println("Erro ao ler arquivos do S3: " + e.getMessage());
+            Log log = new Log("Erro ao ler arquivos do S3: " + e.getMessage(), Tipos.Error);
             log.postLog(log);
         }
 
