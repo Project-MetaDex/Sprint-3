@@ -84,7 +84,7 @@
                             <span>Alunos</span>
                         </a>
 
-                        <a class="opcao-menu opcao-sair" href="index.html">
+                        <a class="opcao-menu opcao-sair" href="#" onclick="sairDaConta()">
                             <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
                             <span>Sair da conta</span>
                         </a>
@@ -168,6 +168,14 @@
 </html>
 
 <script>
+    function sairDaConta() {
+    // Limpando o sessionStorage
+    sessionStorage.clear();
+
+    // Redirecionando para a tela de index
+    window.location.href = "index.html";
+}
+
     window.onload = function () {
 
         document.getElementById("nomeMentor").innerHTML = sessionStorage.NOME_USUARIO;
@@ -193,7 +201,7 @@
 
                 });
             }
-        }).catch(function (erro) {
+        }).catch(function (erroDeRede) {
             console.log("Erro de conexão com o servidor:", erroDeRede);
         });
 
