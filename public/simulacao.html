@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- ── NAVBAR ── -->
   <nav class="nav-container">
     <img onclick="abrirMenu()" id="icone-menu" src="assets/icon/Icon-Hanburguer.svg" alt="">
     <img id="logo-nav" src="./assets/icon/Logo-Nav.svg" alt="Metadex">
@@ -32,7 +31,6 @@
     </div>
   </nav>
 
-  <!-- ── MENU LATERAL ── -->
   <aside style="display:none;" class="menu-lateral">
     <button onclick="fecharMenu()">
       <img id="icone-fechar" src="assets/icon/Icon-Close.svg" alt="">
@@ -53,7 +51,6 @@
     </div>
   </aside>
 
-  <!-- ── CONTEÚDO PRINCIPAL ── -->
   <div class="pagina-simulacao">
 
     <div class="cabecalho-pagina">
@@ -61,10 +58,8 @@
       <p class="subtitulo-pagina">Monte seu conjunto de ataques e analise seu Pokémon</p>
     </div>
 
-    <!-- TOPO: pokemon + ataques -->
     <div class="topo-simulacao">
 
-      <!-- Card do Pokémon selecionado -->
       <div class="cartao-pokemon-selecionado">
         <div class="envoltorio-imagem-pokemon">
           <div class="efeito-brilho-imagem"></div>
@@ -84,12 +79,10 @@
         </div>
       </div>
 
-      <!-- Ataques editáveis -->
       <div class="painel-ataques-editaveis">
         <h2 class="titulo-painel-ataques">ATAQUES DO POKÉMON</h2>
         <p class="dica-ataques">Clique em um ataque para editá-lo</p>
         <div class="grade-slots-ataque" id="grade-slots-ataque">
-          <!-- Slots gerados pelo JS -->
           <div class="slot-ataque-vazio">
             <span>Selecione um Pokémon para ver seus ataques</span>
           </div>
@@ -97,10 +90,8 @@
       </div>
     </div>
 
-    <!-- BASE: seletor de pokémon + lista de ataques -->
     <div class="base-simulacao">
 
-      <!-- Seletor de Pokémon -->
       <div class="painel-seletor">
         <div class="cabecalho-painel-seletor">
           <button class="botao-aba ativo">Pokémon</button>
@@ -119,10 +110,9 @@
         </div>
       </div>
 
-      <!-- Resumo dos ataques selecionados -->
       <div class="painel-resumo-ataques">
         <div class="cabecalho-painel-seletor">
-          <button class="botao-aba ativo">Ataques Selecionados</button>
+          <button class="botao-aba ativo">Ataques Mais utilizados</button>
         </div>
         <div class="corpo-painel">
           <div class="lista-resumo-ataques" id="lista-resumo-ataques">
@@ -136,7 +126,6 @@
     </div>
   </div>
 
-  <!-- ── MODAL DE EDIÇÃO DE ATAQUE ── -->
   <div class="sobreposicao-modal" id="sobreposicao-modal" onclick="fecharModal(event)">
     <div class="janela-modal">
       <div class="cabecalho-modal">

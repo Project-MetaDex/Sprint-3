@@ -182,6 +182,21 @@ body {
   width: 460px;
 }
 
+
+    .btn-ver-pokedex {
+      margin-top: 16px;
+      background: linear-gradient(135deg, #7760AE, #a98ff3);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-ver-pokedex:hover { opacity: 0.85; }
+
 .search-inner input {
   width: 100%;
   height: 46px;
