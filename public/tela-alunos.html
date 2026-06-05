@@ -47,7 +47,7 @@
 
           <div class="card-info">
             <h4>Total de Alunos</h4>
-            <strong class="valor">6</strong>
+            <strong id="qtdAlunos" class="valor">-</strong>
           </div>
 
           <div class="card-info">
@@ -57,12 +57,12 @@
 
           <div class="card-info">
             <h4>Alunos em destaque</h4>
-            <strong class="valor">2</strong>
+            <strong id="alunosDestaque" class="valor">-</strong>
           </div>
 
           <div class="card-info">
             <h4>Alunos em Risco</h4>
-            <strong class="valor">3</strong>
+            <strong id="alunosRisco" class="valor">-</strong>
           </div>
 
         </div>
@@ -79,64 +79,13 @@
 
         <div class="painel-lateral">
 
-          <div class="list-alunos destaque-wrap">
+          <div class="list-alunos destaque-wrap" id="listaDestaques">
             <h3>Alunos em Destaque</h3>
-
-            <div class="card-alunoDestaque">
-              <div class="avatar avatar-destaque">LL</div>
-              <div class="info">
-                <strong>Lucas Lima</strong>
-                <small>Win Rate: 75% · 68 pts · Rank 9</small>
-              </div>
-              <span class="badge-destaque">Top 3</span>
-            </div>
-
-            <div class="card-alunoDestaque">
-              <div class="avatar avatar-destaque">GF</div>
-              <div class="info">
-                <strong>Gleison Freitas</strong>
-                <small>Win Rate: 85% · 92 pts · Rank 1</small>
-              </div>
-              <span class="badge-destaque">Top 1</span>
-            </div>
-
-            <div class="card-alunoDestaque">
-              <div class="avatar avatar-destaque">JS</div>
-              <div class="info">
-                <strong>João Sapia</strong>
-                <small>Win Rate: 95% · 57 pts · Rank 6</small>
-              </div>
-              <span class="badge-destaque">Top 2</span>
-            </div>
 
           </div>
 
-          <div class="list-alunos">
+          <div class="list-alunos" id="listaRiscos" >
             <h3>Alunos em Risco</h3>
-
-            <div class="card-alunoRisco">
-              <div class="avatar">JA</div>
-              <div class="info">
-                <strong>Josué Alvarez</strong>
-                <small>Win Rate: 30% · Inativo há 7 dias</small>
-              </div>
-            </div>
-
-            <div class="card-alunoRisco">
-              <div class="avatar">VL</div>
-              <div class="info">
-                <strong>Vitória Lima</strong>
-                <small>Win Rate: 48% · Inativo há 6 dias</small>
-              </div>
-            </div>
-
-            <div class="card-alunoRisco">
-              <div class="avatar">CA</div>
-              <div class="info">
-                <strong>Cintia Azevedo</strong>
-                <small>Win Rate: 63% · Inativo há 5 dias</small>
-              </div>
-            </div>
 
           </div>
 
@@ -167,6 +116,58 @@
   src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 
 <script>
+
+  function renderizarListasLaterais() {
+    const containerDestaques = document.getElementById('listaDestaques');
+    const containerRiscos = document.getElementById('listaRiscos');
+
+    // Mantém apenas o título H3 fixo e limpa os cards antigos
+    containerDestaques.innerHTML = '<h3>Alunos em Destaque</h3>';
+    containerRiscos.innerHTML = '<h3>Alunos em Risco</h3>';
+
+    // 1. Filtra do array global quem se encaixa na regra de DESTAQUE (>= 70% Win Rate)
+    const alunosDestaque = dadosGlobais.filter(aluno => aluno.winRate >= 70);
+    document.getElementById("alunosDestaque").innerHTML = alunosDestaque.length;
+
+    // Ordena os destaques do maior Win Rate para o menor (Estilo Top 1, Top 2...)
+    alunosDestaque.sort((a, b) => b.winRate - a.winRate);
+
+    // Desenha os cards de destaque automaticamente
+    alunosDestaque.forEach((aluno, index) => {
+      containerDestaques.innerHTML += `
+      <div class="card-alunoDestaque">
+        <div class="avatar avatar-destaque" style="background: ${aluno.cor}33; color: ${aluno.cor}; border: 1.5px solid ${aluno.cor};">
+          ${iniciaisNome(aluno.nome)}
+        </div>
+        <div class="info">
+          <strong>${aluno.nome}</strong>
+          <small>Win Rate: ${aluno.winRate}% · ${aluno.pontos || '0 pt'} · Rank ${aluno.posicaoRanking || '-'}</small>
+        </div>
+        <span class="badge-destaque">Top ${index + 1}</span>
+      </div>
+    `;
+    });
+
+    // 2. Filtra do array global quem se encaixa na regra de RISCO (< 50% Win Rate)
+    const alunosRisco = dadosGlobais.filter(aluno => aluno.winRate < 50);
+    document.getElementById("alunosRisco").innerHTML = alunosRisco.length;
+
+    // Desenha os cards de risco automaticamente
+    alunosRisco.forEach(aluno => {
+      containerRiscos.innerHTML += `
+      <div class="card-alunoRisco">
+        <div class="avatar" style="background: #c0392b22; color: #c0392b; border: 1.5px solid #c0392b;">
+          ${iniciaisNome(aluno.nome)}
+        </div>
+        <div class="info">
+          <strong>${aluno.nome}</strong>
+          <small>Win Rate: ${aluno.winRate}% · Requer Atenção</small>
+        </div>
+      </div>
+    `;
+    });
+  }
+
   // =========================================================
   // FUNÇÕES AUXILIARES
   // =========================================================
@@ -302,7 +303,7 @@
         </div>
         <div class="qtd-camp">
           <small>Ranking</small>
-          <strong>${a.posicaoRanking}</strong>
+          <strong>${a.posicaoRanking}º</strong>
         </div>
         <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
       </div>
@@ -356,15 +357,18 @@
             dadosGlobais = dados;
             renderGrafico(dadosGlobais);
             renderPagina(1);
+            renderizarListasLaterais();
+
+            // Preenchendo as KPIs
+            document.getElementById("qtdAlunos").innerHTML = dados.length;
+
           });
         } else {
           console.log('Erro ao buscar alunos: ' + resp.status + ' ' + resp.statusText);
-          alert('Não foi possível carregar os dados dos alunos.');
         }
       })
       .catch(function (erroDeRede) {
         console.log('Erro de conexão com o servidor:', erroDeRede);
-        alert('Não foi possível conectar ao servidor.');
       });
   }
 
