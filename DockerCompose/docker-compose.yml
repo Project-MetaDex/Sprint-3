@@ -34,7 +34,7 @@ services:
       - metadex-network
 
   frontend-site:
-    image: gleisonfreitas/meu-site:1.0
+    image: gleisonfreitas/meu-site:v1.0
     container_name: metadex-site
     restart: always
     ports:
