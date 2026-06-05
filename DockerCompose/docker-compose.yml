@@ -7,15 +7,14 @@ services:
     restart: always
     ports:
       - "3306:3306"
-    volumes:
-      - metadex_db_data:/var/lib/mysql
     networks:
       - metadex-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pMeta2309"]
-      interval: 10s
+      test: ["CMD-SHELL", "mysql -u root -pMeta2309 -e 'SELECT 1;'"]
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 30s
 
   backend-java:
     image: gleisonfreitas/meu-java:2.2
