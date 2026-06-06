@@ -28,12 +28,35 @@ public class ConnectionFactory {
             dbPort = "3306";
         }
 
-        String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+        String url = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName
+                + "?connectTimeout=5000&socketTimeout=30000&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true";
 
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(url);
         dataSource.setUsername(dbUser);
         dataSource.setPassword(dbPassword);
+
+        int maxTentativas = 10;
+        for (int tentativa = 1; tentativa <= maxTentativas; tentativa++) {
+            try {
+                dataSource.getConnection().close();
+                break;
+            } catch (java.sql.SQLException e) {
+                System.err.println("Tentativa " + tentativa + "/" + maxTentativas
+                        + " de conexão com o banco falhou: " + e.getMessage());
+                if (tentativa == maxTentativas) {
+                    System.err.println("Erro Fatal: não foi possível conectar ao banco de dados após "
+                            + maxTentativas + " tentativas.");
+                    return null;
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    return null;
+                }
+            }
+        }
 
         jdbcTemplate = new JdbcTemplate(dataSource);
 
