@@ -28,10 +28,6 @@ services:
       - DB_NAME=metadex
       - DB_USER=admin_metadex
       - DB_PASSWORD=Meta2309
-      - SMTP_HOST=smtp.gmail.com
-      - SMTP_PORT=587
-      - SMTP_USER=contato.metadex@gmail.com
-      - SMTP_PASSWORD=afgsffbuzhqpcveo
     depends_on:
       database:
         condition: service_healthy
@@ -39,7 +35,7 @@ services:
       - metadex-network
 
   java-mail:
-    image: gleisonfreitas/meu-javamail:2.0
+    image: gleisonfreitas/meu-javamail:3.0
     container_name: metadex-javamail
     restart: "no"
     environment:
@@ -48,6 +44,10 @@ services:
       - DB_NAME=metadex
       - DB_USER=admin_metadex
       - DB_PASSWORD=Meta2309
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=contato.metadex@gmail.com
+      - SMTP_PASSWORD=afgsffbuzhqpcveo
     depends_on:
       database:
         condition: service_healthy
