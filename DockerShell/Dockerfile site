@@ -1,0 +1,20 @@
+### imagem base Node.js ###
+FROM node:20-alpine
+
+### Define o diretório de trabalho ###
+WORKDIR /usr/src/app
+
+### Copia os arquivos de dependências ###
+COPY package*.json ./
+
+### Instala as dependências do projeto ###
+RUN npm install
+
+### Copia o restante do projeto ###
+COPY . .
+
+### Expõe a porta do servidor Node ###
+EXPOSE 8080
+
+### Comando para iniciar a aplicação ###
+CMD [ "npm", "start" ]

@@ -1,0 +1,11 @@
+### Usa Java 21 com Amazon Corretto ###
+FROM amazoncorretto:21
+
+### Define o diretório de trabalho dentro do container ###
+WORKDIR /app
+
+### Copia o JAR da aplicação de notificações para dentro do container ###
+COPY metadex-notificacoes-1.0-SNAPSHOT.jar /app/metadex-notificacoes.jar
+
+### Comando executado quando o container iniciar ###
+ENTRYPOINT ["java", "-jar", "/app/metadex-notificacoes.jar"]

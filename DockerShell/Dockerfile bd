@@ -1,0 +1,11 @@
+### Imagem base ###
+FROM mysql:latest
+
+### Variaveis de ambiente para a senha do root ###
+ENV MYSQL_ROOT_PASSWORD=Meta2309
+
+### Copia dos Scripts SQL de inicialização ###
+COPY ./arquivos_sql/ /docker-entrypoint-initdb.d/
+
+### Expõe a porta utilizada ###
+EXPOSE 3306
