@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   database:
-    image: gleisonfreitas/meu-bd:1.2
+    image: gleisonfreitas/meu-bd:1.1
     container_name: metadex-db
     restart: always
     ports:
@@ -12,7 +12,7 @@ services:
     networks:
       - metadex-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-P", "3306", "--protocol=tcp", "-u", "root", "-pMeta2309"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-P", "3306", "--protocol=tcp", "-u", "admin_metadex", "-pMeta2309"]
       interval: 10s
       timeout: 5s
       retries: 10
