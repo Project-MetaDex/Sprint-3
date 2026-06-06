@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   database:
-    image: gleisonfreitas/meu-bd:1.1
+    image: gleisonfreitas/meu-bd:1.3
     container_name: metadex-db
     restart: always
     ports:
