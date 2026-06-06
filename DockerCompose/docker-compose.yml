@@ -22,8 +22,6 @@ services:
     image: gleisonfreitas/meu-java:3.0
     container_name: metadex-java
     restart: "no"
-    profiles:
-      - manual
     environment:
       - DB_HOST=database
       - DB_PORT=3306
@@ -40,8 +38,6 @@ services:
     image: gleisonfreitas/meu-javamail:2.0
     container_name: metadex-javamail
     restart: "no"
-    profiles:
-      - manual
     environment:
       - DB_HOST=database
       - DB_PORT=3306
