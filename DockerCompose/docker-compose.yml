@@ -35,7 +35,7 @@ services:
       - metadex-network
 
   java-mail:
-    image: gleisonfreitas/meu-javamail:1.0
+    image: gleisonfreitas/meu-javamail:2.0
     container_name: metadex-javamail
     restart: always
     environment:
