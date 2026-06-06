@@ -27,7 +27,7 @@ public class Main {
         }
 
         System.out.println("[3/4] Buscando usuários com notificação ativa...");
-        String sql = "SELECT email FROM usuario WHERE notificacao = true";
+        String sql = "SELECT email FROM Usuario WHERE notificacao = true";
 
         List<String> email = jdbcTemplate.queryForList(sql, String.class);
         System.out.println("      " + email.size() + " usuário(s) encontrado(s) para notificação.");
