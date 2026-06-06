@@ -3,11 +3,9 @@ package org.zapto.metadex.config;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import java.io.IOException;
 import java.util.Properties;
 
 public class EmailConfig {
-    private final Properties prop = new Properties();
     private final String host;
     private final String port;
     private final String user;
@@ -15,16 +13,24 @@ public class EmailConfig {
 
     public EmailConfig() {
 
-        try {
-            prop.load(EmailConfig.class.getClassLoader().getResourceAsStream("config.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        String smtpHost = System.getenv("SMTP_HOST");
+        String smtpPort = System.getenv("SMTP_PORT");
+        String smtpUser = System.getenv("SMTP_USER");
+        String smtpPassword = System.getenv("SMTP_PASSWORD");
+
+        if (smtpHost == null || smtpUser == null || smtpPassword == null) {
+            throw new RuntimeException(
+                    "Erro Fatal: Variáveis de ambiente do Docker (SMTP_HOST, SMTP_USER, SMTP_PASSWORD) não foram encontradas!");
         }
 
-        this.host = prop.getProperty("host");
-        this.port = prop.getProperty("port");
-        this.user = prop.getProperty("user");
-        this.password = prop.getProperty("password");
+        if (smtpPort == null) {
+            smtpPort = "587";
+        }
+
+        this.host = smtpHost;
+        this.port = smtpPort;
+        this.user = smtpUser;
+        this.password = smtpPassword;
     }
 
     public Session criarSessao(){

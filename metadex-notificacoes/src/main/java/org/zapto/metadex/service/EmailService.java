@@ -26,6 +26,7 @@ public class EmailService {
 
             Transport.send(message);
 
+            System.out.println("         E-mail enviado com sucesso para: " + destinatario);
 
         }catch (Exception e) {
             throw new RuntimeException("Falha ao enviar e-mail de notificação", e);
