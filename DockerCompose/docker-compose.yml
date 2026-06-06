@@ -1,4 +1,4 @@
-version: '1.0'
+version: '3.8'
 
 services:
   database:
@@ -12,11 +12,11 @@ services:
     networks:
       - metadex-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pMeta2309"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-P", "3306", "--protocol=tcp", "-u", "root", "-pMeta2309"]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 15s
+      retries: 10
+      start_period: 40s
 
   backend-java:
     image: gleisonfreitas/meu-java:2.2
