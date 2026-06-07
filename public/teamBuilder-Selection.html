@@ -1,126 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Builder</title>
-
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/teamBuilder-Selection.css">
-
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Configurar Duelo | MetaDex</title>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="css/simulacao.css">
 </head>
-<body onload="SelecionarAba(0)">
-    
-    <!-- Inicio Navbar -->
+<body>
 
-    <nav class="Nav-Container">
+ <!-- Navbar (mesma da simulacao) -->
+ <nav class="nav-container">
+ <img onclick="abrirMenu()" id="icone-menu" src="assets/icon/Icon-Hanburguer.svg" alt="">
+ <img id="logo-nav" src="./assets/icon/Logo-Nav.svg" alt="Metadex">
+ <ul class="nav-opcoes">
+ <li><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li class="nav-selecionado">
+ <img src="./assets/icon/Icon-NavSelected.svg" alt="">
+ <a href="teamBuilder-List.html">Team Builder</a>
+ </li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <div class="container-botoes-nav">
+ <a href="#"><img src="assets/imgs/iconeUSER.png" class="usuario-nav"></a>
+ </div>
+ </nav>
 
-      <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
-      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <aside style="display:none;" class="menu-lateral">
+ <button onclick="fecharMenu()"><img id="icone-fechar" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <div class="menu-lateral-flex">
+ <div class="perfil-lateral">
+ <img src="assets/icon/Icon-User.svg" alt="">
+ <button class="botao-lateral botao-login-lateral" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ <ul class="opcoes-laterais">
+ <li><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li class="nav-selecionado"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <img class="logo-lateral" src="./assets/icon/Logo-Nav.svg" alt="">
+ </div>
+ </aside>
 
-      <ul class="Nav-Options">
-        <li><a href="index.html">Home</a></li> 
-        <li><a href="cadastro.html">Pokedex</a></li>
-        <li><a href="cadastro.html">Ranks</a></li>
-        <li class="Selected"><a href="#"><img src="./assets/icon/Icon-NavSelected.svg" alt="">Team Buider</a></li>
-        <li><a href="cadastro.html">Battle Simulator</a></li>
-      </ul>
+ <div class="pagina-selecao">
+ <div class="cabecalho-pagina">
+ <h1>CONFIGURAR DUELO</h1>
+ <p>Escolha o seu Pokemon e o adversario e salve o duelo</p>
+ </div>
 
+ <div class="barra-acoes">
+ <button class="btn-secundario" onclick="window.location.href='teamBuilder-List.html'">Voltar para a lista</button>
+ <button class="btn-secundario" onclick="limparSelecao()">Limpar selecao</button>
+ <button class="btn-iniciar" id="btn-iniciar-batalha" onclick="salvarDuelo()" disabled>
+ Salvar Duelo
+ </button>
+ </div>
 
-        <div class="Button-Container">
-            <a  href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
-        </div>
-      
-    </nav>
+ <div class="area-selecao">
+ <!-- Painel Meu Pokemon -->
+ <div class="painel-selecao">
+ <div class="painel-selecao-header">
+ <h3>1. Selecionar Meu Pokemon</h3>
+ <div class="preview-selecionado" id="preview-meu"></div>
+ </div>
+ <div class="painel-selecao-body">
+ <div class="abas-geracao" id="abas-meu"></div>
+ <div class="barra-pesquisa-selecao">
+ <input type="text" id="busca-meu" placeholder="Pesquisar Pokemon..." autocomplete="off">
+ <button onclick="buscarPokemon('meu')">Buscar</button>
+ </div>
+ <div class="grade-selecao-poke" id="grade-meu">
+ <div class="carregando-selecao"><div class="icone-carregando"></div> Carregando...</div>
+ </div>
+ </div>
+ </div>
 
-    <aside style="display: none;" class="Side-Container">
-      
-      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <!-- Painel Adversario -->
+ <div class="painel-selecao">
+ <div class="painel-selecao-header">
+ <h3>2. Selecionar Adversario</h3>
+ <div class="preview-selecionado" id="preview-adv"></div>
+ </div>
+ <div class="painel-selecao-body">
+ <div class="abas-geracao" id="abas-adv"></div>
+ <div class="barra-pesquisa-selecao">
+ <input type="text" id="busca-adv" placeholder="Pesquisar Pokemon..." autocomplete="off">
+ <button onclick="buscarPokemon('adv')">Buscar</button>
+ </div>
+ <div class="grade-selecao-poke" id="grade-adv">
+ <div class="carregando-selecao"><div class="icone-carregando"></div> Carregando...</div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-      <div class="Side-Flex">
-        <div class="Perfil">
-
-          <img src="assets/icon/Icon-User.svg" alt="">
-          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
-
-        </div>
-
-        <ul class="Side-Options">
-          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
-          <li><a href="cadastro.html">Pokedex</a></li>
-          <li><a href="cadastro.html">Ranks</a></li>
-          <li><a href="cadastro.html">Team Buider</a></li>
-          <li><a href="cadastro.html">Battle Simulator</a></li>
-        </ul>
-
-        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
-      </div>
-    </aside>
-
-    <!-- Fim Navbar -->
-
-    <!-- Inicio Seleção de novo time -->
-
-    <div class="container">
-      
-      <div class="containerPesquisa">
-        <input type="text" id="barraPesquisa" placeholder="Pesquisar">
-
-        <div class="containerFilter">
-          <samp><</samp>
-          <ul class="filter">
-            <li><button class="btnFilter" id="water" onclick="Filter('water')"><img class="imgTipo" src="assets/icon/tipo/Agua.svg" alt="Água"></button></li>
-            <li><button class="btnFilter" id="dragon" onclick="Filter('dragon')"><img class="imgTipo" src="assets/icon/tipo/Dragão.svg" alt="Dragão"></button></li>
-            <li><button class="btnFilter" id="electric" onclick="Filter('electric')"><img class="imgTipo" src="assets/icon/tipo/Eletrico.svg" alt="Elétrico"></button></li>
-            <li><button class="btnFilter" id="fairy" onclick="Filter('fairy')"><img class="imgTipo" src="assets/icon/tipo/Fada.svg" alt="Fada"></button></li>
-            <li><button class="btnFilter" id="ghost" onclick="Filter('ghost')"><img class="imgTipo" src="assets/icon/tipo/Fantasma.svg" alt="Fantasma"></button></li>
-            <li><button class="btnFilter" id="fire" onclick="Filter('fire')"><img class="imgTipo" src="assets/icon/tipo/Fogo.svg" alt="Fogo"></button></li>
-            <li><button class="btnFilter" id="ice" onclick="Filter('ice')"><img class="imgTipo" src="assets/icon/tipo/Gelo.svg" alt="Gelo"></button></li>
-            <li><button class="btnFilter" id="grass" onclick="Filter('grass')"><img class="imgTipo" src="assets/icon/tipo/Grama.svg" alt="Grama"></button></li>
-            <li><button class="btnFilter" id="bug" onclick="Filter('bug')"><img class="imgTipo" src="assets/icon/tipo/Inseto.svg" alt="Inseto"></button></li>
-            <li><button class="btnFilter" id="fighting" onclick="Filter('fighting')"><img class="imgTipo" src="assets/icon/tipo/Lutador.svg" alt="Lutador"></button></li>
-            <li><button class="btnFilter" id="steel" onclick="Filter('steel')"><img class="imgTipo" src="assets/icon/tipo/Metal.svg" alt="Metal"></button></li>
-            <li><button class="btnFilter" id="normal" onclick="Filter('normal')"><img class="imgTipo" src="assets/icon/tipo/Normal.svg" alt="Normal"></button></li>
-            <li><button class="btnFilter" id="dark" onclick="Filter('dark')"><img class="imgTipo" src="assets/icon/tipo/Noturno.svg" alt="Noturno"></button></li>
-            <li><button class="btnFilter" id="rock" onclick="Filter('rock')"><img class="imgTipo" src="assets/icon/tipo/Pedra.svg" alt="Pedra"></button></li>
-            <li><button class="btnFilter" id="psychic" onclick="Filter('psychic')"><img class="imgTipo" src="assets/icon/tipo/Psiquico.svg" alt="Psíquico"></button></li>
-            <li><button class="btnFilter" id="ground" onclick="Filter('ground')"><img class="imgTipo" src="assets/icon/tipo/Terra.svg" alt="Terra"></button></li>
-            <li><button class="btnFilter" id="poison" onclick="Filter('poison')"><img class="imgTipo" src="assets/icon/tipo/Veneno.svg" alt="Veneno"></button></li>
-            <li><button class="btnFilter" id="flying" onclick="Filter('flying')"><img class="imgTipo" src="assets/icon/tipo/Voador.svg" alt="Voador"></button></li>
-          </ul>
-          <span>></span>
-        </div>
-
-        <button id="btnSalvar">Salvar</button>
-      </div>
-
-      <div class="containerPokemonList">
-        <div class="containerAbas">
-          <button id="aba0" onclick="SelecionarAba(0)" class="primeira Aba">Regulamentação A</button>
-          <button id="aba1" onclick="SelecionarAba(1)" class="ultima Aba">Regulamentação B</button>
-        </div>
-
-        <h2>Lista de Pokémon disponiveis</h2>
-
-        <div class="containerCard">
-          
-        </div>
-      </div>
-
-      <div class="containerPokemonSelected">
-        <div class="title">
-          <h3>Pokémon selecionados</h3>
-        </div>
-        <div class="containerCardSelected">
-
-        </div>
-        
-      </div>
-
-    </div>
-
-    <script src="js/teamBuilder-Selection.js"></script>    
+ <script src="js/teamBuilder-Selection.js"></script>
 </body>
 </html>

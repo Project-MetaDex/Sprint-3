@@ -2,158 +2,158 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MetaDex | Tela Alunos</title>
-  <script src="./js/sessao.js"></script>
-  <link rel="stylesheet" href="css/LandingPage.css">
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="./css/tela-alunos.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+ <meta charset="UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <title>MetaDex | Tela Alunos</title>
+ <script src="./js/sessao.js"></script>
+ <link rel="stylesheet" href="css/LandingPage.css">
+ <link rel="stylesheet" href="css/global.css">
+ <link rel="stylesheet" href="./css/tela-alunos.css" />
+ <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
 <body>
 
-  <nav class="Nav-Container">
-    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
-    <ul class="Nav-Options">
-      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Tela Inicial</a></li>
-      <li><a href="cadastro.html">Pokedex</a></li>
-      <li><a href="cadastro.html">Ranking</a></li>
-      <li><a href="cadastro.html">Simulações</a></li>
-      <li><a href="cadastro.html">Alunos</a></li>
-    </ul>
-        <div class="Button-Container">
-            <a  href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
+ <nav class="Nav-Container">
+ <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <ul class="Nav-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Tela Inicial</a></li>
+ <li><a href="cadastro.html">Pokedex</a></li>
+ <li><a href="cadastro.html">Ranking</a></li>
+ <li><a href="cadastro.html">Simulações</a></li>
+ <li><a href="cadastro.html">Alunos</a></li>
+ </ul>
+ <div class="Button-Container">
+ <a href="#">
+ <img src="assets/imgs/iconeUSER.png" class="user">
+ </a>
 
-        </div>
-  </nav>
-
-
-  <div class="tab-buttons">
-
-    <button class="tab-btn active" content-id="DashGeral" onclick="trocarAba('DashGeral', this)">DashGeral</button>
-    <button class="tab-btn" content-id="ListAlunos" onclick="trocarAba('ListAlunos', this)">Lista de Alunos</button>
-
-    <div class="tab-contents">
-
-      <div class="content" id="DashGeral">
-
-        <div class="kpis">
-
-          <div class="card-info">
-            <h4>Total de Alunos</h4>
-            <strong class="valor">6</strong>
-          </div>
-
-          <div class="card-info">
-            <h4>Taxa de Abandono</h4>
-            <strong class="valor">12%</strong>
-          </div>
-
-          <div class="card-info">
-            <h4>Alunos em destaque</h4>
-            <strong class="valor">2</strong>
-          </div>
-
-          <div class="card-info">
-            <h4>Alunos em Risco</h4>
-            <strong class="valor">3</strong>
-          </div>
-
-        </div>
-
-        <div class="grafico">
-          <span class="grafico-titulo">Dispersão — Win Rate vs Tempo na Mentoria</span>
-          <div class="scatter-legend" id="scatterLegend"></div>
-          <div class="grafico-canvas-wrap">
-            <canvas id="myChart" role="img" aria-label="Gráfico de dispersão mostrando Win Rate versus Tempo na Mentoria por aluno">Dados de dispersão: Win Rate vs Tempo na Mentoria por aluno.</canvas>
-          </div>
-        </div>
-
-        <div class="painel-lateral">
-
-          <div class="list-alunos destaque-wrap">
-            <h3>Alunos em Destaque</h3>
-
-            <div class="card-alunoDestaque">
-              <div class="avatar avatar-destaque">LL</div>
-              <div class="info">
-                <strong>Lucas Lima</strong>
-                <small>Win Rate: 75% · 68 pts · Rank 9</small>
-              </div>
-              <span class="badge-destaque">Top 3</span>
-            </div>
-
-            <div class="card-alunoDestaque">
-              <div class="avatar avatar-destaque">GF</div>
-              <div class="info">
-                <strong>Gleison Freitas</strong>
-                <small>Win Rate: 85% · 92 pts · Rank 1</small>
-              </div>
-              <span class="badge-destaque">Top 1</span>
-            </div>
-
-            <div class="card-alunoDestaque">
-              <div class="avatar avatar-destaque">JS</div>
-              <div class="info">
-                <strong>João Sapia</strong>
-                <small>Win Rate: 95% · 57 pts · Rank 6</small>
-              </div>
-              <span class="badge-destaque">Top 2</span>
-            </div>
-
-          </div>
-
-          <div class="list-alunos">
-            <h3>Alunos em Risco</h3>
-
-            <div class="card-alunoRisco">
-              <div class="avatar">JA</div>
-              <div class="info">
-                <strong>Josué Alvarez</strong>
-                <small>Win Rate: 30% · Inativo há 7 dias</small>
-              </div>
-            </div>
-
-            <div class="card-alunoRisco">
-              <div class="avatar">VL</div>
-              <div class="info">
-                <strong>Vitória Lima</strong>
-                <small>Win Rate: 48% · Inativo há 6 dias</small>
-              </div>
-            </div>
-
-            <div class="card-alunoRisco">
-              <div class="avatar">CA</div>
-              <div class="info">
-                <strong>Cintia Azevedo</strong>
-                <small>Win Rate: 63% · Inativo há 5 dias</small>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
+ </div>
+ </nav>
 
 
-      <div class="content hidden" id="ListAlunos">
+ <div class="tab-buttons">
 
-        <div class="lista-scroll" id="listaScroll">
-        </div>
+ <button class="tab-btn active" content-id="DashGeral" onclick="trocarAba('DashGeral', this)">DashGeral</button>
+ <button class="tab-btn" content-id="ListAlunos" onclick="trocarAba('ListAlunos', this)">Lista de Alunos</button>
 
-        <div class="paginacao" id="paginacao">
-        </div>
+ <div class="tab-contents">
 
-      </div>
+ <div class="content" id="DashGeral">
 
-    </div>
-  </div>
+ <div class="kpis">
+
+ <div class="card-info">
+ <h4>Total de Alunos</h4>
+ <strong class="valor">6</strong>
+ </div>
+
+ <div class="card-info">
+ <h4>Taxa de Abandono</h4>
+ <strong class="valor">12%</strong>
+ </div>
+
+ <div class="card-info">
+ <h4>Alunos em destaque</h4>
+ <strong class="valor">2</strong>
+ </div>
+
+ <div class="card-info">
+ <h4>Alunos em Risco</h4>
+ <strong class="valor">3</strong>
+ </div>
+
+ </div>
+
+ <div class="grafico">
+ <span class="grafico-titulo">Dispersão — Win Rate vs Tempo na Mentoria</span>
+ <div class="scatter-legend" id="scatterLegend"></div>
+ <div class="grafico-canvas-wrap">
+ <canvas id="myChart" role="img" aria-label="Gráfico de dispersão mostrando Win Rate versus Tempo na Mentoria por aluno">Dados de dispersão: Win Rate vs Tempo na Mentoria por aluno.</canvas>
+ </div>
+ </div>
+
+ <div class="painel-lateral">
+
+ <div class="list-alunos destaque-wrap">
+ <h3>Alunos em Destaque</h3>
+
+ <div class="card-alunoDestaque">
+ <div class="avatar avatar-destaque">LL</div>
+ <div class="info">
+ <strong>Lucas Lima</strong>
+ <small>Win Rate: 75% · 68 pts · Rank 9</small>
+ </div>
+ <span class="badge-destaque">Top 3</span>
+ </div>
+
+ <div class="card-alunoDestaque">
+ <div class="avatar avatar-destaque">GF</div>
+ <div class="info">
+ <strong>Gleison Freitas</strong>
+ <small>Win Rate: 85% · 92 pts · Rank 1</small>
+ </div>
+ <span class="badge-destaque">Top 1</span>
+ </div>
+
+ <div class="card-alunoDestaque">
+ <div class="avatar avatar-destaque">JS</div>
+ <div class="info">
+ <strong>João Sapia</strong>
+ <small>Win Rate: 95% · 57 pts · Rank 6</small>
+ </div>
+ <span class="badge-destaque">Top 2</span>
+ </div>
+
+ </div>
+
+ <div class="list-alunos">
+ <h3>Alunos em Risco</h3>
+
+ <div class="card-alunoRisco">
+ <div class="avatar">JA</div>
+ <div class="info">
+ <strong>Josué Alvarez</strong>
+ <small>Win Rate: 30% · Inativo há 7 dias</small>
+ </div>
+ </div>
+
+ <div class="card-alunoRisco">
+ <div class="avatar">VL</div>
+ <div class="info">
+ <strong>Vitória Lima</strong>
+ <small>Win Rate: 48% · Inativo há 6 dias</small>
+ </div>
+ </div>
+
+ <div class="card-alunoRisco">
+ <div class="avatar">CA</div>
+ <div class="info">
+ <strong>Cintia Azevedo</strong>
+ <small>Win Rate: 63% · Inativo há 5 dias</small>
+ </div>
+ </div>
+
+ </div>
+
+ </div>
+
+ </div>
+
+
+ <div class="content hidden" id="ListAlunos">
+
+ <div class="lista-scroll" id="listaScroll">
+ </div>
+
+ <div class="paginacao" id="paginacao">
+ </div>
+
+ </div>
+
+ </div>
+ </div>
 
 </body>
 
@@ -163,164 +163,164 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <script>
 
-  const dadosAlunos = [
-    { nome: 'Gleison', dias: 180, winRate: 85, cor: '#8956B9' },
-    { nome: 'João',    dias: 150, winRate: 95, cor: '#1D9E75' },
-    { nome: 'Lucas',   dias: 120, winRate: 75, cor: '#378ADD' },
-    { nome: 'Cintia',  dias: 90,  winRate: 63, cor: '#BA7517' },
-    { nome: 'Vitória', dias: 60,  winRate: 48, cor: '#EC4899' },
-    { nome: 'Josué',   dias: 30,  winRate: 30, cor: '#c0392b' },
-  ];
+ const dadosAlunos = [
+ { nome: 'Gleison', dias: 180, winRate: 85, cor: '#8956B9' },
+ { nome: 'João', dias: 150, winRate: 95, cor: '#1D9E75' },
+ { nome: 'Lucas', dias: 120, winRate: 75, cor: '#378ADD' },
+ { nome: 'Cintia', dias: 90, winRate: 63, cor: '#BA7517' },
+ { nome: 'Vitória', dias: 60, winRate: 48, cor: '#EC4899' },
+ { nome: 'Josué', dias: 30, winRate: 30, cor: '#c0392b' },
+ ];
 
-  const legendEl = document.getElementById('scatterLegend');
-  dadosAlunos.forEach(a => {
-    const span = document.createElement('span');
-    span.className = 'scatter-legend-item';
-    span.innerHTML = `<span class="scatter-legend-dot" style="background:${a.cor}33;border-color:${a.cor}"></span>${a.nome}`;
-    legendEl.appendChild(span);
-  });
+ const legendEl = document.getElementById('scatterLegend');
+ dadosAlunos.forEach(a => {
+ const span = document.createElement('span');
+ span.className = 'scatter-legend-item';
+ span.innerHTML = `<span class="scatter-legend-dot" style="background:${a.cor}33;border-color:${a.cor}"></span>${a.nome}`;
+ legendEl.appendChild(span);
+ });
 
 
 const tendencia = [];
 for (let x = 0; x <= 200; x += 5) {
-  tendencia.push({ x, y: parseFloat((50 * (1 - Math.exp(-x / 60))).toFixed(2)) }); 
+ tendencia.push({ x, y: parseFloat((50 * (1 - Math.exp(-x / 60))).toFixed(2)) }); 
 }
 
 
-  const datasets = dadosAlunos.map(a => ({
-    label: a.nome,
-    data: [{ x: a.dias, y: a.winRate }],
-    backgroundColor: a.cor + '33',
-    borderColor: a.cor,
-    pointBackgroundColor: '#fff',
-    pointBorderColor: a.cor,
-    pointBorderWidth: 2.5,
-    pointRadius: 8,
-    pointHoverRadius: 10,
-    type: 'scatter',
-  }));
+ const datasets = dadosAlunos.map(a => ({
+ label: a.nome,
+ data: [{ x: a.dias, y: a.winRate }],
+ backgroundColor: a.cor + '33',
+ borderColor: a.cor,
+ pointBackgroundColor: '#fff',
+ pointBorderColor: a.cor,
+ pointBorderWidth: 2.5,
+ pointRadius: 8,
+ pointHoverRadius: 10,
+ type: 'scatter',
+ }));
 
  datasets.push({
-  label: 'Tendência',
-  data: [{ x: 0, y: 50 }, { x: 200, y: 50 }],  
-  type: 'line',
-  borderColor: '#8956B9',
-  borderWidth: 1.5,
-  borderDash: [6, 4],
-  pointRadius: 0,
-  fill: false,
-  tension: 0,
+ label: 'Tendência',
+ data: [{ x: 0, y: 50 }, { x: 200, y: 50 }], 
+ type: 'line',
+ borderColor: '#8956B9',
+ borderWidth: 1.5,
+ borderDash: [6, 4],
+ pointRadius: 0,
+ fill: false,
+ tension: 0,
 });
 
-  new Chart(document.getElementById('myChart'), {
-    type: 'scatter',
-    data: { datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      layout: { padding: { top: 10, right: 20, bottom: 5, left: 5 } },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          filter: item => item.dataset.label !== 'Meta 50%',
-          callbacks: {
-            label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x} dias · ${ctx.parsed.y}% WR`,
-          },
-        },
-      },
-      scales: {
-        x: {
-          title: { display: true, text: 'Tempo na Mentoria (dias)', font: { size: 11 }, color: '#888' },
-          min: 0, max: 200,
-          ticks: { font: { size: 10 }, color: '#888' },
-          grid: { color: 'rgba(0,0,0,0.04)' },
-        },
-        y: {
-          title: { display: true, text: 'Win Rate (%)', font: { size: 11 }, color: '#888' },
-          min: 0, max: 100,
-          ticks: { callback: v => v + '%', font: { size: 10 }, color: '#888' },
-          grid: { color: 'rgba(0,0,0,0.04)' },
-        },
-      },
-    },
-  });
+ new Chart(document.getElementById('myChart'), {
+ type: 'scatter',
+ data: { datasets },
+ options: {
+ responsive: true,
+ maintainAspectRatio: false,
+ layout: { padding: { top: 10, right: 20, bottom: 5, left: 5 } },
+ plugins: {
+ legend: { display: false },
+ tooltip: {
+ filter: item => item.dataset.label !== 'Meta 50%',
+ callbacks: {
+ label: ctx => `${ctx.dataset.label}: ${ctx.parsed.x} dias · ${ctx.parsed.y}% WR`,
+ },
+ },
+ },
+ scales: {
+ x: {
+ title: { display: true, text: 'Tempo na Mentoria (dias)', font: { size: 11 }, color: '#888' },
+ min: 0, max: 200,
+ ticks: { font: { size: 10 }, color: '#888' },
+ grid: { color: 'rgba(0,0,0,0.04)' },
+ },
+ y: {
+ title: { display: true, text: 'Win Rate (%)', font: { size: 11 }, color: '#888' },
+ min: 0, max: 100,
+ ticks: { callback: v => v + '%', font: { size: 10 }, color: '#888' },
+ grid: { color: 'rgba(0,0,0,0.04)' },
+ },
+ },
+ },
+ });
 </script>
 
 <script>
-  function trocarAba(idDaAba, elementoClicado) {
-    document.querySelectorAll('.content').forEach(aba => aba.classList.add('hidden'));
-    document.getElementById(idDaAba).classList.remove('hidden');
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    elementoClicado.classList.add('active');
-  }
+ function trocarAba(idDaAba, elementoClicado) {
+ document.querySelectorAll('.content').forEach(aba => aba.classList.add('hidden'));
+ document.getElementById(idDaAba).classList.remove('hidden');
+ document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+ elementoClicado.classList.add('active');
+ }
 
-  function irParaAluno() {
-    window.location.href = "tela-aluno.html";
-  }
+ function irParaAluno() {
+ window.location.href = "tela-aluno.html";
+ }
 
-  const alunos = [
-    { nome: 'Gleison Freitas', winRate: 85, pontos: '92 pts', ranking: "1°",   corBarra: '#1D9E75' },
-    { nome: 'Lucas Lima',      winRate: 75, pontos: '68 pts', ranking: "9°",   corBarra: '#1D9E75' },
-    { nome: 'Cintia Azevedo',  winRate: 63, pontos: '83 pts', ranking: "100°", corBarra: '#BA7517' },
-    { nome: 'João Sapia',      winRate: 95, pontos: '57 pts', ranking: "6°",   corBarra: '#1D9E75' },
-    { nome: 'Josué Alvarez',   winRate: 30, pontos: '21 pts', ranking: "445°", corBarra: '#c0392b' },
-    { nome: 'Vitória Lima',    winRate: 48, pontos: '38 pts', ranking: "892°", corBarra: '#BA7517' },
-  ];
+ const alunos = [
+ { nome: 'Gleison Freitas', winRate: 85, pontos: '92 pts', ranking: "1°", corBarra: '#1D9E75' },
+ { nome: 'Lucas Lima', winRate: 75, pontos: '68 pts', ranking: "9°", corBarra: '#1D9E75' },
+ { nome: 'Cintia Azevedo', winRate: 63, pontos: '83 pts', ranking: "100°", corBarra: '#BA7517' },
+ { nome: 'João Sapia', winRate: 95, pontos: '57 pts', ranking: "6°", corBarra: '#1D9E75' },
+ { nome: 'Josué Alvarez', winRate: 30, pontos: '21 pts', ranking: "445°", corBarra: '#c0392b' },
+ { nome: 'Vitória Lima', winRate: 48, pontos: '38 pts', ranking: "892°", corBarra: '#BA7517' },
+ ];
 
-  const POR_PAGINA = 4;
-  let paginaAtual = 1;
+ const POR_PAGINA = 4;
+ let paginaAtual = 1;
 
-  function iniciaisNome(nome) {
-    const partes = nome.trim().split(' ');
-    return (partes[0][0] + (partes[1] ? partes[1][0] : '')).toUpperCase();
-  }
+ function iniciaisNome(nome) {
+ const partes = nome.trim().split(' ');
+ return (partes[0][0] + (partes[1] ? partes[1][0] : '')).toUpperCase();
+ }
 
-  function renderPagina(pagina) {
-    paginaAtual = pagina;
-    const totalPaginas = Math.ceil(alunos.length / POR_PAGINA);
-    const inicio = (pagina - 1) * POR_PAGINA;
-    const fatia = alunos.slice(inicio, inicio + POR_PAGINA);
+ function renderPagina(pagina) {
+ paginaAtual = pagina;
+ const totalPaginas = Math.ceil(alunos.length / POR_PAGINA);
+ const inicio = (pagina - 1) * POR_PAGINA;
+ const fatia = alunos.slice(inicio, inicio + POR_PAGINA);
 
-    const lista = document.getElementById('listaScroll');
-    lista.innerHTML = fatia.map(a => `
-      <div class="info-aluno">
-        <div class="imagem-perfil">${iniciaisNome(a.nome)}</div>
-        <div class="nome">
-          <small>Nome</small>
-          <strong>${a.nome}</strong>
-        </div>
-        <div class="tx-vitoria">
-          <small>Taxa de Vitória</small>
-          <div class="container-bar">
-            <div class="skill-bar">
-              <div class="bar-preenchida" style="width:${a.winRate}%; background:${a.corBarra};"></div>
-            </div>
-            <strong>${a.winRate}%</strong>
-          </div>
-        </div>
-        <div class="qtd-pontos">
-          <small>Elo</small>
-          <strong>${a.pontos}</strong>
-        </div>
-        <div class="qtd-camp">
-          <small>Ranking</small>
-          <strong>${a.ranking}</strong>
-        </div>
-        <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
-      </div>
-    `).join('');
+ const lista = document.getElementById('listaScroll');
+ lista.innerHTML = fatia.map(a => `
+ <div class="info-aluno">
+ <div class="imagem-perfil">${iniciaisNome(a.nome)}</div>
+ <div class="nome">
+ <small>Nome</small>
+ <strong>${a.nome}</strong>
+ </div>
+ <div class="tx-vitoria">
+ <small>Taxa de Vitória</small>
+ <div class="container-bar">
+ <div class="skill-bar">
+ <div class="bar-preenchida" style="width:${a.winRate}%; background:${a.corBarra};"></div>
+ </div>
+ <strong>${a.winRate}%</strong>
+ </div>
+ </div>
+ <div class="qtd-pontos">
+ <small>Elo</small>
+ <strong>${a.pontos}</strong>
+ </div>
+ <div class="qtd-camp">
+ <small>Ranking</small>
+ <strong>${a.ranking}</strong>
+ </div>
+ <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
+ </div>
+ `).join('');
 
-    const pag = document.getElementById('paginacao');
-    if (totalPaginas <= 1) { pag.innerHTML = ''; return; }
+ const pag = document.getElementById('paginacao');
+ if (totalPaginas <= 1) { pag.innerHTML = ''; return; }
 
-    let html = `<span>${inicio + 1}–${Math.min(inicio + POR_PAGINA, alunos.length)} de ${alunos.length}</span>`;
-    html += `<button class="btn-pag" onclick="renderPagina(${pagina - 1})" ${pagina === 1 ? 'disabled' : ''}>&#8249;</button>`;
-    for (let i = 1; i <= totalPaginas; i++) {
-      html += `<button class="btn-pag ${i === pagina ? 'ativo' : ''}" onclick="renderPagina(${i})">${i}</button>`;
-    }
-    html += `<button class="btn-pag" onclick="renderPagina(${pagina + 1})" ${pagina === totalPaginas ? 'disabled' : ''}>&#8250;</button>`;
-    pag.innerHTML = html;
-  }
+ let html = `<span>${inicio + 1}–${Math.min(inicio + POR_PAGINA, alunos.length)} de ${alunos.length}</span>`;
+ html += `<button class="btn-pag" onclick="renderPagina(${pagina - 1})" ${pagina === 1 ? 'disabled' : ''}>&#8249;</button>`;
+ for (let i = 1; i <= totalPaginas; i++) {
+ html += `<button class="btn-pag ${i === pagina ? 'ativo' : ''}" onclick="renderPagina(${i})">${i}</button>`;
+ }
+ html += `<button class="btn-pag" onclick="renderPagina(${pagina + 1})" ${pagina === totalPaginas ? 'disabled' : ''}>&#8250;</button>`;
+ pag.innerHTML = html;
+ }
 
-  renderPagina(1);
+ renderPagina(1);
 </script>

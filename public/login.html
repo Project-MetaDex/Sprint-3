@@ -2,115 +2,115 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta charset="UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 
-  <title>MetaDex | Login</title>
+ <title>MetaDex | Login</title>
 
-  <!-- <script src="./js/sessao.js"></script> -->
+ <!-- <script src="./js/sessao.js"></script> -->
 
-  <link rel="stylesheet" href="css/LandingPage.css">
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/login.css" />
-  <link rel="stylesheet" href="css/pokedex.css">
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <script src="js/sideBar.js"></script>
+ <link rel="stylesheet" href="css/LandingPage.css">
+ <link rel="stylesheet" href="css/global.css">
+ <link rel="stylesheet" href="css/login.css" />
+ <link rel="stylesheet" href="css/pokedex.css">
+ <link rel="preconnect" href="https://fonts.gstatic.com" />
+ <script src="js/sideBar.js"></script>
 </head>
 
 
 <body>
 
-  <!-- Inicio Navbar -->
+ <!-- Inicio Navbar -->
 
-  <nav class="Nav-Container">
+ <nav class="Nav-Container">
 
-    <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
-    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+ <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
 
-    <ul class="Nav-Options">
-      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
-      <li><a href="pokedex.html">Pokedex</a></li>
-      <li><a href="ranking.html">Ranks</a></li>
-      <li><a href="teamBuilder-List.html">Team Buider</a></li>
-      <li><a href="simulacao1.html">Battle Simulator</a></li>
-    </ul>
+ <ul class="Nav-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Buider</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
 
-    <div class="Button-Container">
-      <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
-      <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
-    </div>
-  </nav>
+ <div class="Button-Container">
+ <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
+ <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ </nav>
 
-  <aside style="display: none;" class="Side-Container">
+ <aside style="display: none;" class="Side-Container">
 
-    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
 
-    <div class="Side-Flex">
-      <div class="Perfil">
+ <div class="Side-Flex">
+ <div class="Perfil">
 
-        <img src="assets/icon/Icon-User.svg" alt="">
-        <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+ <img src="assets/icon/Icon-User.svg" alt="">
+ <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
 
-      </div>
+ </div>
 
-      <ul class="Side-Options">
-        <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
-        <li><a href="cadastro.html">Pokedex</a></li>
-        <li><a href="cadastro.html">Ranks</a></li>
-        <li><a href="cadastro.html">Team Buider</a></li>
-        <li><a href="cadastro.html">Battle Simulator</a></li>
-      </ul>
+ <ul class="Side-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="cadastro.html">Pokedex</a></li>
+ <li><a href="cadastro.html">Ranks</a></li>
+ <li><a href="cadastro.html">Team Buider</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
 
-      <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
-    </div>
-  </aside>
+ <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ </div>
+ </aside>
 
-  <!-- Fim Navbar -->
+ <!-- Fim Navbar -->
 
-  <div class="formulario-container">
+ <div class="formulario-container">
 
-    <div class="main-cadastro">
-      <h1 class="titulo01">BEM-VINDO DE VOLTA,<br>TREINADOR</h1>
-      <p class="titulo02">Faça login gerenciar seu time, ver estatistícas e batalhar!!.</p>
+ <div class="main-cadastro">
+ <h1 class="titulo01">BEM-VINDO DE VOLTA,<br>TREINADOR</h1>
+ <p class="titulo02">Faça login gerenciar seu time, ver estatistícas e batalhar!!.</p>
 
-      <div class="div-informacoes">
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
-          <input id="nome_input" type="text" placeholder="Nome Completo" required>
-        </div><br>
+ <div class="div-informacoes">
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
+ <input id="nome_input" type="text" placeholder="Nome Completo" required>
+ </div><br>
 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone">
-          <input id="email_input" type="email" placeholder="Endereço de E-mail" required>
-        </div><br>
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone">
+ <input id="email_input" type="email" placeholder="Endereço de E-mail" required>
+ </div><br>
 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone">
-          <input id="senha_input" type="password" placeholder="Sua Senha" required>
-        </div>
-        <!-- 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
-          <input type="password" placeholder="Confirme sua Senha" required>
-        </div> -->
-      </div>
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone">
+ <input id="senha_input" type="password" placeholder="Sua Senha" required>
+ </div>
+ <!-- 
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone"> 
+ <input type="password" placeholder="Confirme sua Senha" required>
+ </div> -->
+ </div>
 
-      <a href="#" class="botao" onclick="realizarLogin()">ENTRAR!</a>
+ <a href="#" class="botao" onclick="realizarLogin()">ENTRAR!</a>
 
-      <div class="ja-tem-conta">
-        Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a>
-      </div>
-    </div>
+ <div class="ja-tem-conta">
+ Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a>
+ </div>
+ </div>
 
-    <div class="imagem-charmander">
-      <img class="fundo-pc" src="assets/imgs/FundoCadastro-Photoroom.png" alt="Fundo">
-      <img class="fundo-ipad" src="assets/imgs/FundoIpadMini.png" alt="Fundo">
-      <img class="charmander" src="assets/imgs/charizardSENTADO (1).png">
-    </div>
+ <div class="imagem-charmander">
+ <img class="fundo-pc" src="assets/imgs/FundoCadastro-Photoroom.png" alt="Fundo">
+ <img class="fundo-ipad" src="assets/imgs/FundoIpadMini.png" alt="Fundo">
+ <img class="charmander" src="assets/imgs/charizardSENTADO (1).png">
+ </div>
 
-  </div>
+ </div>
 </body>
 
 </html>
@@ -118,66 +118,66 @@
 
 <script>
 
-  function realizarLogin() {
+ function realizarLogin() {
 
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
+ var nomeVar = nome_input.value;
+ var emailVar = email_input.value;
+ var senhaVar = senha_input.value;
 
-    if (nomeVar == "" || emailVar == "" || senhaVar == "") {
-      alert("Por favor, preencha todos os campos!");
-      return false;
-    } else if (senhaVar.length < 8) {
-      alert("A senha deve conter pelo menos 8 caracteres!");
-      return false;
-    }
+ if (nomeVar == "" || emailVar == "" || senhaVar == "") {
+ alert("Por favor, preencha todos os campos!");
+ return false;
+ } else if (senhaVar.length < 8) {
+ alert("A senha deve conter pelo menos 8 caracteres!");
+ return false;
+ }
 
-    console.log(`Iniciando autenticação para o usuario: ${nomeVar} ${emailVar}`);
+ console.log(`Iniciando autenticação para o usuario: ${nomeVar} ${emailVar}`);
 
-    // 3. FETCH (POST): Envia os dados estruturados para o seu Node.js
-    fetch("/usuarios/autenticar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar
-      })
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dadosUsuario) {
-            console.log("Login autorizado! Dados salvos na sessão:", dadosUsuario);
+ // 3. FETCH (POST): Envia os dados estruturados para o seu Node.js
+ fetch("/usuarios/autenticar", {
+ method: "POST",
+ headers: {
+ "Content-Type": "application/json"
+ },
+ body: JSON.stringify({
+ nomeServer: nomeVar,
+ emailServer: emailVar,
+ senhaServer: senhaVar
+ })
+ })
+ .then(function (resposta) {
+ if (resposta.ok) {
+ resposta.json().then(function (dadosUsuario) {
+ console.log("Login autorizado! Dados salvos na sessão:", dadosUsuario);
 
-            sessionStorage.ID_USUARIO = dadosUsuario.idUsuario;
-            sessionStorage.NOME_USUARIO = dadosUsuario.nome;
-            sessionStorage.EMAIL_USUARIO = dadosUsuario.email;
-            sessionStorage.NICK_USUARIO = dadosUsuario.nickname;
-            sessionStorage.TOKEN_MENTOR = dadosUsuario.tokenMentor;
-            sessionStorage.TIPO_USUARIO = dadosUsuario.tipoConta;
-            sessionStorage.DATA_CADASTRO = dadosUsuario.dataCadastro;
+ sessionStorage.ID_USUARIO = dadosUsuario.idUsuario;
+ sessionStorage.NOME_USUARIO = dadosUsuario.nome;
+ sessionStorage.EMAIL_USUARIO = dadosUsuario.email;
+ sessionStorage.NICK_USUARIO = dadosUsuario.nickname;
+ sessionStorage.TOKEN_MENTOR = dadosUsuario.tokenMentor;
+ sessionStorage.TIPO_USUARIO = dadosUsuario.tipoConta;
+ sessionStorage.DATA_CADASTRO = dadosUsuario.dataCadastro;
 
-            // Condição para direcionar para a tela correta:
-            if (dadosUsuario.tipoConta == "Mentor") {
-              window.location = "PerfilMentor.html";
-            } else {
-              window.location = "PerfilAluno.html";
-            }
-          });
+ // Condição para direcionar para a tela correta:
+ if (dadosUsuario.tipoConta == "Mentor") {
+ window.location = "PerfilMentor.html";
+ } else {
+ window.location = "PerfilAluno.html";
+ }
+ });
 
-        } else {
-          console.log("Erro na autenticação: Credenciais inválidas.");
-          alert("Dados de login incorretos! Verifique suas credenciais.");
-        }
-      })
-      .catch(function (erroDeRede) {
-        console.log("Erro de conexão com o servidor:", erroDeRede);
-        alert("Não foi possível conectar ao servidor.");
-      });
+ } else {
+ console.log("Erro na autenticação: Credenciais inválidas.");
+ alert("Dados de login incorretos! Verifique suas credenciais.");
+ }
+ })
+ .catch(function (erroDeRede) {
+ console.log("Erro de conexão com o servidor:", erroDeRede);
+ alert("Não foi possível conectar ao servidor.");
+ });
 
-    return false;
-  }
+ return false;
+ }
 
 </script>
