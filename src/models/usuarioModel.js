@@ -42,6 +42,16 @@ function atualizarPerfil(nome, senha, nickname, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function buscarSenhaAtual(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarSenhaAtual():", idUsuario);
+
+    var instrucaoSql = `
+        SELECT senha FROM usuario WHERE idUsuario = ${idUsuario};
+    `;
+    console.log("Buscando a senha atual do usuário: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function deletarConta(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletarConta():", idUsuario);
 
@@ -62,12 +72,13 @@ function listarAlunos(idMentor) {
     return database.executar(instrucaoSql);
 }
 
-// AINDA PRECISA SER VALIDADO
-function dadosPerfilMentor(idUsuario) {
+function dadosPerfilAluno(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function dadosPerfilMentor():", idUsuario);
 
     var instrucaoSql = `
-        SELECT COUNT(*) AS alunosAtivos FROM Usuario WHERE fkMentor = ${idUsuario};
+        SELECT qtdVitorias, qtdDerrotas, posicaoRanking, totalBatalhas,
+            (SELECT COUNT(*) FROM Equipe WHERE fkUsuario = idUsuario) AS timesSalvos
+                FROM Usuario WHERE idUsuario = ${idUsuario};
     `;
 
     console.log("Puxando dados do Usuário: \n" + instrucaoSql);
@@ -80,7 +91,8 @@ module.exports = {
     cadastrar,
     buscarMentorPorToken,
     atualizarPerfil,
+    buscarSenhaAtual,
     deletarConta,
     listarAlunos,
-    dadosPerfilMentor
+    dadosPerfilAluno
 };

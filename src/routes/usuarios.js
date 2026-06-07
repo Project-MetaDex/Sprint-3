@@ -28,12 +28,9 @@ router.get("/listarAlunos/:idMentor", function (req, res) {
     usuarioController.listarAlunos(req, res);
 });
 
+// Puxar dados para completar a tela de Perfil Aluno
 router.get("/dadosPerfilAluno/:idUsuario", function (req, res) {
     usuarioController.dadosPerfilAluno(req, res);
-});
-
-router.get("/dadosPerfilMentor/:idUsuario", function(req, res) {
-    usuarioController.dadosPerfilMentor(req, res);
 });
 
 module.exports = router;
