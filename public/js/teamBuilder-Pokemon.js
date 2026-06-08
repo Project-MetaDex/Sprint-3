@@ -1,5 +1,6 @@
 var pokemon = [];
 var pokemonEditandoIndex = 0;
+var ataqueEditandoIndex = null;
 
 window.addEventListener("load", () => {
     conectarNavegacao();
@@ -28,10 +29,10 @@ function ConstruirCardSelectd(){
         const type2 = element.types[1] ? element.types[1].type.name : null
         
         time += `
-        <div id="IdPokemon${i}" class="cardSelecionado">
+        <div id="IdPokemon${i}" class="cardSelecionado ${i == pokemonEditandoIndex ? 'pokemonSelecionadoEditando' : ''}" onclick="EditarPokemon(${i})">
             <img src="${element.sprites.front_default}" alt="">
             <div class="selecionadosDetalhes">
-                <h3><a href="#" onclick="EditarPokemon(${i})">${element.name}</a></h3>
+                <h3><a href="#" onclick="event.stopPropagation(); EditarPokemon(${i})">${element.name}</a></h3>
                 <span class="tipos tipo1 ${type1}">${type1}</span>
                 <span class="tipos tipo2 ${type2? type2 : "" }">${type2? type2 : ""}</span>
             </div>
@@ -62,19 +63,24 @@ function conectarNavegacao() {
 
 function EditarPokemon(index) {
     pokemonEditandoIndex = index;
+    ataqueEditandoIndex = null;
     sessionStorage.setItem("POKEMON_EDITANDO", String(index));
+    fecharListaAtaques();
     renderizarPokemonEmEdicao();
 }
 
-function renderizarPokemonEmEdicao() {
+async function renderizarPokemonEmEdicao() {
     const indexSalvo = Number(sessionStorage.getItem("POKEMON_EDITANDO"));
 
     if (!Number.isNaN(indexSalvo)) {
         pokemonEditandoIndex = indexSalvo;
     }
 
-    if (!pokemon.length) {
-        ConstruirCardSelectd();
+    ConstruirCardSelectd();
+
+    if (pokemonEditandoIndex >= pokemon.length) {
+        pokemonEditandoIndex = 0;
+        sessionStorage.setItem("POKEMON_EDITANDO", "0");
     }
 
     const pokemonAtual = pokemon[pokemonEditandoIndex] || pokemon[0];
@@ -88,7 +94,7 @@ function renderizarPokemonEmEdicao() {
     const statusBase = document.querySelectorAll(".statusGridBase .statusLinha strong");
 
     if (nomePokemon) {
-        nomePokemon.textContent = pokemonAtual.name;
+        nomePokemon.textContent = formatarNome(pokemonAtual.name);
     }
 
     if (imagemPokemon) {
@@ -115,6 +121,169 @@ function renderizarPokemonEmEdicao() {
             statusBase[index].textContent = valor;
         }
     });
+
+    await renderizarAtaques(pokemonAtual);
+}
+
+async function renderizarAtaques(pokemonAtual){
+    const listaAtaques = document.querySelector(".containerGolpes ul");
+
+    if (!listaAtaques) {
+        return;
+    }
+
+    garantirAtaquesSelecionados(pokemonAtual);
+
+    const ataques = pokemonAtual.ataquesSelecionados;
+    let htmlAtaques = "";
+
+    for (let i = 0; i < ataques.length; i++) {
+        const ataque = ataques[i];
+        let tipoAtaque = pokemonAtual.types[0]?.type.name || "normal";
+
+        if (ataque.tipo) {
+            tipoAtaque = ataque.tipo;
+        } else if (ataque.url) {
+            tipoAtaque = await buscarTipoAtaque(ataque.url, tipoAtaque);
+            ataque.tipo = tipoAtaque;
+        }
+
+        htmlAtaques += `
+            <li class="ataques" onclick="abrirListaAtaques(${i})">
+                <img src="${pegarIconeTipo(tipoAtaque)}" alt="${tipoAtaque}">
+                <span>${formatarNome(ataque.nome)}</span>
+                <span>></span>
+            </li>
+        `;
+    }
+
+    listaAtaques.innerHTML = htmlAtaques;
+}
+
+function garantirAtaquesSelecionados(pokemonAtual){
+    if (pokemonAtual.ataquesSelecionados && pokemonAtual.ataquesSelecionados.length == 4) {
+        return;
+    }
+
+    pokemonAtual.ataquesSelecionados = pokemonAtual.moves.slice(0, 4).map((ataque) => {
+        return {
+            nome: ataque.move.name,
+            url: ataque.move.url,
+            tipo: null
+        };
+    });
+}
+
+async function buscarTipoAtaque(url, tipoPadrao){
+    try {
+        const resposta = await fetch(url);
+        const dadosAtaque = await resposta.json();
+        return dadosAtaque.type?.name || tipoPadrao;
+    } catch (error) {
+        console.error("Erro ao buscar dados do ataque:", error);
+        return tipoPadrao;
+    }
+}
+
+function abrirListaAtaques(index){
+    ataqueEditandoIndex = index;
+
+    const pokemonAtual = pokemon[pokemonEditandoIndex];
+    const containerGolpes = document.querySelector(".containerGolpes");
+
+    if (!pokemonAtual || !containerGolpes) {
+        return;
+    }
+
+    let lista = document.querySelector(".listaAtaquesPokemon");
+
+    if (!lista) {
+        lista = document.createElement("div");
+        lista.classList.add("listaAtaquesPokemon");
+        containerGolpes.appendChild(lista);
+    }
+
+    let conteudo = `
+        <div class="listaAtaquesTitulo">
+            <span>Escolha o ataque</span>
+            <button onclick="fecharListaAtaques()">x</button>
+        </div>
+    `;
+
+    for (let i = 0; i < pokemonAtual.moves.length; i++) {
+        const ataque = pokemonAtual.moves[i].move;
+
+        conteudo += `
+            <button class="opcaoAtaque" onclick="selecionarAtaque(${i})">
+                ${formatarNome(ataque.name)}
+            </button>
+        `;
+    }
+
+    lista.innerHTML = conteudo;
+    lista.style.display = "flex";
+}
+
+function fecharListaAtaques(){
+    const lista = document.querySelector(".listaAtaquesPokemon");
+
+    if (lista) {
+        lista.style.display = "none";
+    }
+}
+
+async function selecionarAtaque(indexAtaque){
+    const pokemonAtual = pokemon[pokemonEditandoIndex];
+
+    if (!pokemonAtual || ataqueEditandoIndex == null) {
+        return;
+    }
+
+    const ataqueSelecionado = pokemonAtual.moves[indexAtaque].move;
+    const tipoPadrao = pokemonAtual.types[0]?.type.name || "normal";
+    const tipoAtaque = await buscarTipoAtaque(ataqueSelecionado.url, tipoPadrao);
+
+    garantirAtaquesSelecionados(pokemonAtual);
+
+    pokemonAtual.ataquesSelecionados[ataqueEditandoIndex] = {
+        nome: ataqueSelecionado.name,
+        url: ataqueSelecionado.url,
+        tipo: tipoAtaque
+    };
+
+    pokemon[pokemonEditandoIndex] = pokemonAtual;
+    sessionStorage.setItem(`POKEMON${pokemonEditandoIndex}`, JSON.stringify(pokemonAtual));
+    fecharListaAtaques();
+    await renderizarAtaques(pokemonAtual);
+}
+
+function formatarNome(nome){
+    return nome.replace(/-/g, " ").replace(/\b\w/g, letra => letra.toUpperCase());
+}
+
+function pegarIconeTipo(tipo){
+    const icones = {
+        water: "Agua.svg",
+        dragon: "Dragão.svg",
+        electric: "Eletrico.svg",
+        fairy: "Fada.svg",
+        ghost: "Fantasma.svg",
+        fire: "Fogo.svg",
+        ice: "Gelo.svg",
+        grass: "Grama.svg",
+        bug: "Inseto.svg",
+        fighting: "Lutador.svg",
+        steel: "Metal.svg",
+        normal: "Normal.svg",
+        dark: "Noturno.svg",
+        rock: "Pedra.svg",
+        psychic: "Psiquico.svg",
+        ground: "Terra.svg",
+        poison: "Veneno.svg",
+        flying: "Voador.svg"
+    };
+
+    return `assets/icon/tipo/${icones[tipo] || icones.normal}`;
 }
 
 const statusPokemon = {
@@ -149,17 +318,39 @@ function alterarStatus(status, valor) {
     atualizarStatusTela();
 }
 
+function definirStatus(status, valor) {
+    var novoValor = Number(valor);
+
+    if (Number.isNaN(novoValor) || novoValor < 0) {
+        novoValor = 0;
+    }
+
+    if (novoValor > limitePorStatus) {
+        novoValor = limitePorStatus;
+    }
+
+    const valorAnterior = statusPokemon[status];
+    const totalSemStatusAtual = calcularTotalStatus() - valorAnterior;
+
+    if (totalSemStatusAtual + novoValor > limitePontos) {
+        novoValor = limitePontos - totalSemStatusAtual;
+    }
+
+    statusPokemon[status] = novoValor;
+    atualizarStatusTela();
+}
+
 function calcularTotalStatus() {
     return Object.values(statusPokemon).reduce((total, valor) => total + valor, 0);
 }
 
 function atualizarStatusTela() {
-    document.getElementById("hp").innerText = statusPokemon.hp;
-    document.getElementById("ataque").innerText = statusPokemon.ataque;
-    document.getElementById("defesa").innerText = statusPokemon.defesa;
-    document.getElementById("ataqueEsp").innerText = statusPokemon.ataqueEsp;
-    document.getElementById("defesaEsp").innerText = statusPokemon.defesaEsp;
-    document.getElementById("velocidade").innerText = statusPokemon.velocidade;
+    document.getElementById("hp").value = statusPokemon.hp;
+    document.getElementById("ataque").value = statusPokemon.ataque;
+    document.getElementById("defesa").value = statusPokemon.defesa;
+    document.getElementById("ataqueEsp").value = statusPokemon.ataqueEsp;
+    document.getElementById("defesaEsp").value = statusPokemon.defesaEsp;
+    document.getElementById("velocidade").value = statusPokemon.velocidade;
 
     const pontosRestantes = limitePontos - calcularTotalStatus();
     document.getElementById("pontosRestantes").innerText = pontosRestantes;

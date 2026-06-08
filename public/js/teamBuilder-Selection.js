@@ -141,6 +141,7 @@ function Adicionar(pokemon){
     if (pokemonSelected.length < 6){
         pokemonSelected.push(pokemonList[pokemon])
         ConstruirCardSelectd()
+        persistirTimeSelecionado()
     }else{
         var continuar = confirm("Seu time esta cheio deseja deseja continuar ?")
         if(continuar){
@@ -148,6 +149,7 @@ function Adicionar(pokemon){
             pokemonSelected.push(pokemonList[pokemon])
             document.querySelector(".cardSelecionado").remove()
             ConstruirCardSelectd()
+            persistirTimeSelecionado()
         }   
     }
 }
@@ -182,7 +184,8 @@ function ConstruirCardSelectd(){
 function RemoverPokemon(pokemon, index){
 
     pokemonSelected.splice(index, 1)
-    document.querySelector(`#${pokemon}`).remove()
+    ConstruirCardSelectd()
+    persistirTimeSelecionado()
 
 }
 
@@ -193,6 +196,34 @@ function EditarPokemon(index){
 
     location.href = "teamBuilder-Pokemon.html"
 
+}
+
+function persistirTimeSelecionado(){
+    sessionStorage.setItem("TOTAL_POKEMONS_TIME", String(pokemonSelected.length));
+
+    for (let i = 0; i < 6; i++) {
+        sessionStorage.removeItem(`POKEMON${i}`);
+    }
+
+    for (let i = 0; i < pokemonSelected.length; i++) {
+        sessionStorage.setItem(`POKEMON${i}`, JSON.stringify(pokemonSelected[i]));
+    }
+}
+
+function restaurarTimeSelecionado(){
+    pokemonSelected = [];
+
+    const totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
+
+    for (let i = 0; i < totalSalvo; i++) {
+        const pokemonSalvo = sessionStorage.getItem(`POKEMON${i}`);
+
+        if (pokemonSalvo) {
+            pokemonSelected.push(JSON.parse(pokemonSalvo));
+        }
+    }
+
+    ConstruirCardSelectd();
 }
 
 
