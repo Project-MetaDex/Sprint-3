@@ -9,6 +9,36 @@ function sairDaConta() {
     window.location.href = "index.html";
 }
 
+async function buscarElo(){
+        var nickName = sessionStorage.NICK_USUARIO;
+
+        try{
+
+            const res = await fetch(`https://pokemonshowdown.com/users/stevenhevgc.json`);
+
+            if(!res.ok){
+                throw new Error(`Usuário não encontrado Status: ${res.status}`);
+                return;
+            }
+
+            var user = await res.json()
+
+            var elo = user.ratings?.gen9championsvgc2026regma?.elo;
+
+            if(elo !== undefined ){
+                document.querySelector("#elo").innerHTML = Math.round(elo)
+            }else{
+                console.log("Usuário ainda nao possue elo")
+                document.querySelector("#elo").innerHTML = "---";
+            }
+
+
+        }catch (error) {
+            console.error("Falha ao buscar os dados de Usuário:", error);
+        }
+        
+    }
+
 window.onload = function () {
     console.log("Iniciando carregamento do perfil do Aluno...");
 
@@ -18,6 +48,7 @@ window.onload = function () {
     }
     if (sessionStorage.NICK_USUARIO) {
         document.getElementById('nickname').innerHTML = '@' + sessionStorage.NICK_USUARIO;
+        buscarElo()
     }
 
     // Pré-preenche os campos de edição com dados da sessão
@@ -101,7 +132,6 @@ window.onload = function () {
         ice: "bi-snow",
         fighting: "bi-hand-index-thumb-fill"
     };
-
 
     function buscarDadosNaPokeAPI(nomePokemon, numeroCard) {
         // Faz a requisição na API pública usando o nome textual em minúsculo
