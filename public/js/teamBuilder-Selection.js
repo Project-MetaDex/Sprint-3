@@ -1,12 +1,39 @@
 var abas = [];
 var pokemonList = [];
+var pokemonListCompleta = [];
 var pokemonSelected = [];
+var geracoes = [
+    { inicio: 1, fim: 151 },
+    { inicio: 152, fim: 251 },
+    { inicio: 252, fim: 386 },
+    { inicio: 387, fim: 493 },
+    { inicio: 494, fim: 649 },
+    { inicio: 650, fim: 721 },
+    { inicio: 722, fim: 809 },
+    { inicio: 810, fim: 905 },
+    { inicio: 906, fim: 1025 }
+];
 
 const containerSelected = document.querySelector(".containerCardSelected")
 const containerCard = document.querySelector(".containerCard")
 
 window.addEventListener("load", () => {
     restaurarTimeSelecionado();
+    carregarEquipeEditando();
+
+    const nomeTime = document.getElementById("nomeTime");
+
+    if (nomeTime) {
+        const nomeSalvo = sessionStorage.getItem("NOME_TIME_SELECIONADO");
+
+        if (nomeSalvo) {
+            nomeTime.value = nomeSalvo;
+        }
+
+        nomeTime.oninput = () => {
+            sessionStorage.setItem("NOME_TIME_SELECIONADO", nomeTime.value);
+        };
+    }
 
     const botaoSalvar = document.getElementById("btnSalvar");
     if (botaoSalvar) {
@@ -20,12 +47,12 @@ function SelecionarAba(Aba){
    document.querySelector(".selectedAba")?.classList.remove("selectedAba")
 
    var abaSelecionada = document.querySelector(`#aba${Aba}`)
+    var indiceGeracao = Number(abaSelecionada.dataset.geracao)
+    var geracaoSelecionada = geracoes[indiceGeracao]
+
    abaSelecionada.classList.add("selectedAba")
 
-    var regulamento = Aba == 0 ? 151 : 251;
-    var inicio = Aba == 0 ? 1 : 152;
-
-   GetPokemonList(regulamento, inicio)
+    GetPokemonList(geracaoSelecionada.fim, geracaoSelecionada.inicio)
 
 }
 
@@ -47,9 +74,10 @@ async function Filter(type) {
             promises.push(fetch(res.pokemon[i].pokemon.url).then(response => response.json()))
         }
 
-        pokemonList = await Promise.all(promises);
+        pokemonListCompleta = await Promise.all(promises);
+        pokemonList = pokemonListCompleta;
 
-        ConstruirCardList()
+        PesquisarPokemon()
 
     }catch (error){
 
@@ -59,22 +87,38 @@ async function Filter(type) {
         
 }
 
-async function GetPokemonList (regulamento, inicio) {
+async function GetPokemonList (fim, inicio) {
 
     pokemonList = []
+    pokemonListCompleta = []
     const promises = [] 
 
-    for (let i = inicio; i <= regulamento; i++) {
+    for (let i = inicio; i <= fim; i++) {
         promises.push(fetch(`https://pokeapi.co/api/v2/pokemon/${i}`).then(res => res.json()));
     }
 
     try {
-        pokemonList = await Promise.all(promises);
+        pokemonListCompleta = await Promise.all(promises);
+        pokemonList = pokemonListCompleta;
 
-        ConstruirCardList()
+        PesquisarPokemon()
     }catch (error){
         console.error(error);
     }
+
+}
+
+function PesquisarPokemon(){
+
+    var pesquisa = document.getElementById("barraPesquisa").value.toLowerCase().trim()
+
+    if (pesquisa == "") {
+        pokemonList = pokemonListCompleta
+    } else {
+        pokemonList = pokemonListCompleta.filter(pokemon => pokemon.name.toLowerCase().includes(pesquisa))
+    }
+
+    ConstruirCardList()
 
 }
 
@@ -112,6 +156,7 @@ function Adicionar(pokemon){
     if (pokemonSelected.length < 6){
         pokemonSelected.push(pokemonList[pokemon])
         ConstruirCardSelectd()
+        persistirTimeSelecionado()
     }else{
         var continuar = confirm("Seu time esta cheio deseja deseja continuar ?")
         if(continuar){
@@ -119,6 +164,7 @@ function Adicionar(pokemon){
             pokemonSelected.push(pokemonList[pokemon])
             document.querySelector(".cardSelecionado").remove()
             ConstruirCardSelectd()
+            persistirTimeSelecionado()
         }   
     }
 }
@@ -153,25 +199,173 @@ function ConstruirCardSelectd(){
 function RemoverPokemon(pokemon, index){
 
     pokemonSelected.splice(index, 1)
-    document.querySelector(`#${pokemon}`).remove()
+    ConstruirCardSelectd()
+    persistirTimeSelecionado()
 
 }
 
 function EditarPokemon(index){  
 
     sessionStorage.setItem("POKEMON_EDITANDO", String(index));
+    persistirNomeTime();
     persistirTimeSelecionado();
 
     location.href = "teamBuilder-Pokemon.html"
 
 }
 
+function persistirNomeTime(){
+    const nomeTime = document.getElementById("nomeTime");
 
-function salvarSelecao() {
+    if (nomeTime) {
+        sessionStorage.setItem("NOME_TIME_SELECIONADO", nomeTime.value);
+    }
+}
+
+function persistirTimeSelecionado(){
+    sessionStorage.setItem("TOTAL_POKEMONS_TIME", String(pokemonSelected.length));
+
+    for (let i = 0; i < 6; i++) {
+        sessionStorage.removeItem(`POKEMON${i}`);
+    }
+
+    for (let i = 0; i < pokemonSelected.length; i++) {
+        sessionStorage.setItem(`POKEMON${i}`, JSON.stringify(pokemonSelected[i]));
+    }
+}
+
+function restaurarTimeSelecionado(){
+    pokemonSelected = [];
+
+    const totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
+
+    for (let i = 0; i < totalSalvo; i++) {
+        const pokemonSalvo = sessionStorage.getItem(`POKEMON${i}`);
+
+        if (pokemonSalvo) {
+            pokemonSelected.push(JSON.parse(pokemonSalvo));
+        }
+    }
+
+    ConstruirCardSelectd();
+}
+
+async function carregarEquipeEditando(){
+    var idEquipe = sessionStorage.getItem("TIME_EDITANDO");
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!idEquipe || !idUsuario) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch("/equipes/buscarEquipe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idEquipeServer: idEquipe,
+                idUsuarioServer: idUsuario
+            })
+        });
+
+        if (resposta.status === 204) {
+            return;
+        }
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao buscar equipe para edição.");
+        }
+
+        const equipe = await resposta.json();
+        const nomeTime = document.getElementById("nomeTime");
+
+        if (nomeTime && equipe[0]) {
+            nomeTime.value = equipe[0].nomeEquipe;
+            sessionStorage.setItem("NOME_TIME_SELECIONADO", equipe[0].nomeEquipe);
+        }
+
+        pokemonSelected = [];
+
+        for (let i = 0; i < equipe.length; i++) {
+            const pokemonBanco = equipe[i];
+            const pokemonApi = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonBanco.idPokemon}`).then(res => res.json());
+            const ataquesBanco = [pokemonBanco.Ataque1, pokemonBanco.Ataque2, pokemonBanco.Ataque3, pokemonBanco.Ataque4];
+
+            pokemonApi.ataquesSelecionados = ataquesBanco.map((ataqueBanco, index) => {
+                var ataqueApi = pokemonApi.moves.find(ataque => ataque.move.name == ataqueBanco) || pokemonApi.moves[index];
+
+                return {
+                    nome: ataqueBanco || ataqueApi.move.name,
+                    url: ataqueApi.move.url,
+                    tipo: null
+                };
+            });
+
+            pokemonApi.statusSelecionados = {
+                attack: pokemonBanco.Attack,
+                defense: pokemonBanco.Defense,
+                ataqueEsp: pokemonBanco.SpAtk,
+                defesaEsp: pokemonBanco.SpDef,
+                velocidade: pokemonBanco.Speed
+            };
+
+            pokemonSelected.push(pokemonApi);
+        }
+
+        ConstruirCardSelectd();
+        persistirTimeSelecionado();
+    } catch (error) {
+        console.error("Erro ao carregar equipe para edição:", error);
+        alert("Não foi possível carregar a equipe para edição.");
+    }
+}
+
+
+async function salvarSelecao() {
     if (!pokemonSelected.length) {
         alert("Selecione pelo menos um Pokémon antes de continuar.");
         return;
     }
 
-    location.href = "teamBuilder-List.html"
+    var nomeTime = document.getElementById("nomeTime").value.trim();
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!nomeTime) {
+        alert("Informe o nome do time antes de salvar.");
+        return;
+    }
+
+    if (!idUsuario) {
+        alert("Faça login antes de salvar uma equipe.");
+        return;
+    }
+
+    try {
+        var idEquipeEditando = sessionStorage.getItem("TIME_EDITANDO");
+        var rota = idEquipeEditando ? "/equipes/editarEquipe" : "/equipes/salvarEquipe";
+
+        const resposta = await fetch(rota, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idEquipeServer: idEquipeEditando,
+                nomeServer: nomeTime,
+                idUsuarioServer: idUsuario,
+                pokemonsServer: pokemonSelected
+            })
+        });
+
+        if (!resposta.ok) {
+            const mensagemErro = await resposta.text();
+            throw new Error(mensagemErro || "Erro ao salvar equipe.");
+        }
+
+        sessionStorage.removeItem("TIME_EDITANDO");
+    sessionStorage.removeItem("NOME_TIME_SELECIONADO");
+        location.href = "teamBuilder-List.html";
+    } catch (error) {
+        console.error("Erro ao salvar equipe:", error);
+        alert("Não foi possível salvar a equipe.");
+    }
+
 }

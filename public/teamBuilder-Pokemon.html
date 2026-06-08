@@ -12,7 +12,7 @@
 
 </head>
 
-<body onload="ConstruirCardSelectd()">
+<body>
 
   <!-- Inicio Navbar -->
 
@@ -77,18 +77,6 @@
         </div>
         <hr>
         <hr>
-
-        <br>  
-    <!-- COLOQUEI UM BR AQUI EM CIMA -->
-
-        <div class="containerHabilidade">
-          <h3>Habilidade</h3>
-          <div class="cardHabilidade">
-            <img src="assets/icon/tipo/Grama.svg" alt="">
-            <span>Draim</span>
-            <span class="mais">></span>
-          </div>
-        </div>
       </div>
       <div class="containerGolpes">
         <h3>Ataques</h3>
@@ -144,42 +132,42 @@
             <div class="statusControle">
               <span>HP</span>
               <button onclick="alterarStatus('hp', -1)">−</button>
-              <strong id="hp">0</strong>
+              <input id="hp" type="number" min="0" max="252" value="0" oninput="definirStatus('hp', this.value)">
               <button onclick="alterarStatus('hp', 1)">+</button>
             </div>
 
             <div class="statusControle">
               <span>Ataque</span>
               <button onclick="alterarStatus('ataque', -1)">−</button>
-              <strong id="ataque">0</strong>
+              <input id="ataque" type="number" min="0" max="252" value="0" oninput="definirStatus('ataque', this.value)">
               <button onclick="alterarStatus('ataque', 1)">+</button>
             </div>
 
             <div class="statusControle">
               <span>Defesa</span>
               <button onclick="alterarStatus('defesa', -1)">−</button>
-              <strong id="defesa">0</strong>
+              <input id="defesa" type="number" min="0" max="252" value="0" oninput="definirStatus('defesa', this.value)">
               <button onclick="alterarStatus('defesa', 1)">+</button>
             </div>
 
             <div class="statusControle">
               <span>Defesa Esp.</span>
               <button onclick="alterarStatus('defesaEsp', -1)">−</button>
-              <strong id="defesaEsp">0</strong>
+              <input id="defesaEsp" type="number" min="0" max="252" value="0" oninput="definirStatus('defesaEsp', this.value)">
               <button onclick="alterarStatus('defesaEsp', 1)">+</button>
             </div>
 
             <div class="statusControle">
               <span>Ataque Esp.</span>
               <button onclick="alterarStatus('ataqueEsp', -1)">−</button>
-              <strong id="ataqueEsp">0</strong>
+              <input id="ataqueEsp" type="number" min="0" max="252" value="0" oninput="definirStatus('ataqueEsp', this.value)">
               <button onclick="alterarStatus('ataqueEsp', 1)">+</button>
             </div>
 
             <div class="statusControle">
               <span>Velocidade</span>
               <button onclick="alterarStatus('velocidade', -1)">−</button>
-              <strong id="velocidade">0</strong>
+              <input id="velocidade" type="number" min="0" max="252" value="0" oninput="definirStatus('velocidade', this.value)">
               <button onclick="alterarStatus('velocidade', 1)">+</button>
             </div>
           </div>

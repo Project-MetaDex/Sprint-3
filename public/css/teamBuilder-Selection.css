@@ -11,26 +11,45 @@ body, html{
     grid-template-areas: "pesquisa pesquisa"
     "lista selecionado";
     grid-template-rows: 10% 90%;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 28%);
     width: 100vw;
     height: 100vh;
     padding: 6% 2% 1.5% 2%;
     gap: 2.5%;
+    box-sizing: border-box;
+    overflow: hidden;
+
+}
+
+#barraPesquisa,
+#nomeTime {
+
+    border: solid 2px #7760AE;
+    border-radius: 20px;
+    background-color: #fafafa;
+    padding: 0.5% 6%;
+    outline: none;
 
 }
 
 #barraPesquisa {
 
-    width: 30%;
-    border: solid 2px #7760AE;
-    border-radius: 20px;
-    background-color: #fafafa;
-    padding: 0.5% 2%;
-    outline: none;
+    width: 100%;
+    height: 38px;
+    flex-shrink: 0;
 
 }
 
-#barraPesquisa::placeholder {
+#nomeTime {
+
+    width: 100%;
+    height: 38px;
+    flex-shrink: 0;
+
+}
+
+#barraPesquisa::placeholder,
+#nomeTime::placeholder {
 
     color: #7760AE;
     font-weight: 500;
@@ -39,16 +58,19 @@ body, html{
 
 .containerPesquisa{
     grid-area: pesquisa;
-    display: flex;
-    width: 98%;
+    display: grid;
+    grid-template-columns: minmax(30%, 34%) minmax(55%, 1fr) 220px 96px;
+    width: 80%;
     align-items: center;
-    gap: 2%;
+    gap: 1.8%;
+    min-width: 0;
 }
 
 .containerFilter{
     display: flex;
     align-items: center;
     width: 100%;
+    min-width: 0;
     font-weight: 700;
     font-size: xx-large;
     color: #7760AE;
@@ -58,9 +80,10 @@ body, html{
 
     display: flex;
     align-items: center;
-    width: 37%;
-    padding: 2%;
-    gap: 5.6%;
+    width: 50%;
+    min-width: 0;
+    padding: 0 2%;
+    gap: 10px;
     overflow-x: scroll;
 
 }
@@ -74,24 +97,25 @@ body, html{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.5vw;
-    height: 2.5vw;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
     background-color: #fff;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .imgTipo{
-    width: 1.3vw;
-    height: 1.3vw;
+    width: 18px;
+    height: 18px;
 }
 
 #btnSalvar{
 
     color: #fff;
     background-color: #7760AE;
-    width: 15%;
-    height: 50%;
+    width: 100%;
+    height: 34px;
     font-weight: 600;
     border-radius: 20px;
     cursor: pointer;
@@ -103,13 +127,25 @@ body, html{
     grid-area: lista;
     display: flex;
     flex-direction: column;
-    gap: 7%;
+    gap: 5%;
+    min-width: 0;
 }
 
 .containerAbas{
 
     display: flex;
+    width: 100%;
+    max-width: 100%;
+    height: 34px;
+    min-height: 34px;
+    flex-shrink: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
 
+}
+
+.containerAbas::-webkit-scrollbar{
+    display: none;
 }
 
 
@@ -117,21 +153,28 @@ body, html{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: solid 2px #000;
-    border-bottom: solid 2px #000;
-    width: 11vw;
-    height: 2.5vw;
+    border-top: solid 1px #fff;
+    border-bottom: solid 1px #fff;
+    border-right: solid 1px #fff;
+    width: calc(100% / 9);
+    min-width: 0;
+    flex-shrink: 1;
+    height: 34px;
+    padding: 0 4px;
     font-weight: 500;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    background-color: #fff;
     cursor: pointer;
 }
 
 .primeira{
-    border-left: solid 2px #000;
+    border-left: solid 1px #fff;
     border-top-left-radius: 10px;
 }
 
 .ultima{
-    border-right: solid 2px #000;
+    border-right: solid 1px #fff;
     border-top-right-radius: 10px;
 }
 
@@ -241,6 +284,7 @@ body, html{
     width: 15%;
     height: 30%;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .containerPokemonSelected{

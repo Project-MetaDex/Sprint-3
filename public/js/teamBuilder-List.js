@@ -1,153 +1,180 @@
-var times = [
-    `<div class="card" id="card-1">
-                <div id="iconCard">
-                <img src="assets/icon/Icon_Poke.svg" alt="">
-                </div>
+var times = [];
 
-                <div class="cardTitle">
-                    <h2>Time 01</h2>
-                    <p>Criado em 18 de abr de 2026</p>
-                </div>
-                
+async function listarTimes() {
+    var idUsuario = sessionStorage.ID_USUARIO;
+    var cardEquipe = "";
 
-                <div class="buttons">
-                    <button class="editar" onclick="editarTime(0)">Editar</button>
-                    <button class="excluir" onclick="excluirTime(0)"><img id="imgExcluir" src="assets/icon/Icon-Trash.svg" alt=""></button>
-                </div>
+    console.log(idUsuario)
 
-                <ul class="imgList">
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/9.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/20.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/151.png" alt=""></li>
-                </ul>
-            </div>
-`,
-`<div class="card" id="card-2">
-                <div id="iconCard">
-                <img src="assets/icon/Icon_Poke.svg" alt="">
-                </div>
-
-                <div class="cardTitle">
-                    <h2>Time 02</h2>
-                    <p>Criado em 18 de abr de 2026</p>
-                </div>
-                
-
-                <div class="buttons">
-                    <button class="editar" onclick="editarTime(1)">Editar</button>
-                    <button class="excluir" onclick="excluirTime(1)"><img id="imgExcluir" src="assets/icon/Icon-Trash.svg" alt=""></button>
-                </div>
-
-                <ul class="imgList">
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/9.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/20.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/151.png" alt=""></li>
-                </ul>
-            </div>
-`,
-`<div class="card" id="card-3">
-                <div id="iconCard">
-                <img src="assets/icon/Icon_Poke.svg" alt="">
-                </div>
-
-                <div class="cardTitle">
-                    <h2>Time 03</h2>
-                    <p>Criado em 18 de abr de 2026</p>
-                </div>
-                
-
-                <div class="buttons">
-                    <button class="editar" onclick="editarTime(2)">Editar</button>
-                    <button class="excluir" onclick="excluirTime(2)"><img id="imgExcluir" src="assets/icon/Icon-Trash.svg" alt=""></button>
-                </div>
-
-                <ul class="imgList">
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/9.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/20.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/151.png" alt=""></li>
-                </ul>
-            </div>
-`,
-`<div class="card" id="card-4">
-                <div id="iconCard">
-                <img src="assets/icon/Icon_Poke.svg" alt="">
-                </div>
-
-                <div class="cardTitle">
-                    <h2>Time 04</h2>
-                    <p>Criado em 18 de abr de 2026</p>
-                </div>
-                
-
-                <div class="buttons">
-                    <button class="editar" onclick="editarTime(3)">Editar</button>
-                    <button class="excluir" onclick="excluirTime(3)"><img id="imgExcluir" src="assets/icon/Icon-Trash.svg" alt=""></button>
-                </div>
-
-                <ul class="imgList">
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/9.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/20.png" alt=""></li>
-                    <li><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/151.png" alt=""></li>
-                </ul>
-            </div>
-`
-];
-
-function listarTimes (){
-
-    const botaoNovoTime = document.getElementById("novoTime");
-    if (botaoNovoTime) {
-        botaoNovoTime.onclick = criarNovoTime;
-    }
-
-    for (let i = 0; i < times.length; i++) {
-        let element = times[i];
-        let container = document.querySelector(".cardTimes")
-
-        container.innerHTML += element
+    try {
         
-    }
+        const res = await fetch("/equipes/listarEquipes/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ idUsuarioServer: idUsuario }),
+        });
 
+        if (res.status === 204) { // Correção para comparação
+            console.log("Nenhum time cadastrado");
+            document.querySelector(".cardTimes").innerHTML = "<p>Nenhum time cadastrado</p>";
+            return; // Encerra a função se não tiver time
+        }
+        if (!res.ok) throw new Error("Erro na rede ao buscar times");
+
+        const equipes = await res.json();
+        console.log("Dados recebidos: ", equipes);
+
+        // Usamos for...of para permitir o uso do await dentro do loop
+        for (const equipe of equipes) {
+        
+            const pokemonEquipeHtml = await getPokemonEquipe(equipe.idEquipe);
+
+            cardEquipe += `
+            <div class="card" id="card-${equipe.idEquipe}">
+                <div id="iconCard">
+                    <img src="assets/icon/Icon_Poke.svg" alt="">
+                </div>
+
+                <div class="cardTitle">
+                    <h2>${equipe.nome}</h2>
+                    <p>Criado em ${equipe.dataCriacao}</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="editar" onclick="editarTime(${equipe.idEquipe})">Editar</button>
+                    <button class="excluir" onclick="excluirTime(${equipe.idEquipe})">
+                        <img id="imgExcluir" src="assets/icon/Icon-Trash.svg" alt="">
+                    </button>
+                </div>
+
+                ${pokemonEquipeHtml}
+            </div>
+            `;
+        }
+
+        
+        document.querySelector(".cardTimes").innerHTML = cardEquipe;
+
+    } catch (error) {
+        console.error("Erro ao listar times:", error);
+    }
+}
+
+async function getPokemonEquipe(idEquipe) {
+    let pokemonImg = `<ul class="imgList">`;
+
+    try {
+        const res = await fetch("/equipes/getPokemonEquipe/", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fkPokemonEquipServer: idEquipe }), // Corrigido para a variável certa
+        });
+
+        if (!res.ok) throw new Error("Erro ao buscar Pokémons da equipe");
+        if (res.status === 204) { // Corrigido para comparação estrita ===
+            return `<ul class="imgList"><li>Sem Pokémons</li></ul>`;
+        }
+
+        console.log("Dados recebidos: ", res);
+
+        const pokemons = await res.json();
+
+
+        for (const pokemon of pokemons) {   
+            // AWAIT: Espera a PokeAPI responder antes de seguir
+            const pokemonData = await getPokemon(pokemon.nome);
+            
+            if (pokemonData) {
+                // CORREÇÃO: Uso de colchetes ["official-artwork"]
+                const imagem = pokemonData.sprites.other["official-artwork"].front_default;
+                pokemonImg += `<li><img src="${imagem}" alt=""></li>`;
+            }
+        }
+
+        pokemonImg += `</ul>`;
+        return pokemonImg; // Agora retorna a string completa no tempo certo
+
+    } catch (error) {
+        console.error("Erro ao montar imagens da equipe:", error);
+        return `<ul class="imgList"><li>Erro ao carregar imagens</li></ul>`;
+    }
+}
+
+async function getPokemon(pokemon) {
+    try {
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
+
+        if (!res.ok) {
+            throw new Error(`Pokémon não encontrado Status: ${res.status}`);
+        }
+
+        const pokemonData = await res.json();
+        return pokemonData;
+
+    } catch (error) {
+        console.error("Falha ao buscar os dados do pokemon:", error);
+        return null; // Retorna nulo em caso de erro para não quebrar o layout
+    }
 }
 
 function criarNovoTime() {
     limparTimeSelecionado();
-    location.href = "teamBuilder-Selection.html";
+    sessionStorage.removeItem("TIME_EDITANDO");
+        sessionStorage.removeItem("NOME_TIME_SELECIONADO");
+  location.href = "teamBuilder-Selection.html";
 }
 
 function editarTime(index) {
-    sessionStorage.setItem("TIME_EDITANDO", String(index));
-    location.href = "teamBuilder-Selection.html";
+  sessionStorage.setItem("TIME_EDITANDO", String(index));
+  location.href = "teamBuilder-Selection.html";
 }
 
 function limparTimeSelecionado() {
-    const totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
+  const totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
 
-    if (totalSalvo) {
-        for (let i = 0; i < totalSalvo; i++) {
-            sessionStorage.removeItem(`POKEMON${i}`);
-        }
+  if (totalSalvo) {
+    for (let i = 0; i < totalSalvo; i++) {
+      sessionStorage.removeItem(`POKEMON${i}`);
     }
+  }
 
-    sessionStorage.removeItem("TOTAL_POKEMONS_TIME");
-    sessionStorage.removeItem("POKEMON_EDITANDO");
+  sessionStorage.removeItem("TOTAL_POKEMONS_TIME");
+  sessionStorage.removeItem("POKEMON_EDITANDO");
 }
 
-function excluirTime (id){
+async function excluirTime(id) {
+    var confirmarExclusao = confirm("Deseja excluir esta equipe?");
 
-    times.splice(id, 1)
-    document.querySelector(`#card-${id + 1}`)?.remove();
+    if (!confirmarExclusao) {
+        return;
+    }
 
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!idUsuario) {
+        alert("Usuário não encontrado. Faça login novamente.");
+        return;
+    }
+
+    try {
+        const res = await fetch("/equipes/excluirEquipe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idEquipeServer: id,
+                idUsuarioServer: idUsuario,
+            }),
+        });
+
+        if (!res.ok) {
+            const mensagemErro = await res.text();
+            throw new Error(mensagemErro || "Erro ao excluir equipe");
+        }
+
+        document.querySelector(`#card-${id}`)?.remove();
+        await listarTimes();
+    } catch (error) {
+        console.error("Erro ao excluir time:", error);
+        alert("Não foi possível excluir a equipe.");
+    }
 }

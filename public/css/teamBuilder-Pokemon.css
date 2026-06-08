@@ -109,6 +109,12 @@ body, html{
     padding-right: 3%;
     border-top: solid 2px #D7D5DF;
     border-bottom: solid 2px #D7D5DF;
+    cursor: pointer;
+}
+
+.pokemonSelecionadoEditando{
+    background-color: #eee8fb;
+    border-color: #7760AE;
 }
 
 .selecionadosDetalhes{
@@ -166,10 +172,11 @@ body, html{
 .containerPokemonEdit{
 
     display: grid;
-    grid-template-areas: "img detalhe golpes"
+    grid-template-areas: "img detalhe detalhe"
+    "img golpes golpes"
     "status status status";
     grid-template-columns: .75fr 1fr 1fr;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 18% 26% 50%;
     grid-area: Pokemon;
     justify-self: center;
     width: 95%;
@@ -184,7 +191,9 @@ body, html{
 
 .imgPokemon {
 
+    grid-area: img;
     width: 100%;
+    align-self: center;
 
 }
 
@@ -193,6 +202,7 @@ body, html{
     display: flex;
     flex-direction: column;
     gap: 2%;
+    grid-area: detalhe;
 
 }
 
@@ -266,62 +276,37 @@ body, html{
 
 }
 
-.containerHabilidade{
-
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 5%;
-
-}
-
-.cardHabilidade {
-
-    display: grid;
-    grid-template-areas: "icon nome mais";
-    grid-template-columns: .5fr 1fr .5fr;
-    align-items: center;
-    gap: 5%;
-    background-color: #fafafa;
-    width: 100%;
-    height: 60%;
-    padding: 2% 5%;
-    border-radius: 10px;
-    font-weight: 600;
-    border: solid 1px #D7D5DF;
-
-}
-
-.cardHabilidade img {
-    width: 50%;
-    justify-self: center;
-
-}
-
 .containerGolpes{
 
-    margin-top: 5%;
+    grid-area: golpes;
     display: flex;
     flex-direction: column;
-    align-items: center;
     height: 100%;
+    min-width: 0;
+    gap: 8px;
+    position: relative;
 
 }
 
 .containerGolpes h3{
     display: flex;
     width: 100%;
-    padding: 0 10%;
+    padding: 0 4%;
+    margin: 0;
     
 }
 
 .containerGolpes ul{
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     width: 100%;
-    height: 100%;
+    flex: 1;
+    min-height: 0;
+    gap: 10px;
+    padding: 0 4%;
+    list-style: none;
 
 }
 
@@ -331,14 +316,20 @@ body, html{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 80%;
-    height: 15%;
-    margin-top: 5%;
+    width: 100%;
+    height: 100%;
     border: solid 1px #D7D5DF;
     border-radius: 10px;
     background-color: #fafafa;
-    padding: 1% 5%;
+    padding: 1% 6%;
+    font-weight: 500;
+    cursor: pointer;
     
+}
+
+.ataques:hover{
+    border-color: #7760AE;
+    background-color: #f5f0ff;
 }
 
 .ataques img{
@@ -346,6 +337,65 @@ body, html{
     height: 80%;
     width: 10%;
 
+}
+
+.listaAtaquesPokemon{
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 100%;
+    left: 4%;
+    right: 4%;
+    max-height: 210px;
+    overflow-y: auto;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    background-color: #fff;
+    border: solid 1px #D7D5DF;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(47, 45, 79, 0.16);
+}
+
+.listaAtaquesTitulo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #2f2d4f;
+    font-weight: 700;
+}
+
+.listaAtaquesTitulo button,
+.opcaoAtaque{
+    cursor: pointer;
+}
+
+.listaAtaquesTitulo button{
+    border: none;
+    background-color: #7760AE;
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+.opcaoAtaque{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border: solid 1px #D7D5DF;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #3a385f;
+    font-weight: 500;
+}
+
+.opcaoAtaque:hover{
+    border-color: #7760AE;
+    background-color: #f5f0ff;
 }
 
 .containerStatus {
@@ -441,14 +491,25 @@ body, html{
     border-left: solid 1px #D7D5DF;
 }
 
-.statusControle strong {
+.statusControle input {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
     background-color: #fafafa;
     text-align: center;
     font-weight: 600;
+    color: #3a385f;
+    font-size: 1rem;
+}
+
+.statusControle input::-webkit-outer-spin-button,
+.statusControle input::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
 }
 
 .statusControle button {
