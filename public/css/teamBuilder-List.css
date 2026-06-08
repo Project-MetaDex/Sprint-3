@@ -118,6 +118,7 @@ body, html{
     display: flex;
     align-items: center;
     margin-left: 2%;
+    gap: 2%;
 
 }
 
@@ -131,7 +132,7 @@ body, html{
 
 .imgList li img{
 
-    width: 70%;
+    width: 5vw;
 
 }
 

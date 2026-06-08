@@ -8,10 +8,10 @@
 
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/teamBuilder-List.css">
+    <script src="js/teamBuilder-List.js" defer></script>
 </head>
-<script src="js/teamBuilder-List.js"></script>
-<body onload="listarTimes()">
 
+<body onload="listarTimes()">
 <!-- Inicio Navbar -->
 
     <nav class="Nav-Container">
@@ -71,7 +71,7 @@
                 <p>Gerencie e monte suas equipes para qualquer desafio</p>
             </div>
 
-            <button id="novoTime">+ Novo Time</button>
+            <button onclick="criarNovoTime()" id="novoTime">+ Novo Time</button>
         </div>
 
         <input type="text" id="barraPesquisa" placeholder="Pesquisar">
