@@ -11,7 +11,7 @@ async function buscarElo(){
 
         try{
 
-            const res = await fetch(`https://pokemonshowdown.com/users/stevenhevgc.json`);
+            const res = await fetch(`https://pokemonshowdown.com/users/${nickName}.json`);
 
             if(!res.ok){
                 throw new Error(`Usuário não encontrado Status: ${res.status}`);
