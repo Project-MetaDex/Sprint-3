@@ -15,7 +15,7 @@ function cadastrar(nome, email, senha, nickname, fkMentor) {
 function autenticar(nome, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function autenticar(): ", nome, email, senha)
     var instrucaoSql = `
-        SELECT idUsuario, nome, email, nickname, tokenMentor, dataCadastro FROM usuario 
+        SELECT idUsuario, nome, email, nickname, tokenMentor, dataCadastro, notificacao FROM usuario 
         WHERE nome = '${nome}' AND email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -32,11 +32,11 @@ function buscarMentorPorToken(tokenMentor) {
     return database.executar(instrucaoSql);
 }
 
-function atualizarPerfil(nome, senha, nickname, idUsuario) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizarPerfil():", nome, senha, nickname, idUsuario);
+function atualizarPerfil(nome, senha, nickname, notificacao, idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizarPerfil():", nome, senha, nickname, notificacao, idUsuario);
 
     var instrucaoSql = `
-    UPDATE usuario SET nome = '${nome}', senha = '${senha}', nickname = '${nickname}' WHERE idUsuario = ${idUsuario};
+    UPDATE usuario SET nome = '${nome}', senha = '${senha}', nickname = '${nickname}', notificacao = ${notificacao} WHERE idUsuario = ${idUsuario};
     `;
     console.log("Atualizando usuário no sistema: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -66,7 +66,7 @@ function listarAlunos(idMentor) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarAlunos():", idMentor);
 
     var instrucaoSql = `
-        SELECT idUsuario, nome, posicaoRanking FROM usuario WHERE fkMentor = ${idMentor};
+        SELECT idUsuario, nome, posicaoRanking, ROUND(((qtdVitorias / totalBatalhas) * 100), 2) AS winRate, DATEDIFF(NOW(), dataCadastro) AS dias FROM usuario WHERE fkMentor = ${idMentor};
     `;
     console.log("Listando alunos do Mentor: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="css/PerfilMentor.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+
 <body>
 
     <nav class="Nav-Container">
@@ -34,7 +36,8 @@
                 <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
             </div>
             <ul class="Side-Options">
-                <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+                <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a>
+                </li>
                 <li><a href="cadastro.html">Pokedex</a></li>
                 <li><a href="cadastro.html">Ranks</a></li>
                 <li><a href="cadastro.html">Team Buider</a></li>
@@ -54,7 +57,7 @@
                         <img class="imagem-perfil" src="assets/imgs/foto_User_perfil.png" alt="Foto da mentora">
                     </div>
 
-                    <h1 id="nome" class="nome-aluno">Fernanda Caramico</h1>
+                    <h1 id="nome" class="nome-aluno">Mentor</h1>
                     <span class="tipo-aluno">Mentor Competitivo</span>
 
                     <nav class="opcoes-perfil" aria-label="Menu do perfil">
@@ -73,7 +76,7 @@
                             <span>Alunos</span>
                         </a>
 
-                        <a class="opcao-menu opcao-sair" href="index.html">
+                        <a class="opcao-menu opcao-sair" href="#" onclick="sairDaConta()">
                             <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
                             <span>Sair da conta</span>
                         </a>
@@ -109,7 +112,7 @@
                             <span class="icone-informacao"><i class="bi bi-person-badge"></i></span>
                             <div class="texto-informacao">
                                 <span class="rotulo-informacao">Membro desde</span>
-                                <span class="valor-informacao">Mar 2024</span>
+                                <span id="dtCadastro" class="valor-informacao">Mês Ano</span>
                             </div>
                         </div>
                     </div>
@@ -127,7 +130,7 @@
                                 <span class="icone-estatistica"><i class="bi bi-mortarboard"></i></span>
                             </div>
                             <span class="titulo-estatistica">Alunos Ativos</span>
-                            <span class="numero-estatistica">24</span>
+                            <span id="qtdAlunos" class="numero-estatistica">-</span>
                         </div>
 
                         <div class="card-estatistica card-risco">
@@ -135,7 +138,7 @@
                                 <span class="icone-estatistica"><i class="bi bi-calendar-week"></i></span>
                             </div>
                             <span class="titulo-estatistica">Alunos em Risco</span>
-                            <span class="numero-estatistica">4</span>
+                            <span id="qtdAlunosRisco" class="numero-estatistica">-</span>
                         </div>
 
                         <div class="card-estatistica card-destaque">
@@ -143,7 +146,7 @@
                                 <span class="icone-grupo"><i class="bi bi-people"></i></span>
                             </div>
                             <span class="titulo-estatistica">Alunos em Destaque</span>
-                            <span class="numero-estatistica">3</span>
+                            <span id="qtdAlunosDestaque" class="numero-estatistica">-</span>
                         </div>
                     </div>
                 </div>
@@ -254,4 +257,5 @@
 
     <script src="js/PerfilMentor.js"></script>
 </body>
+
 </html>
