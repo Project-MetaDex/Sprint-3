@@ -14,11 +14,12 @@ async function listarTimes() {
             body: JSON.stringify({ idUsuarioServer: idUsuario }),
         });
 
-        if (!res.ok) throw new Error("Erro na rede ao buscar times");
         if (res.status === 204) { // Correção para comparação
             console.log("Nenhum time cadastrado");
+            document.querySelector(".cardTimes").innerHTML = "<p>Nenhum time cadastrado</p>";
             return; // Encerra a função se não tiver time
         }
+        if (!res.ok) throw new Error("Erro na rede ao buscar times");
 
         const equipes = await res.json();
         console.log("Dados recebidos: ", equipes);
@@ -117,7 +118,9 @@ async function getPokemon(pokemon) {
 }
 
 function criarNovoTime() {
-  // limparTimeSelecionado();
+    limparTimeSelecionado();
+    sessionStorage.removeItem("TIME_EDITANDO");
+        sessionStorage.removeItem("NOME_TIME_SELECIONADO");
   location.href = "teamBuilder-Selection.html";
 }
 
@@ -139,7 +142,39 @@ function limparTimeSelecionado() {
   sessionStorage.removeItem("POKEMON_EDITANDO");
 }
 
-function excluirTime(id) {
-  times.splice(id, 1);
-  document.querySelector(`#card-${id + 1}`)?.remove();
+async function excluirTime(id) {
+    var confirmarExclusao = confirm("Deseja excluir esta equipe?");
+
+    if (!confirmarExclusao) {
+        return;
+    }
+
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!idUsuario) {
+        alert("Usuário não encontrado. Faça login novamente.");
+        return;
+    }
+
+    try {
+        const res = await fetch("/equipes/excluirEquipe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idEquipeServer: id,
+                idUsuarioServer: idUsuario,
+            }),
+        });
+
+        if (!res.ok) {
+            const mensagemErro = await res.text();
+            throw new Error(mensagemErro || "Erro ao excluir equipe");
+        }
+
+        document.querySelector(`#card-${id}`)?.remove();
+        await listarTimes();
+    } catch (error) {
+        console.error("Erro ao excluir time:", error);
+        alert("Não foi possível excluir a equipe.");
+    }
 }

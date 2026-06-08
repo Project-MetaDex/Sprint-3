@@ -56,7 +56,8 @@ function conectarNavegacao() {
 
     if (botaoSalvar) {
         botaoSalvar.onclick = () => {
-            location.href = "teamBuilder-List.html";
+            salvarStatusPokemonAtual();
+            location.href = "teamBuilder-Selection.html";
         };
     }
 }
@@ -87,6 +88,8 @@ async function renderizarPokemonEmEdicao() {
     if (!pokemonAtual) {
         return;
     }
+
+    carregarStatusPokemonAtual(pokemonAtual);
 
     const nomePokemon = document.querySelector(".nomePokemon");
     const imagemPokemon = document.querySelector(".imgPokemon");
@@ -316,6 +319,7 @@ function alterarStatus(status, valor) {
     }
 
     atualizarStatusTela();
+    salvarStatusPokemonAtual();
 }
 
 function definirStatus(status, valor) {
@@ -338,6 +342,38 @@ function definirStatus(status, valor) {
 
     statusPokemon[status] = novoValor;
     atualizarStatusTela();
+    salvarStatusPokemonAtual();
+}
+
+function carregarStatusPokemonAtual(pokemonAtual) {
+    statusPokemon.hp = Number(pokemonAtual.statusSelecionados?.hp || 0);
+    statusPokemon.ataque = Number(pokemonAtual.statusSelecionados?.ataque || pokemonAtual.statusSelecionados?.attack || 0);
+    statusPokemon.defesa = Number(pokemonAtual.statusSelecionados?.defesa || pokemonAtual.statusSelecionados?.defense || 0);
+    statusPokemon.ataqueEsp = Number(pokemonAtual.statusSelecionados?.ataqueEsp || 0);
+    statusPokemon.defesaEsp = Number(pokemonAtual.statusSelecionados?.defesaEsp || 0);
+    statusPokemon.velocidade = Number(pokemonAtual.statusSelecionados?.velocidade || 0);
+
+    atualizarStatusTela();
+}
+
+function salvarStatusPokemonAtual() {
+    const pokemonAtual = pokemon[pokemonEditandoIndex];
+
+    if (!pokemonAtual) {
+        return;
+    }
+
+    pokemonAtual.statusSelecionados = {
+        hp: statusPokemon.hp,
+        attack: statusPokemon.ataque,
+        defense: statusPokemon.defesa,
+        ataqueEsp: statusPokemon.ataqueEsp,
+        defesaEsp: statusPokemon.defesaEsp,
+        velocidade: statusPokemon.velocidade
+    };
+
+    pokemon[pokemonEditandoIndex] = pokemonAtual;
+    sessionStorage.setItem(`POKEMON${pokemonEditandoIndex}`, JSON.stringify(pokemonAtual));
 }
 
 function calcularTotalStatus() {

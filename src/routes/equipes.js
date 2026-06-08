@@ -13,6 +13,22 @@ router.post("/listarEquipes", function(req, res){
     equipeController.listarEquipes(req, res)
 })
 
+router.post("/salvarEquipe", function(req, res){
+    equipeController.salvarEquipe(req, res)
+})
+
+router.post("/buscarEquipe", function(req, res){
+    equipeController.buscarEquipe(req, res)
+})
+
+router.post("/editarEquipe", function(req, res){
+    equipeController.editarEquipe(req, res)
+})
+
+router.post("/excluirEquipe", function(req, res){
+    equipeController.excluirEquipe(req, res)
+})
+
 router.post("/getPokemonEquipe", function(req, res){
     equipeController.getPokemonEquipe(req, res)
 })
