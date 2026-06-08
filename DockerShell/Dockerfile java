@@ -1,0 +1,11 @@
+### Usa Java 21 com Amazon Corretto ###
+FROM amazoncorretto:21
+
+### Define o diretório de trabalho dentro do container ###
+WORKDIR /app
+
+### Copia o JAR da aplicação PseudoETL para dentro do container ###
+COPY s3-pseudoetl-service.jar /app/s3-pseudoetl-service.jar
+
+### Comando executado quando o container iniciar ###
+ENTRYPOINT ["java", "-jar", "/app/s3-pseudoetl-service.jar"]

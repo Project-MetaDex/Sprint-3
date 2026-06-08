@@ -12,13 +12,9 @@
 
 <body>
 
-    <!-- Inicio Navbar -->
-
     <nav class="Nav-Container">
         <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
-
         <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
-
         <ul class="Nav-Options">
             <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
             <li><a href="cadastro.html">Pokedex</a></li>
@@ -26,7 +22,6 @@
             <li><a href="cadastro.html">Team Buider</a></li>
             <li><a href="cadastro.html">Battle Simulator</a></li>
         </ul>
-
         <div class="Button-Container">
             <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
             <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
@@ -35,13 +30,11 @@
 
     <aside style="display: none;" class="Side-Container">
         <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
-
         <div class="Side-Flex">
             <div class="Perfil">
                 <img src="assets/icon/Icon-User.svg" alt="">
                 <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
             </div>
-
             <ul class="Side-Options">
                 <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a>
                 </li>
@@ -50,12 +43,11 @@
                 <li><a href="cadastro.html">Team Buider</a></li>
                 <li><a href="cadastro.html">Battle Simulator</a></li>
             </ul>
-
             <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
         </div>
     </aside>
 
-    <!-- Fim Navbar -->
+    <!--             FIM DA Navbar               -->
 
     <main class="pagina-aluno">
         <div class="conteudo-aluno">
@@ -65,16 +57,16 @@
                         <img class="imagem-perfil" src="assets/imgs/foto_User_perfil.png" alt="Foto da mentora">
                     </div>
 
-                    <h1 id="nomeMentor" class="nome-aluno">Mentor</h1>
+                    <h1 id="nome" class="nome-aluno">Mentor</h1>
                     <span class="tipo-aluno">Mentor Competitivo</span>
 
                     <nav class="opcoes-perfil" aria-label="Menu do perfil">
-                        <a class="opcao-menu opcao-ativa" href="#">
+                        <a class="opcao-menu opcao-ativa" href="#" id="menu-visao" onclick="mostrarSecao('visao-geral'); return false;">
                             <span class="icone-menu"><i class="bi bi-grid"></i></span>
                             <span>Visão geral</span>
                         </a>
 
-                        <a class="opcao-menu" href="#">
+                        <a class="opcao-menu" href="#" id="menu-editar" onclick="mostrarSecao('editar-perfil'); return false;">
                             <span class="icone-menu"><i class="bi bi-person"></i></span>
                             <span>Editar perfil</span>
                         </a>
@@ -92,7 +84,7 @@
                 </div>
             </aside>
 
-            <section class="area-principal">
+            <section class="area-principal" id="secao-visao-geral">
                 <div class="card-sobre">
                     <div class="titulo-com-icone">
                         <img src="assets/imgs/pokebolaIcon04-Photoroom.png" width="40" alt="">
@@ -156,13 +148,114 @@
                             <span class="titulo-estatistica">Alunos em Destaque</span>
                             <span id="qtdAlunosDestaque" class="numero-estatistica">-</span>
                         </div>
+                    </div>
+                </div>
+            </section>
 
+            <section class="area-principal" id="secao-editar-perfil" style="display:none;">
+                <div class="card-sobre editar-card">
+                    <div class="cabecalho-editar">
+                        <div class="titulo-com-icone" style="padding-bottom: 0;">
+                            <span class="icone-titulo-edit"><i class="bi bi-person-gear"></i></span>
+                            <h2>Editar Perfil</h2>
+                        </div>
+                        <button class="btn-deletar-conta" type="button" onclick="deletarConta()">
+                            <i class="bi bi-trash3"></i>
+                            Deletar conta
+                        </button>
+                    </div>
+
+                    <div class="editar-form">
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-nome">
+                                <i class="bi bi-person-fill"></i>
+                                Nome do mentor
+                            </label>
+                            <input class="campo-input" type="text" id="edit-nome" placeholder="Seu nome completo">
+                        </div>
+
+                        <div class="divisor-secao"><span>Segurança</span></div>
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-senha-atual">
+                                <i class="bi bi-lock-fill"></i>
+                                Senha atual
+                            </label>
+                            <div class="input-senha-wrap">
+                                <input class="campo-input" type="password" id="edit-senha-atual" placeholder="Digite sua senha atual">
+                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-atual', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-senha-nova">
+                                <i class="bi bi-lock"></i>
+                                Nova senha
+                            </label>
+                            <div class="input-senha-wrap">
+                                <input class="campo-input" type="password" id="edit-senha-nova" placeholder="Digite a nova senha">
+                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-nova', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="campo-grupo">
+                            <label class="campo-label" for="edit-senha-conf">
+                                <i class="bi bi-lock-fill"></i>
+                                Confirmar nova senha
+                            </label>
+                            <div class="input-senha-wrap">
+                                <input class="campo-input" type="password" id="edit-senha-conf" placeholder="Repita a nova senha">
+                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-conf', this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="divisor-secao"><span>Preferências</span></div>
+
+                        <div class="campo-grupo campo-toggle-grupo">
+                            <div class="toggle-info">
+                                <span class="campo-label toggle-label">
+                                    <i class="bi bi-bell-fill"></i>
+                                    Notificações
+                                </span>
+                                <span class="toggle-desc">Receba alertas sobre seus alunos e mentorias</span>
+                            </div>
+                            <label class="switch" for="toggle-notif" aria-label="Ativar notificações">
+                                <input type="checkbox" id="toggle-notif" checked>
+                                <span class="slider">
+                                    <span class="slider-icon on"><i class="bi bi-bell-fill"></i></span>
+                                    <span class="slider-icon off"><i class="bi bi-bell-slash-fill"></i></span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="toast-feedback" id="toast-feedback" style="display:none;"></div>
+
+                        <div class="editar-acoes">
+                            <button class="btn-cancelar" type="button" onclick="mostrarSecao('visao-geral')">
+                                <i class="bi bi-x-lg"></i>
+                                Cancelar
+                            </button>
+                            <button class="btn-salvar" type="button" onclick="salvarPerfil()">
+                                <i class="bi bi-check-lg"></i>
+                                Salvar mudanças
+                            </button>
+                        </div>
 
                     </div>
                 </div>
             </section>
+
         </div>
     </main>
+
+    <script src="js/PerfilMentor.js"></script>
 </body>
 
 </html>
@@ -178,7 +271,7 @@
 
     window.onload = function () {
 
-        document.getElementById("nomeMentor").innerHTML = sessionStorage.NOME_USUARIO;
+        document.getElementById("nome").innerHTML = sessionStorage.NOME_USUARIO;
 
         // Logica para pegar a data do sessionStorage
         var dataFormatada = new Date(sessionStorage.DATA_CADASTRO).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric', timeZone: 'UTC' });

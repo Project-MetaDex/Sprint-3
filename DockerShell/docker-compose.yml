@@ -1,31 +1,53 @@
-version: '1.0'
+version: '3.8'
 
 services:
   database:
-    image: gleisonfreitas/meu-bd:1.1
+    image: gleisonfreitas/meu-bd:1.3
     container_name: metadex-db
     restart: always
     ports:
       - "3306:3306"
+    volumes:
+      - metadex_db_data:/var/lib/mysql
     networks:
       - metadex-network
     healthcheck:
-      test: ["CMD-SHELL", "mysql -u root -pMeta2309 -e 'SELECT 1;'"]
-      interval: 5s
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-P", "3306", "--protocol=tcp", "-u", "admin_metadex", "-pMeta2309"]
+      interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 30s
+      start_period: 40s
 
-  backend-java:
-    image: gleisonfreitas/meu-java:2.2
-    container_name: metadex-backend
-    restart: always
+  s3-pseudoetl-service:
+    image: gleisonfreitas/meu-java:3.0
+    container_name: metadex-java
+    restart: "no"
     environment:
       - DB_HOST=database
       - DB_PORT=3306
       - DB_NAME=metadex
       - DB_USER=admin_metadex
       - DB_PASSWORD=Meta2309
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - metadex-network
+
+  java-mail:
+    image: gleisonfreitas/meu-javamail:3.0
+    container_name: metadex-javamail
+    restart: "no"
+    environment:
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_NAME=metadex
+      - DB_USER=admin_metadex
+      - DB_PASSWORD=Meta2309
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=contato.metadex@gmail.com
+      - SMTP_PASSWORD=afgsffbuzhqpcveo
     depends_on:
       database:
         condition: service_healthy
