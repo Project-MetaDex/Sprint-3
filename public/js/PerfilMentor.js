@@ -1,6 +1,3 @@
-// =========================================================
-// INICIALIZAÇÃO — roda quando a página carrega
-// =========================================================
 window.onload = function () {
 
     // Preenche o nome do mentor vindo do sessionStorage
@@ -25,9 +22,7 @@ window.onload = function () {
     dadosPerfilMentor();
 };
 
-// =========================================================
-// FETCH — busca alunos do mentor e preenche os cards
-// =========================================================
+
 function dadosPerfilMentor() {
     fetch(`/usuarios/listarAlunos/${sessionStorage.ID_USUARIO}`, {
         method: 'GET'
@@ -63,9 +58,7 @@ function dadosPerfilMentor() {
         });
 }
 
-// =========================================================
-// NAVEGAÇÃO ENTRE SEÇÕES
-// =========================================================
+
 function mostrarSecao(secao) {
     var secaoVisao  = document.getElementById('secao-visao-geral');
     var secaoEditar = document.getElementById('secao-editar-perfil');
@@ -94,9 +87,7 @@ function mostrarSecao(secao) {
     }
 }
 
-// =========================================================
-// SALVAR PERFIL
-// =========================================================
+
 function salvarPerfil() {
     var nome    = document.getElementById('edit-nome').value.trim();
     var senhaAt = document.getElementById('edit-senha-atual').value;
@@ -169,17 +160,13 @@ function salvarPerfil() {
         });
 }
 
-// =========================================================
-// SAIR DA CONTA
-// =========================================================
+
 function sairDaConta() {
     sessionStorage.clear();
     window.location.href = 'index.html';
 }
 
-// =========================================================
-// DELETAR CONTA (fetch será implementado posteriormente)
-// =========================================================
+
 function deletarConta() {
     var confirmado = window.confirm('Deseja mesmo deletar sua conta?');
     if (confirmado) {
@@ -207,9 +194,7 @@ function deletarConta() {
     }
 }
 
-// =========================================================
-// UTILITÁRIOS
-// =========================================================
+
 function toggleSenha(inputId, btn) {
     var input = document.getElementById(inputId);
     var icone = btn.querySelector('i');

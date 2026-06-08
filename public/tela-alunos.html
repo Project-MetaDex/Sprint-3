@@ -182,7 +182,8 @@
     return (partes[0][0] + (partes[1] ? partes[1][0] : '')).toUpperCase();
   }
 
-  function irParaAluno() {
+  function irParaAluno(idAluno) {
+    sessionStorage.setItem('ID_ALUNO_SELECIONADO', idAluno);
     window.location.href = 'tela-aluno.html';
   }
 
@@ -305,7 +306,7 @@
           <small>Ranking</small>
           <strong>${a.posicaoRanking}º</strong>
         </div>
-        <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
+        <button class="btn-verPerfil" onclick="irParaAluno(${a.idUsuario})">Ver Perfil</button>
       </div>
     `).join('');
 

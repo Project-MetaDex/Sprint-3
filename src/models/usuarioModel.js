@@ -66,7 +66,7 @@ function listarAlunos(idMentor) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarAlunos():", idMentor);
 
     var instrucaoSql = `
-        SELECT idUsuario, nome, posicaoRanking, ROUND(((qtdVitorias / totalBatalhas) * 100), 2) AS winRate, DATEDIFF(NOW(), dataCadastro) AS dias FROM usuario WHERE fkMentor = ${idMentor};
+        SELECT idUsuario, nome, posicaoRanking, ROUND(((qtdVitorias / totalBatalhas) * 100), 2) AS winRate, DATEDIFF(NOW(), dataCadastro) AS dias FROM Usuario WHERE fkMentor = ${idMentor};
     `;
     console.log("Listando alunos do Mentor: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -76,7 +76,7 @@ function dadosPerfilAluno(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function dadosPerfilMentor():", idUsuario);
 
     var instrucaoSql = `
-        SELECT qtdVitorias, qtdDerrotas, posicaoRanking, totalBatalhas,
+        SELECT nome, qtdVitorias, qtdDerrotas, posicaoRanking, totalBatalhas,
             (SELECT COUNT(*) FROM Equipe WHERE fkUsuario = idUsuario) AS timesSalvos
                 FROM Usuario WHERE idUsuario = ${idUsuario};
     `;

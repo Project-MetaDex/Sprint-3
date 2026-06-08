@@ -22,50 +22,51 @@
   <nav class="Nav-Container">
     <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
     <ul class="Nav-Options">
-      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Tela Inicial</a></li>
+      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Tela Inicial</a>
+      </li>
       <li><a href="cadastro.html">Pokedex</a></li>
       <li><a href="cadastro.html">Ranking</a></li>
       <li><a href="cadastro.html">Simulações</a></li>
       <li><a href="cadastro.html">Alunos</a></li>
     </ul>
-        <div class="Button-Container">
-            <a  href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
+    <div class="Button-Container">
+      <a href="#">
+        <img src="assets/imgs/iconeUSER.png" class="user">
+      </a>
 
-        </div>
+    </div>
   </nav>
   <!-- Fim Navbar -->
 
 
   <div class="container-perfil">
 
-    <div class="avatar-perfil" id="avatarPerfil">GF</div>
+    <div class="avatar-perfil" id="avatarPerfil">AA</div>
 
     <!-- Dados do aluno -->
     <div class="dados-aluno">
-      <span class="nome-aluno">Gleison Freitas</span>
+      <span class="nome-aluno" id="nomeAluno">Aluno</span>
       <div class="separador"></div>
       <div class="infos">
         <div class="info-linha">
           <span class="label">Taxa de vitória</span>
-          <span class="valor">85%</span>
+          <span class="valor" id="valorWinRate">-%</span>
         </div>
         <div class="info-linha">
-          <span class="label">Quantidade de pontos</span>
-          <span class="valor">92 pts</span>
+          <span class="label">ELO</span>
+          <span class="valor" id="valorElo">- pts</span>
         </div>
         <div class="info-linha">
-          <span class="label">Campeonatos</span>
-          <span class="valor">6</span>
+          <span class="label">Total de batalhas</span>
+          <span class="valor" id="valorBatalhas">-</span>
         </div>
         <div class="info-linha">
-          <span class="label">Batalhas totais</span>
-          <span class="valor">247</span>
+          <span class="label">Total de vitórias</span>
+          <span class="valor" id="valorBatalhas">-</span>
         </div>
         <div class="info-linha">
-          <span class="label">Frequência semanal</span>
-          <span class="valor">5 dias/sem</span>
+          <span class="label">Total de derrotas</span>
+          <span class="valor" id="valorFreq">-</span>
         </div>
       </div>
     </div>
@@ -89,74 +90,239 @@
   </div>
 
 </body>
+
 </html>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  /* ------- GRÁFICO ------- */
-  new Chart(document.getElementById('myChart'), {
-    type: 'line',
-    data: {
-      labels: ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-      datasets: [{
-        label: 'Win Rate',
-        data: [72, 74, 79, 80, 83, 85],
-        borderColor: '#8956B9',
-        backgroundColor: 'rgba(137,86,185,0.07)',
-        borderWidth: 2.5,
-        pointRadius: 5,
-        pointBackgroundColor: '#fff',
-        pointBorderColor: '#8956B9',
-        pointBorderWidth: 2,
-        fill: true,
-        tension: 0.4
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: {
-          beginAtZero: false, min: 60, max: 100,
-          ticks: { callback: v => v + '%', font: { size: 11 } },
-          grid: { color: 'rgba(0,0,0,0.04)' }
-        },
-        x: {
-          ticks: { font: { size: 11 } },
-          grid: { display: false }
-        }
-      }
-    }
-  });
 
-
-  /* ------- TIMES ------- */
-  /*
-   * Cada objeto: { nome, tipo, batalhas, wr, corWr }
-   * corWr: '#1D9E75' (bom), '#BA7517' (médio), '#c0392b' (ruim)
-   */
-  const times = [
-    { nome: 'Time Ofensivo A',  tipo: 'Hyper Offense', batalhas: 62, wr: 91, corWr: '#1D9E75' },
-    { nome: 'Time Balance B',   tipo: 'Balance',        batalhas: 88, wr: 85, corWr: '#1D9E75' },
-    { nome: 'Time Tailwind C',  tipo: 'Balance',        batalhas: 47, wr: 79, corWr: '#1D9E75' },
-    { nome: 'Time Trick Room D',tipo: 'Trick Room',     batalhas: 30, wr: 58, corWr: '#BA7517' },
-    { nome: 'Time Stall E',     tipo: 'Stall',          batalhas: 20, wr: 42, corWr: '#c0392b' },
-  ];
-
-  function renderTimes() {
-    const container = document.getElementById('containerTimes');
-    container.innerHTML = times.map(t => `
-      <div class="time">
-        <div class="time-info">
-          <span class="time-nome">${t.nome}</span>
-          <span class="time-tipo">${t.tipo} · ${t.batalhas} batalhas</span>
-        </div>
-        <span class="time-wr" style="color:${t.corWr};">${t.wr}%</span>
-        <button>Detalhes</button>
-      </div>
-    `).join('');
+  // =========================================================
+  // AUXILIARES
+  // =========================================================
+  function iniciaisNome(nome) {
+    var partes = nome.trim().split(' ');
+    return (partes[0][0] + (partes[1] ? partes[1][0] : '')).toUpperCase();
   }
 
-  renderTimes();
+  function corWinRate(wr) {
+    if (wr >= 70) return '#1D9E75';
+    if (wr >= 50) return '#BA7517';
+    return '#c0392b';
+  }
+
+  // =========================================================
+  // GRÁFICO DE EVOLUÇÃO
+  // =========================================================
+  var graficoInstance = null;
+
+  function renderGrafico(labels, dados) {
+    var minVal = Math.max(0, Math.min.apply(null, dados) - 10);
+
+    if (graficoInstance) {
+      graficoInstance.destroy();
+    }
+
+    graficoInstance = new Chart(document.getElementById('myChart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Win Rate',
+          data: dados,
+          borderColor: '#8956B9',
+          backgroundColor: 'rgba(137,86,185,0.07)',
+          borderWidth: 2.5,
+          pointRadius: 5,
+          pointBackgroundColor: '#fff',
+          pointBorderColor: '#8956B9',
+          pointBorderWidth: 2,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: {
+            beginAtZero: false,
+            min: minVal,
+            max: 100,
+            ticks: { callback: function (v) { return v + '%'; }, font: { size: 11 } },
+            grid: { color: 'rgba(0,0,0,0.04)' }
+          },
+          x: {
+            ticks: { font: { size: 11 } },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+  }
+
+  // =========================================================
+  // TIMES
+  // =========================================================
+  function renderTimes(times) {
+    var container = document.getElementById('containerTimes');
+
+    if (!times || times.length === 0) {
+      container.innerHTML = '<p style="color:#888; font-size:13px;">Nenhum time cadastrado.</p>';
+      return;
+    }
+
+    container.innerHTML = times.map(function (t) {
+      var cor = corWinRate(t.winRate);
+      return `
+        <div class="time">
+          <div class="time-info">
+            <span class="time-nome">${t.nomeTime}</span>
+            <span class="time-tipo">${t.tipoTime} · ${t.totalBatalhas} batalhas</span>
+          </div>
+          <span class="time-wr" style="color:${cor};">${t.winRate}%</span>
+          <button>Detalhes</button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // =========================================================
+  // PREENCHE OS DADOS DO ALUNO NA TELA
+  // =========================================================
+  function preencherDados(aluno) {
+    document.getElementById('avatarPerfil').textContent = iniciaisNome(aluno.nome);
+    document.getElementById('nomeAluno').textContent = aluno.nome;
+
+    // winRate vem como decimal do banco (ex: 85.67), arredonda para exibir
+    var wr = aluno.winRate ? parseFloat(aluno.winRate).toFixed(1) : '-';
+    document.getElementById('valorWinRate').textContent = wr + '%';
+
+    // totalBatalhas vem direto
+    document.getElementById('valorBatalhas').textContent = aluno.totalBatalhas || '-';
+
+    // timesSalvos vem da subquery COUNT(*) FROM Equipe
+    document.getElementById('valorCamp').textContent = aluno.timesSalvos || '-';
+
+    // posicaoRanking como ELO por enquanto (não tem campo de pontos ainda)
+    document.getElementById('valorElo').textContent = aluno.posicaoRanking
+      ? aluno.posicaoRanking + '°'
+      : '-';
+
+    // frequenciaSemanal não existe no banco ainda — deixa placeholder
+    document.getElementById('valorFreq').textContent = '-';
+  }
+
+  // =========================================================
+  // FETCH 1 — dados do perfil do aluno
+  // =========================================================
+  function buscarDadosAluno(idAluno) {
+    fetch('/usuarios/dadosPerfilAluno/' + idAluno, {
+      method: 'GET'
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (aluno) {
+            console.log('Dados do aluno recebidos:', aluno);
+            preencherDados(aluno);
+
+          });
+        } else {
+          console.log('Erro ao buscar dados do aluno: ' + resposta.status);
+        }
+      })
+      .catch(function (erroDeRede) {
+        console.log('Erro de conexão com o servidor:', erroDeRede);
+      });
+  }
+
+  // =========================================================
+  // FETCH 2 — equipes do aluno
+  // =========================================================
+  function buscarEquipes(idAluno) {
+    fetch('/ROTA_EQUIPES_ALUNO/' + idAluno, {
+      method: 'GET'
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (times) {
+            console.log('Equipes do aluno recebidas:', times);
+            renderTimes(times);
+          });
+        } else {
+          console.log('Erro ao buscar equipes: ' + resposta.status);
+          // mock enquanto a rota não existe
+          renderTimes([
+            { nomeTime: 'Time Ofensivo A', tipoTime: 'Hyper Offense', totalBatalhas: 62, winRate: 91 },
+            { nomeTime: 'Time Balance B', tipoTime: 'Balance', totalBatalhas: 88, winRate: 85 },
+            { nomeTime: 'Time Tailwind C', tipoTime: 'Balance', totalBatalhas: 47, winRate: 79 },
+            { nomeTime: 'Time Trick Room D', tipoTime: 'Trick Room', totalBatalhas: 30, winRate: 58 },
+            { nomeTime: 'Time Stall E', tipoTime: 'Stall', totalBatalhas: 20, winRate: 42 },
+          ]);
+        }
+      })
+      .catch(function (erroDeRede) {
+        console.log('Erro de conexão com o servidor:', erroDeRede);
+      });
+  }
+
+  // =========================================================
+  // FETCH 3 — histórico de win rate por mês para o gráfico
+  // =========================================================
+  function buscarHistoricoGrafico(idAluno) {
+    fetch('/ROTA_HISTORICO_WINRATE/' + idAluno, {
+      method: 'GET'
+    })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          resposta.json().then(function (historico) {
+            console.log('Histórico recebido:', historico);
+
+            // Espera que a API retorne assim:
+            // [
+            //   { mes: 'Dez', winRate: 72 },
+            //   { mes: 'Jan', winRate: 74 },
+            //   ...
+            // ]
+            var labels = historico.map(function (h) { return h.mes; });
+            var dados = historico.map(function (h) { return h.winRate; });
+
+            renderGrafico(labels, dados);
+          });
+        } else {
+          console.log('Erro ao buscar histórico: ' + resposta.status);
+          // mock enquanto a rota não existe
+          renderGrafico(
+            ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+            [72, 74, 79, 80, 83, 85]
+          );
+        }
+      })
+      .catch(function (erroDeRede) {
+        console.log('Erro de conexão com o servidor:', erroDeRede);
+        renderGrafico(
+          ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
+          [72, 74, 79, 80, 83, 85]
+        );
+      });
+  }
+
+  // =========================================================
+  // INICIALIZAÇÃO
+  // =========================================================
+  function inicializar() {
+    var idAluno = sessionStorage.getItem('ID_ALUNO_SELECIONADO');
+
+    if (!idAluno) {
+      console.log('Nenhum aluno selecionado. Redirecionando...');
+      window.location.href = 'tela-alunos.html';
+      return;
+    }
+
+    buscarDadosAluno(sessionStorage.ID_ALUNO_SELECIONADO);
+    buscarEquipes(sessionStorage.ID_ALUNO_SELECIONADO);
+    buscarHistoricoGrafico(sessionStorage.ID_ALUNO_SELECIONADO);
+  }
+
+  inicializar();
 </script>
