@@ -29,6 +29,8 @@ async function listarTimes() {
         
             const pokemonEquipeHtml = await getPokemonEquipe(equipe.idEquipe);
 
+            const dataFormatada = new Date(equipe.dataCriacao).toLocaleDateString('pt-BR');
+
             cardEquipe += `
             <div class="card" id="card-${equipe.idEquipe}">
                 <div id="iconCard">
@@ -37,7 +39,7 @@ async function listarTimes() {
 
                 <div class="cardTitle">
                     <h2>${equipe.nome}</h2>
-                    <p>Criado em ${equipe.dataCriacao}</p>
+                    <p>Criado em ${dataFormatada}</p>
                 </div>
 
                 <div class="buttons">
@@ -67,11 +69,11 @@ async function getPokemonEquipe(idEquipe) {
         const res = await fetch("/equipes/getPokemonEquipe/", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ fkPokemonEquipServer: idEquipe }), // Corrigido para a variável certa
+            body: JSON.stringify({ fkPokemonEquipServer: idEquipe }), 
         });
 
         if (!res.ok) throw new Error("Erro ao buscar Pokémons da equipe");
-        if (res.status === 204) { // Corrigido para comparação estrita ===
+        if (res.status === 204) { 
             return `<ul class="imgList"><li>Sem Pokémons</li></ul>`;
         }
 
@@ -81,18 +83,17 @@ async function getPokemonEquipe(idEquipe) {
 
 
         for (const pokemon of pokemons) {   
-            // AWAIT: Espera a PokeAPI responder antes de seguir
+            
             const pokemonData = await getPokemon(pokemon.nome);
             
             if (pokemonData) {
-                // CORREÇÃO: Uso de colchetes ["official-artwork"]
                 const imagem = pokemonData.sprites.other["official-artwork"].front_default;
                 pokemonImg += `<li><img src="${imagem}" alt=""></li>`;
             }
         }
 
         pokemonImg += `</ul>`;
-        return pokemonImg; // Agora retorna a string completa no tempo certo
+        return pokemonImg; 
 
     } catch (error) {
         console.error("Erro ao montar imagens da equipe:", error);
@@ -113,7 +114,7 @@ async function getPokemon(pokemon) {
 
     } catch (error) {
         console.error("Falha ao buscar os dados do pokemon:", error);
-        return null; // Retorna nulo em caso de erro para não quebrar o layout
+        return null; 
     }
 }
 
