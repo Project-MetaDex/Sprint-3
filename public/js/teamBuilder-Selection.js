@@ -1,6 +1,18 @@
 var abas = [];
 var pokemonList = [];
+var pokemonListCompleta = [];
 var pokemonSelected = [];
+var geracoes = [
+    { inicio: 1, fim: 151 },
+    { inicio: 152, fim: 251 },
+    { inicio: 252, fim: 386 },
+    { inicio: 387, fim: 493 },
+    { inicio: 494, fim: 649 },
+    { inicio: 650, fim: 721 },
+    { inicio: 722, fim: 809 },
+    { inicio: 810, fim: 905 },
+    { inicio: 906, fim: 1025 }
+];
 
 const containerSelected = document.querySelector(".containerCardSelected")
 const containerCard = document.querySelector(".containerCard")
@@ -20,12 +32,12 @@ function SelecionarAba(Aba){
    document.querySelector(".selectedAba")?.classList.remove("selectedAba")
 
    var abaSelecionada = document.querySelector(`#aba${Aba}`)
+    var indiceGeracao = Number(abaSelecionada.dataset.geracao)
+    var geracaoSelecionada = geracoes[indiceGeracao]
+
    abaSelecionada.classList.add("selectedAba")
 
-    var regulamento = Aba == 0 ? 151 : 251;
-    var inicio = Aba == 0 ? 1 : 152;
-
-   GetPokemonList(regulamento, inicio)
+    GetPokemonList(geracaoSelecionada.fim, geracaoSelecionada.inicio)
 
 }
 
@@ -47,9 +59,10 @@ async function Filter(type) {
             promises.push(fetch(res.pokemon[i].pokemon.url).then(response => response.json()))
         }
 
-        pokemonList = await Promise.all(promises);
+        pokemonListCompleta = await Promise.all(promises);
+        pokemonList = pokemonListCompleta;
 
-        ConstruirCardList()
+        PesquisarPokemon()
 
     }catch (error){
 
@@ -59,22 +72,38 @@ async function Filter(type) {
         
 }
 
-async function GetPokemonList (regulamento, inicio) {
+async function GetPokemonList (fim, inicio) {
 
     pokemonList = []
+    pokemonListCompleta = []
     const promises = [] 
 
-    for (let i = inicio; i <= regulamento; i++) {
+    for (let i = inicio; i <= fim; i++) {
         promises.push(fetch(`https://pokeapi.co/api/v2/pokemon/${i}`).then(res => res.json()));
     }
 
     try {
-        pokemonList = await Promise.all(promises);
+        pokemonListCompleta = await Promise.all(promises);
+        pokemonList = pokemonListCompleta;
 
-        ConstruirCardList()
+        PesquisarPokemon()
     }catch (error){
         console.error(error);
     }
+
+}
+
+function PesquisarPokemon(){
+
+    var pesquisa = document.getElementById("barraPesquisa").value.toLowerCase().trim()
+
+    if (pesquisa == "") {
+        pokemonList = pokemonListCompleta
+    } else {
+        pokemonList = pokemonListCompleta.filter(pokemon => pokemon.name.toLowerCase().includes(pesquisa))
+    }
+
+    ConstruirCardList()
 
 }
 

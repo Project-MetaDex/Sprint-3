@@ -66,7 +66,7 @@
     <div class="container">
       
       <div class="containerPesquisa">
-        <input type="text" id="barraPesquisa" placeholder="Pesquisar">
+        <input type="text" id="barraPesquisa" placeholder="Pesquisar na geração selecionada" oninput="PesquisarPokemon()">
 
         <div class="containerFilter">
           <samp><</samp>
@@ -93,13 +93,22 @@
           <span>></span>
         </div>
 
+        <input type="text" id="nomeTime" placeholder="Nome do time">
+
         <button id="btnSalvar">Salvar</button>
       </div>
 
       <div class="containerPokemonList">
         <div class="containerAbas">
-          <button id="aba0" onclick="SelecionarAba(0)" class="primeira Aba">Regulamentação A</button>
-          <button id="aba1" onclick="SelecionarAba(1)" class="ultima Aba">Regulamentação B</button>
+          <button id="aba0" data-geracao="0" onclick="SelecionarAba(0)" class="primeira Aba">Geração 1</button>
+          <button id="aba1" data-geracao="1" onclick="SelecionarAba(1)" class="Aba">Geração 2</button>
+          <button id="aba2" data-geracao="2" onclick="SelecionarAba(2)" class="Aba">Geração 3</button>
+          <button id="aba3" data-geracao="3" onclick="SelecionarAba(3)" class="Aba">Geração 4</button>
+          <button id="aba4" data-geracao="4" onclick="SelecionarAba(4)" class="Aba">Geração 5</button>
+          <button id="aba5" data-geracao="5" onclick="SelecionarAba(5)" class="Aba">Geração 6</button>
+          <button id="aba6" data-geracao="6" onclick="SelecionarAba(6)" class="Aba">Geração 7</button>
+          <button id="aba7" data-geracao="7" onclick="SelecionarAba(7)" class="Aba">Geração 8</button>
+          <button id="aba8" data-geracao="8" onclick="SelecionarAba(8)" class="ultima Aba">Geração 9</button>
         </div>
 
         <h2>Lista de Pokémon disponiveis</h2>
