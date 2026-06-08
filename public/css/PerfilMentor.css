@@ -420,6 +420,7 @@ body {
 }
 
 .btn-deletar-conta:hover {
+    cursor: pointer;
     background: #ffe0e6;
     border-color: #e8839a;
 }
