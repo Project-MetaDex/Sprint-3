@@ -1,10 +1,71 @@
+// =========================================================
+// INICIALIZAÇÃO — roda quando a página carrega
+// =========================================================
 window.onload = function () {
+
+    // Preenche o nome do mentor vindo do sessionStorage
     var nomeSalvo = sessionStorage.getItem('NOME_USUARIO');
     if (nomeSalvo) {
         document.getElementById('nome').textContent = nomeSalvo;
     }
+
+    // Formata e exibe a data de cadastro (ex: "Junho 2025")
+    var dataCadastro = sessionStorage.getItem('DATA_CADASTRO');
+    if (dataCadastro) {
+        var dataFormatada = new Date(dataCadastro).toLocaleDateString('pt-BR', {
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC'
+        });
+        document.getElementById('dtCadastro').textContent =
+            dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
+    }
+
+    // Busca os dados dos alunos do mentor para preencher os cards de estatística
+    dadosPerfilMentor();
 };
 
+// =========================================================
+// FETCH — busca alunos do mentor e preenche os cards
+// =========================================================
+function dadosPerfilMentor() {
+    fetch(`/usuarios/listarAlunos/${sessionStorage.ID_USUARIO}`, {
+        method: 'GET'
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (listaAlunos) {
+                    console.log('Dados recebidos com sucesso:', listaAlunos);
+
+                    document.getElementById('qtdAlunos').textContent = listaAlunos.length;
+
+                    var qtdRisco = 0;
+                    var qtdDestaque = 0;
+
+                    // Conta alunos em risco (winRate < 50) e em destaque (winRate >= 70)
+                    for (var i = 0; i < listaAlunos.length; i++) {
+                        if (listaAlunos[i].winRate < 50) {
+                            qtdRisco++;
+                        } else if (listaAlunos[i].winRate >= 70) {
+                            qtdDestaque++;
+                        }
+                    }
+
+                    document.getElementById('qtdAlunosRisco').textContent = qtdRisco;
+                    document.getElementById('qtdAlunosDestaque').textContent = qtdDestaque;
+                });
+            } else {
+                console.log('Erro ao buscar alunos: ' + resposta.status);
+            }
+        })
+        .catch(function (erroDeRede) {
+            console.log('Erro de conexão com o servidor:', erroDeRede);
+        });
+}
+
+// =========================================================
+// NAVEGAÇÃO ENTRE SEÇÕES
+// =========================================================
 function mostrarSecao(secao) {
     var secaoVisao  = document.getElementById('secao-visao-geral');
     var secaoEditar = document.getElementById('secao-editar-perfil');
@@ -33,6 +94,9 @@ function mostrarSecao(secao) {
     }
 }
 
+// =========================================================
+// SALVAR PERFIL
+// =========================================================
 function salvarPerfil() {
     var nome    = document.getElementById('edit-nome').value.trim();
     var senhaAt = document.getElementById('edit-senha-atual').value;
@@ -61,23 +125,91 @@ function salvarPerfil() {
         }
     }
 
-    sessionStorage.setItem('NOME_USUARIO', nome);
-    sessionStorage.setItem('NOTIF_ATIVA', notifOn ? 'true' : 'false');
+    var notificacao = notifOn ? 1 : 0;
 
-    document.getElementById('nome').textContent = nome;
+    fetch('/usuarios/atualizarPerfil/' + sessionStorage.getItem('ID_USUARIO'), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nomeServer: nome,
+            senhaAtualServer: senhaAt,
+            senhaNovaServer: senhaNv,
+            notificacaoServer: notificacao,
+            nicknameServer: sessionStorage.NICK_USUARIO
+        })
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                console.log('Perfil do mentor atualizado com sucesso!');
 
-    limparSenhas();
-    mostrarToast('sucesso', '<i class="bi bi-check-circle-fill"></i> Perfil atualizado com sucesso!');
+                sessionStorage.setItem('NOME_USUARIO', nome);
+                sessionStorage.setItem('NOTIF_ATIVA', notifOn ? 'true' : 'false');
+                sessionStorage.setItem('NOTIFICACAO', notificacao);
+
+                document.getElementById('nome').textContent = nome;
+
+                limparSenhas();
+                mostrarToast('sucesso', '<i class="bi bi-check-circle-fill"></i> Perfil atualizado com sucesso!');
+
+                setTimeout(function () {
+                    mostrarSecao('visao-geral');
+                }, 2000);
+
+            } else {
+                resposta.text().then(function (mensagemErro) {
+                    console.log('Erro retornado pelo servidor:', mensagemErro);
+                    mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> ' + mensagemErro);
+                });
+            }
+        })
+        .catch(function (erroDeRede) {
+            console.log('Erro de conexão com o servidor:', erroDeRede);
+        });
 }
 
+// =========================================================
+// SAIR DA CONTA
+// =========================================================
+function sairDaConta() {
+    sessionStorage.clear();
+    window.location.href = 'index.html';
+}
+
+// =========================================================
+// DELETAR CONTA (fetch será implementado posteriormente)
+// =========================================================
 function deletarConta() {
     var confirmado = window.confirm('Deseja mesmo deletar sua conta?');
     if (confirmado) {
-        sessionStorage.clear();
-        window.location.href = 'index.html';
+
+        fetch(`/usuarios/deletarConta/${sessionStorage.ID_USUARIO}`, {
+            method: 'DELETE'
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    console.log('Conta deletada com sucesso!');
+                    sessionStorage.clear();
+                    window.location.href = 'index.html';
+                } else {
+                    resposta.text().then(function (mensagemErro) {
+                        console.log('Erro ao deletar conta:', mensagemErro);
+                        mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Não foi possível deletar a conta.');
+                    }); 
+                }
+            })
+            .catch(function (erroDeRede) {
+                console.log('Erro de conexão com o servidor:', erroDeRede);
+                mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Erro de conexão. Tente novamente.');
+            });
+
     }
 }
 
+// =========================================================
+// UTILITÁRIOS
+// =========================================================
 function toggleSenha(inputId, btn) {
     var input = document.getElementById(inputId);
     var icone = btn.querySelector('i');
