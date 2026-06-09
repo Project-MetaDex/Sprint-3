@@ -52,7 +52,7 @@
 
           <div class="card-info">
             <h4>Taxa de Abandono</h4>
-            <strong class="valor">12%</strong>
+            <strong id="taxaAbandono" class="valor">12%</strong>
           </div>
 
           <div class="card-info">
@@ -166,6 +166,37 @@
       </div>
     `;
     });
+  }
+
+  function calcularTaxaAbandono() {
+
+    const hoje = new Date();
+
+    const alunosAbandono = dadosGlobais.filter(function (aluno) {
+
+      // Se não houver dados suficientes, não considera abandono
+      if (!aluno.ultimaEquipe || !aluno.ultimaBatalha) {
+        return false;
+      }
+
+      const diasSemEquipe =
+        (hoje - new Date(aluno.ultimaEquipe)) / (1000 * 60 * 60 * 24);
+
+      const diasSemBatalha =
+        (hoje - new Date(aluno.ultimaBatalha)) / (1000 * 60 * 60 * 24);
+
+      return (
+        Number(aluno.winRate) < 30 &&
+        diasSemEquipe > 7 &&
+        diasSemBatalha > 7
+      );
+    });
+
+    const taxa =
+      (alunosAbandono.length / dadosGlobais.length) * 100;
+
+    document.getElementById("taxaAbandono").innerHTML =
+      taxa.toFixed(1) + "%";
   }
 
   // =========================================================
@@ -348,7 +379,7 @@
         if (resp.ok) {
 
           resp.json().then(function (dados) {
-
+            console.log(dados);
             fetch("https://pokemonshowdown.com/ladder/gen9championsvgc2026regma.json")
               .then(function (respostaLadder) {
                 return respostaLadder.json();
@@ -381,6 +412,7 @@
                 console.log(dados);
                 dadosGlobais = dados;
 
+                calcularTaxaAbandono();
                 renderGrafico(dadosGlobais);
                 renderPagina(1);
                 renderizarListasLaterais();
