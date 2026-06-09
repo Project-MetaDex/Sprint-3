@@ -1,179 +1,256 @@
-body, html{
+/* =====================================================
+ Team Builder - lista de duelos salvos
+ Layout simples e compativel com o resto do site
+ ===================================================== */
 
-    overflow-y: hidden;
-    background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
-
+body, html {
+ background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
+ min-height: 100vh;
+ overflow-x: hidden;
 }
 
 .container {
-
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin: 6% 2%;
-    gap: 2.5%;
-
+ max-width: 1100px;
+ margin: 0 auto;
+ padding: 90px 24px 40px;
+ display: flex;
+ flex-direction: column;
+ gap: 20px;
 }
 
-
-#title{
-
-    color: #1F2937;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
+/* Cabecalho com titulo e botao Novo Duelo */
+#title {
+ display: flex;
+ justify-content: space-between;
+ align-items: flex-start;
+ flex-wrap: wrap;
+ gap: 16px;
 }
-
+#title h1 {
+ font-size: 1.8rem;
+ font-weight: 800;
+ color: #1F2937;
+}
+#title h1 span {
+ color: #7760AE;
+}
 #title p {
-    color: #6B7280
+ margin-top: 6px;
+ color: #6B7280;
+ font-size: 0.9rem;
 }
 
 #novoTime {
-
-    background-color: #7760AE;
-    width: 8%;
-    height: 60%;
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-
+ background: linear-gradient(135deg, #7760AE, #a98ff3);
+ color: #fff;
+ font-weight: 700;
+ font-size: 0.9rem;
+ padding: 12px 22px;
+ border: none;
+ border-radius: 20px;
+ cursor: pointer;
+ box-shadow: 0 4px 14px rgba(119,96,174,0.3);
+}
+#novoTime:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 6px 18px rgba(119,96,174,0.4);
 }
 
+/* Barra de pesquisa */
 #barraPesquisa {
-
-    width: 30%;
-    border: solid 2px #7760AE;
-    border-radius: 20px;
-    background-color: #F3F2F6;
-    padding: 0.5% 2%;
-    outline: none;
-
+ width: 100%;
+ max-width: 360px;
+ border: 1.5px solid #c5acff;
+ border-radius: 22px;
+ background: rgba(255,255,255,0.7);
+ padding: 10px 18px;
+ font-size: 0.88rem;
+ outline: none;
 }
-
 #barraPesquisa::placeholder {
-
-    color: #7760AE;
-    font-weight: 500;
-
+ color: #7760AE;
+ font-weight: 500;
 }
 
-.cardTimes{
-
-    overflow-y: scroll;
-    height: 67%;
-    padding: 1%;
-    display: flex;
-    flex-direction: column;
-    gap: 3%;
-
+/* Lista de cards de duelos */
+.cardTimes {
+ display: flex;
+ flex-direction: column;
+ gap: 14px;
 }
 
-.cardTimes::-webkit-scrollbar{
-
-    display: none;
-
-}
-
+/* Card individual de um duelo */
 .card {
-    display: grid;
-    grid-template-areas: "Icon Titulo Botoes"
-    "Icon Imagens Imagens";
-    grid-template-columns: 5% 1fr 1fr;
-    background-color: #fbf9ff;
-    border: solid 2px #D7D5DF;
-    border-radius: 10px;
-    padding: 1%;
+ background: rgba(255,255,255,0.88);
+ border: 1px solid rgba(255,255,255,0.7);
+ border-radius: 16px;
+ padding: 16px 20px;
+ box-shadow: 0 4px 16px rgba(119,96,174,0.10);
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
 }
 
-#iconCard{
-    width: 90%;
-    height: 85%;
-    border-radius: 50%;
-    background-color: rgba(216, 192, 246, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Linha do titulo */
+.card-title-row {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+}
+.card-title-row h2 {
+ font-size: 1rem;
+ font-weight: 700;
+ color: #1a0a3d;
+ flex: 1;
+}
+.data-badge {
+ font-size: 0.72rem;
+ color: #7760AE;
+ background: #f0ebff;
+ border-radius: 10px;
+ padding: 3px 10px;
+ font-weight: 600;
 }
 
-#iconCard img{
-    width: 50%;
+/* Previa dos dois pokemons */
+.duelo-preview {
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ background: #faf7ff;
+ border-radius: 12px;
+ padding: 14px 18px;
 }
 
-.cardTitle{
-    grid-area: Titulo;
-    margin-left: 3%;
-    margin-bottom: 3%;
-    color: #1F2937;
+.poke-slot-preview {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+ flex: 1;
+ min-width: 0;
+}
+.poke-slot-preview img {
+ width: 56px;
+ height: 56px;
+ object-fit: contain;
+ background: linear-gradient(135deg, #f3eeff 0%, #e8deff 100%);
+ border-radius: 50%;
+ padding: 4px;
+ flex-shrink: 0;
+}
+.poke-slot-preview span {
+ font-size: 0.85rem;
+ font-weight: 600;
+ color: #374151;
+ text-transform: capitalize;
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
 
-.cardTitle p{
-    color: #6B7280;
+.slot-vazio {
+ width: 56px;
+ height: 56px;
+ border-radius: 50%;
+ background: #ede5ff;
+ border: 2px dashed #c5acff;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 1.3rem;
+ color: #c5acff;
+ font-weight: 700;
+ flex-shrink: 0;
 }
 
-.imgList{
-
-    grid-area: Imagens;
-    display: flex;
-    align-items: center;
-    margin-left: 2%;
-    gap: 2%;
-
+.vs-badge {
+ font-size: 1.1rem;
+ font-weight: 900;
+ color: #7760AE;
+ padding: 0 8px;
+ flex-shrink: 0;
 }
 
-.imgList img {
-
-    background-color: #D7D5DF;
-    border-radius: 10px;
-
+/* Botoes do card */
+.buttons {
+ display: flex;
+ gap: 10px;
+ align-items: stretch;
+}
+.buttons button {
+ border: none;
+ border-radius: 12px;
+ font-weight: 700;
+ cursor: pointer;
+ font-family: 'Poppins', sans-serif;
+ font-size: 0.85rem;
+ padding: 10px 18px;
 }
 
-
-.imgList li img{
-
-    width: 5vw;
-
+.editar {
+ background: rgba(119,96,174,0.15);
+ color: #2D305F;
+ flex: 0 0 auto;
 }
+.editar:hover { background: rgba(119,96,174,0.28); }
 
-.buttons{
-
-    width: 100%;
-    display: flex;
-    justify-content: end;
-    grid-area: Botoes;
-    gap: 2%;
-
+.simular {
+ flex: 1;
+ background: linear-gradient(135deg, #D84B36, #e8735f);
+ color: #fff;
+ box-shadow: 0 3px 10px rgba(216,75,54,0.25);
 }
-
-.editar{
-
-    background-color: #7760AE;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-weight: 500;
-    width: 15%;
-    height: 50%;
-    border-radius: 20px;
-    cursor: pointer;
-
+.simular:disabled {
+ opacity: 0.45;
+ cursor: not-allowed;
+ box-shadow: none;
+}
+.simular:not(:disabled):hover {
+ transform: translateY(-1px);
+ box-shadow: 0 5px 14px rgba(216,75,54,0.35);
 }
 
 .excluir {
+ background: #fce5ea;
+ width: 44px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 0;
+ flex-shrink: 0;
+}
+.excluir:hover { background: #f8c4cf; }
+.excluir img { width: 18px; height: 18px; }
 
-    display: flex;
-    justify-content: center;
-    background-color: #e15e7d; 
-    width: 6%;
-    height: 50%;
-    border-radius: 10px;
-    cursor: pointer;
-
+/* Estado vazio (sem duelos ainda) */
+.empty-state {
+ text-align: center;
+ padding: 60px 20px;
+ color: #888;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 18px;
+ background: rgba(255,255,255,0.7);
+ border-radius: 16px;
+}
+.empty-state p {
+ font-size: 0.95rem;
+}
+.empty-state button {
+ background: linear-gradient(135deg, #7760AE, #a98ff3);
+ color: #fff;
+ border: none;
+ border-radius: 22px;
+ padding: 12px 28px;
+ font-size: 0.9rem;
+ font-weight: 700;
+ cursor: pointer;
 }
 
-#imgExcluir{
-    width: 60%;
+/* Responsivo */
+@media (max-width: 700px) {
+ .duelo-preview { flex-direction: column; gap: 8px; }
+ .buttons { flex-wrap: wrap; }
+ .editar, .simular { width: 100%; flex: 1 1 auto; }
 }
