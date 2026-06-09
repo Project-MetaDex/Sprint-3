@@ -130,6 +130,7 @@ CREATE TABLE EquipePokemon (
     Ataque2     VARCHAR(45),
     Ataque3     VARCHAR(45),
     Ataque4     VARCHAR(45),
+    HP          INT          NOT NULL,
     Attack      INT          NOT NULL,
     Defense     INT          NOT NULL,
     SpAtk       INT          NOT NULL,

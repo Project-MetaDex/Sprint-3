@@ -136,8 +136,14 @@ function limparTimeSelecionado() {
   if (totalSalvo) {
     for (let i = 0; i < totalSalvo; i++) {
       sessionStorage.removeItem(`POKEMON${i}`);
+            sessionStorage.removeItem(`pokemon${i + 1}`);
     }
   }
+
+    for (let i = 0; i < 6; i++) {
+        sessionStorage.removeItem(`POKEMON${i}`);
+        sessionStorage.removeItem(`pokemon${i + 1}`);
+    }
 
   sessionStorage.removeItem("TOTAL_POKEMONS_TIME");
   sessionStorage.removeItem("POKEMON_EDITANDO");
