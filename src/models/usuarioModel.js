@@ -76,7 +76,7 @@ function dadosPerfilAluno(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function dadosPerfilMentor():", idUsuario);
 
     var instrucaoSql = `
-        SELECT nome, qtdVitorias, qtdDerrotas, posicaoRanking, totalBatalhas,
+        SELECT nome, qtdVitorias, qtdDerrotas, ROUND(((qtdVitorias / totalBatalhas) * 100), 2) As winRate, posicaoRanking, totalBatalhas,
             (SELECT COUNT(*) FROM Equipe WHERE fkUsuario = idUsuario) AS timesSalvos
                 FROM Usuario WHERE idUsuario = ${idUsuario};
     `;

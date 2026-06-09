@@ -50,7 +50,7 @@
       <div class="infos">
         <div class="info-linha">
           <span class="label">Taxa de vitória</span>
-          <span class="valor" id="valorWinRate">-%</span>
+          <span class="valor" id="winRate">-%</span>
         </div>
         <div class="info-linha">
           <span class="label">ELO</span>
@@ -58,15 +58,15 @@
         </div>
         <div class="info-linha">
           <span class="label">Total de batalhas</span>
-          <span class="valor" id="valorBatalhas">-</span>
+          <span class="valor" id="qtdBatalhas">-</span>
         </div>
         <div class="info-linha">
           <span class="label">Total de vitórias</span>
-          <span class="valor" id="valorBatalhas">-</span>
+          <span class="valor" id="qtdVitorias">-</span>
         </div>
         <div class="info-linha">
           <span class="label">Total de derrotas</span>
-          <span class="valor" id="valorFreq">-</span>
+          <span class="valor" id="qtdDerrotas">-</span>
         </div>
       </div>
     </div>
@@ -96,9 +96,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-  // =========================================================
-  // AUXILIARES
-  // =========================================================
   function iniciaisNome(nome) {
     var partes = nome.trim().split(' ');
     return (partes[0][0] + (partes[1] ? partes[1][0] : '')).toUpperCase();
@@ -110,9 +107,7 @@
     return '#c0392b';
   }
 
-  // =========================================================
-  // GRÁFICO DE EVOLUÇÃO
-  // =========================================================
+
   var graficoInstance = null;
 
   function renderGrafico(labels, dados) {
@@ -143,7 +138,18 @@
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function (ctx) {
+                return ctx.parsed.y + '%';
+              }
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: false,
@@ -187,35 +193,20 @@
     }).join('');
   }
 
-  // =========================================================
-  // PREENCHE OS DADOS DO ALUNO NA TELA
-  // =========================================================
   function preencherDados(aluno) {
     document.getElementById('avatarPerfil').textContent = iniciaisNome(aluno.nome);
     document.getElementById('nomeAluno').textContent = aluno.nome;
 
-    // winRate vem como decimal do banco (ex: 85.67), arredonda para exibir
     var wr = aluno.winRate ? parseFloat(aluno.winRate).toFixed(1) : '-';
-    document.getElementById('valorWinRate').textContent = wr + '%';
+    document.getElementById('winRate').textContent = wr + '%';
 
-    // totalBatalhas vem direto
-    document.getElementById('valorBatalhas').textContent = aluno.totalBatalhas || '-';
+    document.getElementById('qtdBatalhas').textContent = aluno.totalBatalhas || '-';
 
-    // timesSalvos vem da subquery COUNT(*) FROM Equipe
-    document.getElementById('valorCamp').textContent = aluno.timesSalvos || '-';
+    document.getElementById('qtdVitorias').textContent = aluno.qtdVitorias || '-';
 
-    // posicaoRanking como ELO por enquanto (não tem campo de pontos ainda)
-    document.getElementById('valorElo').textContent = aluno.posicaoRanking
-      ? aluno.posicaoRanking + '°'
-      : '-';
-
-    // frequenciaSemanal não existe no banco ainda — deixa placeholder
-    document.getElementById('valorFreq').textContent = '-';
+    document.getElementById('qtdDerrotas').textContent = aluno.qtdDerrotas ? aluno.qtdDerrotas : '-';
   }
 
-  // =========================================================
-  // FETCH 1 — dados do perfil do aluno
-  // =========================================================
   function buscarDadosAluno(idAluno) {
     fetch('/usuarios/dadosPerfilAluno/' + idAluno, {
       method: 'GET'
@@ -270,7 +261,7 @@
   // FETCH 3 — histórico de win rate por mês para o gráfico
   // =========================================================
   function buscarHistoricoGrafico(idAluno) {
-    fetch('/ROTA_HISTORICO_WINRATE/' + idAluno, {
+    fetch('/showdown/dadosShowdown/' + idAluno, {
       method: 'GET'
     })
       .then(function (resposta) {
@@ -278,12 +269,6 @@
           resposta.json().then(function (historico) {
             console.log('Histórico recebido:', historico);
 
-            // Espera que a API retorne assim:
-            // [
-            //   { mes: 'Dez', winRate: 72 },
-            //   { mes: 'Jan', winRate: 74 },
-            //   ...
-            // ]
             var labels = historico.map(function (h) { return h.mes; });
             var dados = historico.map(function (h) { return h.winRate; });
 
@@ -291,11 +276,7 @@
           });
         } else {
           console.log('Erro ao buscar histórico: ' + resposta.status);
-          // mock enquanto a rota não existe
-          renderGrafico(
-            ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-            [72, 74, 79, 80, 83, 85]
-          );
+
         }
       })
       .catch(function (erroDeRede) {
