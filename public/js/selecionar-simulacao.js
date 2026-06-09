@@ -1,12 +1,16 @@
-var simulacoesList = carregarSimulacoes();
+var simulacoesList = [];
 var pokemonList = [];
 
 const containerCard = document.querySelector(".containerCard");
 const barraPesquisa = document.querySelector("#barraPesquisa");
 
 window.addEventListener("load", () => {
- GetPokemonList();
+ carregarSimulacoes();
 });
+
+function getIdUsuario() {
+ return sessionStorage.getItem("ID_USUARIO");
+}
 
 if (barraPesquisa) {
  barraPesquisa.addEventListener("input", () => {
@@ -15,39 +19,53 @@ if (barraPesquisa) {
 }
 
 function carregarSimulacoes() {
- const simulacoesStorage = sessionStorage.getItem("simulacoesList") || sessionStorage.getItem("simulacoes");
+ var idUsuario = getIdUsuario();
 
- if (simulacoesStorage) {
- try {
- const simulacoes = JSON.parse(simulacoesStorage);
-
- if (Array.isArray(simulacoes)) {
- return simulacoes.map((simulacao, index) => normalizarSimulacao(simulacao, index));
+ if (!idUsuario) {
+ simulacoesList = [];
+ if (containerCard) {
+ containerCard.innerHTML = `<p class="mensagemCard">Faça login para visualizar suas simulações.</p>`;
  }
- } catch (error) {
- console.error("Erro ao carregar simulações do sessionStorage:", error);
- }
+ return;
  }
 
- return [
- {
- id: 1,
- pokemonUsuario: "charmander",
- pokemonAdversario: "pikachu"
+ fetch("/simulacoes/listarSimulacoes", {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify({ idUsuarioServer: idUsuario })
+ })
+ .then(function (resposta) {
+ if (resposta.status === 204) {
+ return [];
  }
- ];
+
+ if (!resposta.ok) {
+ throw new Error("Falha ao listar simulações: " + resposta.status);
+ }
+
+ return resposta.json();
+ })
+ .then(function (dados) {
+ simulacoesList = dados.map(function (simulacao, index) {
+ return normalizarSimulacao(simulacao, index);
+ });
+ GetPokemonList();
+ })
+ .catch(function (erro) {
+ console.error("Erro ao carregar simulações do banco:", erro);
+ if (containerCard) {
+ containerCard.innerHTML = `<p class="mensagemCard">Não foi possível carregar as simulações.</p>`;
+ }
+ });
 }
 
 function normalizarSimulacao(simulacao, index) {
  return {
- id: simulacao.id || simulacao.idSimulacao || index + 1,
- pokemonUsuario: simulacao.pokemonUsuario || simulacao.usuario || simulacao.pokemonEscolhido,
- pokemonAdversario: simulacao.pokemonAdversario || simulacao.adversario || simulacao.pokemonInimigo
+ id: simulacao.idSimulacaoUsuario || simulacao.id || simulacao.idSimulacao || index + 1,
+ pokemonUsuario: simulacao.nomePokemonUsuario || simulacao.pokemonUsuario || simulacao.usuario,
+ pokemonAdversario: simulacao.nomePokemonAdversario || simulacao.pokemonAdversario || simulacao.adversario,
+ resultado: simulacao.Resultado || simulacao.resultado || null
  };
-}
-
-function salvarSimulacoes() {
- sessionStorage.setItem("simulacoesList", JSON.stringify(simulacoesList));
 }
 
 function formatarNumeroSimulacao(numero) {
@@ -166,11 +184,37 @@ function ConstruirCardList() {
 }
 
 function simular(idSimulacao) {
- window.location.href = `simulacao.html?id=${idSimulacao}`;
+ window.location.href = `simulacao1.html?simId=${idSimulacao}`;
 }
 
 function RemoverSimulacao(idSimulacao) {
- simulacoesList = simulacoesList.filter(simulacao => String(simulacao.id) !== String(idSimulacao));
- salvarSimulacoes();
+ var idUsuario = getIdUsuario();
+
+ if (!idUsuario) {
+ alert("Faça login para excluir simulações.");
+ return;
+ }
+
+ fetch("/simulacoes/excluirSimulacao", {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify({
+ idSimulacaoServer: idSimulacao,
+ idUsuarioServer: idUsuario
+ })
+ })
+ .then(function (resposta) {
+ if (!resposta.ok) {
+ throw new Error("Falha ao excluir simulação: " + resposta.status);
+ }
+
+ simulacoesList = simulacoesList.filter(function (simulacao) {
+ return String(simulacao.id) !== String(idSimulacao);
+ });
  GetPokemonList();
+ })
+ .catch(function (erro) {
+ console.error("Erro ao excluir simulação:", erro);
+ alert("Não foi possível excluir a simulação.");
+ });
 }

@@ -201,8 +201,10 @@ function showDetail() {
  RANKING RENDERS
 ════════════════════════════════ */
 async function initRanking() {
+ await carregarRankingDoBanco();
+
  const results = await Promise.allSettled(
- RANKING.map(p => fetchPokemonByName(p.name).then(d => ({
+ state.rankingData.map(p => fetchPokemonByName(p.name).then(d => ({
  ...p,
  apiId: d.id,
  types: d.types.map(t => t.type.name),
@@ -216,13 +218,41 @@ async function initRanking() {
  state.rankingData = results.map((r, i) =>
  r.status === 'fulfilled'
  ? r.value
- : { ...RANKING[i], types: [], apiId: RANKING[i].id }
+ : { ...state.rankingData[i], types: [], apiId: state.rankingData[i].id }
  );
 
  renderUsageList();
 
 
  renderPlayersList();
+}
+
+// Busca os 10 Pokémons com maior taxa de uso no backend (/pokemons/rankingMaisUsados)
+async function carregarRankingDoBanco() {
+ try {
+ const resposta = await fetch('/pokemons/rankingMaisUsados');
+
+ if (!resposta.ok) {
+ throw new Error('Falha ao buscar ranking: ' + resposta.status);
+ }
+
+ const dados = await resposta.json();
+
+ state.rankingData = dados.map(p => ({
+ name: String(p.nomePokemon).toLowerCase().replace(/\s+/g, '-'),
+ id: p.idPokemon,
+ usage: arredondarUso(p.taxaUso),
+ }));
+ } catch (erro) {
+ console.error('Não foi possível carregar o ranking do banco, usando dados mock.', erro);
+ state.rankingData = RANKING.map(p => ({ ...p }));
+ }
+}
+
+function arredondarUso(valor) {
+ const numero = Number(valor);
+ if (isNaN(numero)) return 0;
+ return Math.round(numero * 100) / 100;
 }
 
 function renderUsageList() {

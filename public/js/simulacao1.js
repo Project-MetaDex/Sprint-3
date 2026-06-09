@@ -75,6 +75,14 @@ var cacheMoves = {};
 // gen ativa no filtro
 var genFiltro = 0;
 
+// simulacao salva sendo carregada via ?simId
+var simSalvaPendente = null;
+var simSalvaAplicada = false;
+
+// guarda o resultado da ultima simulacao executada (para salvar no banco)
+var ultimoResultado = null;
+var ultimoLog = "";
+
 // quem o modal esta editando
 var slotEditandoLado = null;
 var slotEditandoIdx = null;
@@ -102,6 +110,19 @@ document.addEventListener("DOMContentLoaded", iniciar);
 
 function iniciar() {
  criarFiltroGen();
+
+ // Listener da busca de ataques (no modal)
+ document.getElementById("busca-modal").addEventListener("input", function (e) {
+ filtrarListaModal(e.target.value.trim().toLowerCase());
+ });
+
+ // Se veio da lista com uma simulacao salva (?simId), carrega do banco
+ var params = new URLSearchParams(window.location.search);
+ var simId = params.get("simId");
+ if (simId) {
+ carregarSimulacaoSalva(simId);
+ return;
+ }
 
  // Le os dois pokemons escolhidos na simulacao.html
  var meu = null;
@@ -134,19 +155,60 @@ function iniciar() {
  return;
  }
 
+ iniciarBatalha(meu, adv);
+}
+
+// Inicia a batalha com dois pokemons {id, name}
+function iniciarBatalha(meu, adv) {
  lados.meu.id = meu.id;
  lados.meu.name = meu.name;
  lados.adv.id = adv.id;
  lados.adv.name = adv.name;
 
- // Listener da busca de ataques (no modal)
- document.getElementById("busca-modal").addEventListener("input", function (e) {
- filtrarListaModal(e.target.value.trim().toLowerCase());
- });
-
  // Carrega os dois pokemons
  carregarPokemon("meu");
  carregarPokemon("adv");
+}
+
+// Carrega uma simulacao salva no banco e pre-preenche a tela
+function carregarSimulacaoSalva(simId) {
+ var idUsuario = sessionStorage.getItem("ID_USUARIO");
+
+ if (!idUsuario) {
+ document.getElementById("corpo-meu").innerHTML =
+ '<p style="text-align:center;color:#D84B36;font-size:0.85rem">Faça login para abrir simulações salvas.</p>';
+ document.getElementById("corpo-adv").innerHTML = "";
+ return;
+ }
+
+ fetch("/simulacoes/buscarSimulacao", {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify({ idSimulacaoServer: simId, idUsuarioServer: idUsuario })
+ })
+ .then(function (r) {
+ if (r.status === 204) throw new Error("Simulação não encontrada.");
+ if (!r.ok) throw new Error("Falha ao buscar simulação: " + r.status);
+ return r.json();
+ })
+ .then(function (sim) {
+ simSalvaPendente = {
+ resultado: sim.Resultado,
+ log: sim.Log,
+ meuAtaques: [sim.usuarioAtaque1, sim.usuarioAtaque2, sim.usuarioAtaque3, sim.usuarioAtaque4],
+ advAtaques: [sim.adversarioAtaque1, sim.adversarioAtaque2, sim.adversarioAtaque3, sim.adversarioAtaque4]
+ };
+ iniciarBatalha(
+ { id: sim.idPokemonUsuario, name: sim.nomePokemonUsuario },
+ { id: sim.idPokemonAdversario, name: sim.nomePokemonAdversario }
+ );
+ })
+ .catch(function (erro) {
+ console.error(erro);
+ document.getElementById("corpo-meu").innerHTML =
+ '<p style="text-align:center;color:#D84B36;font-size:0.85rem">Não foi possível abrir a simulação salva.</p>';
+ document.getElementById("corpo-adv").innerHTML = "";
+ });
 }
 
 function criarFiltroGen() {
@@ -185,6 +247,7 @@ function carregarPokemon(lado) {
  L.ivs = { hp:31, attack:31, defense:31, "special-attack":31, "special-defense":31, speed:31 };
  desenharLado(lado);
  atualizarBotaoSimular();
+ tentarAplicarSimSalva();
  })
  .catch(function () {
  cont.innerHTML = '<p class="placeholder-loading" style="color:#D84B36">Erro ao carregar.</p>';
@@ -580,9 +643,129 @@ function simular() {
  '</p>';
  }
 
+ // Resultado pela perspectiva do usuario (meu pokemon)
+ ultimoResultado = empate ? "empate" : (meuVenceu ? "vitoria" : "derrota");
+ ultimoLog =
+ "Total calculado - " + capitalizar(lados.meu.name) + ": " + Math.round(sM) +
+ " | " + capitalizar(lados.adv.name) + ": " + Math.round(sA) +
+ ". Vantagem de tipo - " + capitalizar(lados.meu.name) + " x" + vM.toFixed(1) +
+ " | " + capitalizar(lados.adv.name) + " x" + vA.toFixed(1) + ".";
+
+ html += '<button class="btn-simular" style="margin-top:14px" onclick="salvarSimulacaoNoBanco()">Salvar simulação</button>';
+
  res.innerHTML = html;
  res.classList.add("visivel");
  res.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// Aplica os ataques de uma simulacao salva, assim que os dois pokemons carregam
+function tentarAplicarSimSalva() {
+ if (!simSalvaPendente || simSalvaAplicada) return;
+ if (!lados.meu.dados || !lados.adv.dados) return;
+ simSalvaAplicada = true;
+
+ aplicarAtaquesSalvos("meu", simSalvaPendente.meuAtaques);
+ aplicarAtaquesSalvos("adv", simSalvaPendente.advAtaques);
+ mostrarResultadoSalvo(simSalvaPendente);
+}
+
+function aplicarAtaquesSalvos(lado, ataques) {
+ if (!ataques) return;
+ for (var i = 0; i < ataques.length; i++) {
+ (function (idx, nome) {
+ if (!nome) return;
+ var slug = String(nome).toLowerCase().replace(/\s+/g, "-");
+ buscarMove(slug, null, null).then(function (mv) {
+ if (mv) {
+ lados[lado].slots[idx] = mv;
+ desenharSlots(lado);
+ }
+ });
+ })(i, ataques[i]);
+ }
+}
+
+function mostrarResultadoSalvo(sim) {
+ var res = document.getElementById("resultado");
+ if (!res) return;
+
+ var rotulo = "Resultado salvo";
+ if (sim.resultado === "vitoria") rotulo = capitalizar(lados.meu.name) + " venceu!";
+ else if (sim.resultado === "derrota") rotulo = capitalizar(lados.adv.name) + " venceu!";
+ else if (sim.resultado === "empate") rotulo = "Empate tecnico";
+
+ var html = '<div class="resultado-titulo">' + rotulo + '</div>';
+ if (sim.log) html += '<p class="resultado-detalhe">' + sim.log + '</p>';
+
+ res.innerHTML = html;
+ res.classList.add("visivel");
+}
+
+// Monta o objeto de um lado no formato esperado pelo backend
+function montarLadoParaBanco(lado) {
+ var L = lados[lado];
+ var statValor = {};
+ for (var i = 0; i < L.dados.stats.length; i++) {
+ var s = L.dados.stats[i];
+ var ev = L.evs[s.stat.name] || 0;
+ var iv = L.ivs[s.stat.name] !== undefined ? L.ivs[s.stat.name] : 31;
+ statValor[s.stat.name] = calcularStatTotal(s.base_stat, ev, iv);
+ }
+
+ return {
+ idPokemon: L.dados.id,
+ nome: L.name,
+ Ataque1: L.slots[0] ? L.slots[0].name : "",
+ Ataque2: L.slots[1] ? L.slots[1].name : "",
+ Ataque3: L.slots[2] ? L.slots[2].name : "",
+ Ataque4: L.slots[3] ? L.slots[3].name : "",
+ HP: statValor["hp"] || 0,
+ Attack: statValor["attack"] || 0,
+ Defense: statValor["defense"] || 0,
+ SpAtk: statValor["special-attack"] || 0,
+ SpDef: statValor["special-defense"] || 0,
+ Speed: statValor["speed"] || 0
+ };
+}
+
+function salvarSimulacaoNoBanco() {
+ var idUsuario = sessionStorage.getItem("ID_USUARIO");
+
+ if (!idUsuario) {
+ alert("Faça login para salvar a simulação.");
+ return;
+ }
+
+ if (!lados.meu.dados || !lados.adv.dados || !ultimoResultado) {
+ alert("Execute a simulação antes de salvar.");
+ return;
+ }
+
+ var payload = {
+ idUsuarioServer: idUsuario,
+ resultadoServer: ultimoResultado,
+ logServer: ultimoLog,
+ usuarioServer: montarLadoParaBanco("meu"),
+ adversarioServer: montarLadoParaBanco("adv")
+ };
+
+ fetch("/simulacoes/salvarSimulacao", {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify(payload)
+ })
+ .then(function (r) {
+ if (!r.ok) throw new Error("Falha ao salvar: " + r.status);
+ return r.json();
+ })
+ .then(function () {
+ alert("Simulação salva com sucesso!");
+ window.location.href = "selecionar-simulacao.html";
+ })
+ .catch(function (erro) {
+ console.error(erro);
+ alert("Não foi possível salvar a simulação.");
+ });
 }
 
 function abrirMenu() { document.querySelector(".menu-lateral").style.display = "block"; }
