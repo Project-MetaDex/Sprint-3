@@ -253,16 +253,16 @@ function montarPokemonParaSalvar(pokemon){
     return {
         idPokemon: Number(pokemon.idPokemon || pokemon.fkPokemon || pokemon.id),
         nome: pokemon.nome || pokemon.name,
-        Ataque1: pegarNomeAtaque(ataques[0]),
-        Ataque2: pegarNomeAtaque(ataques[1]),
-        Ataque3: pegarNomeAtaque(ataques[2]),
-        Ataque4: pegarNomeAtaque(ataques[3]),
-        HP: Number(status.HP ?? status.hp ?? 0),
-        Attack: Number(status.Attack ?? status.attack ?? status.ataque ?? 0),
-        Defense: Number(status.Defense ?? status.defense ?? status.defesa ?? 0),
-        SpAtk: Number(status.SpAtk ?? status.ataqueEsp ?? 0),
-        SpDef: Number(status.SpDef ?? status.defesaEsp ?? 0),
-        Speed: Number(status.Speed ?? status.velocidade ?? 0)
+        Ataque1: pegarNomeAtaque(ataques[0] || pokemon.moves?.[0]),
+        Ataque2: pegarNomeAtaque(ataques[1] || pokemon.moves?.[1]),
+        Ataque3: pegarNomeAtaque(ataques[2] || pokemon.moves?.[2]),
+        Ataque4: pegarNomeAtaque(ataques[3] || pokemon.moves?.[3]),
+        HP: Number(status.HP ?? status.hp ?? pegarStatusBase(pokemon, 'hp')),
+        Attack: Number(status.Attack ?? status.attack ?? status.ataque ?? pegarStatusBase(pokemon, 'attack')),
+        Defense: Number(status.Defense ?? status.defense ?? status.defesa ?? pegarStatusBase(pokemon, 'defense')),
+        SpAtk: Number(status.SpAtk ?? status.ataqueEsp ?? pegarStatusBase(pokemon, 'special-attack')),
+        SpDef: Number(status.SpDef ?? status.defesaEsp ?? pegarStatusBase(pokemon, 'special-defense')),
+        Speed: Number(status.Speed ?? status.velocidade ?? pegarStatusBase(pokemon, 'speed'))
     };
 }
 
@@ -272,6 +272,11 @@ function pegarNomeAtaque(ataque){
     }
 
     return ataque.nome || ataque.name || ataque.move?.name || ataque;
+}
+
+function pegarStatusBase(pokemon, nomeStatus){
+    var statusEncontrado = pokemon.stats?.find(status => status.stat && status.stat.name == nomeStatus);
+    return statusEncontrado ? statusEncontrado.base_stat : 0;
 }
 
 function montarPokemonsParaSalvar(){

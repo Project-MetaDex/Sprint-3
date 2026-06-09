@@ -172,37 +172,50 @@ function excluirEquipe(idEquipe, idUsuario){
 }
 
 function salvarPokemonEquipe(idEquipe, pokemon){
+    return garantirPokemonCadastrado(pokemon)
+        .then(function(){
+            var instrucaoSql = `
+            INSERT INTO EquipePokemon (
+                fkEquipe,
+                fkPokemon,
+                Ataque1,
+                Ataque2,
+                Ataque3,
+                Ataque4,
+                HP,
+                Attack,
+                Defense,
+                SpAtk,
+                SpDef,
+                Speed
+            ) VALUES (
+                ${idEquipe},
+                ${pokemon.idPokemon},
+                ${formatarTexto(pokemon.Ataque1)},
+                ${formatarTexto(pokemon.Ataque2)},
+                ${formatarTexto(pokemon.Ataque3)},
+                ${formatarTexto(pokemon.Ataque4)},
+                ${Number(pokemon.HP) || 0},
+                ${Number(pokemon.Attack) || 0},
+                ${Number(pokemon.Defense) || 0},
+                ${Number(pokemon.SpAtk) || 0},
+                ${Number(pokemon.SpDef) || 0},
+                ${Number(pokemon.Speed) || 0}
+            );
+            `;
+
+            console.log("Salvando Pokémon da equipe: \n" + instrucaoSql);
+            return database.executar(instrucaoSql);
+        });
+}
+
+function garantirPokemonCadastrado(pokemon){
     var instrucaoSql = `
-    INSERT INTO EquipePokemon (
-        fkEquipe,
-        fkPokemon,
-        Ataque1,
-        Ataque2,
-        Ataque3,
-        Ataque4,
-        HP,
-        Attack,
-        Defense,
-        SpAtk,
-        SpDef,
-        Speed
-    ) VALUES (
-        ${idEquipe},
-        ${pokemon.idPokemon},
-        ${formatarTexto(pokemon.Ataque1)},
-        ${formatarTexto(pokemon.Ataque2)},
-        ${formatarTexto(pokemon.Ataque3)},
-        ${formatarTexto(pokemon.Ataque4)},
-        ${Number(pokemon.HP) || 0},
-        ${Number(pokemon.Attack) || 0},
-        ${Number(pokemon.Defense) || 0},
-        ${Number(pokemon.SpAtk) || 0},
-        ${Number(pokemon.SpDef) || 0},
-        ${Number(pokemon.Speed) || 0}
-    );
+    INSERT INTO Pokemon (idPokemon, nome) VALUES (${pokemon.idPokemon}, ${formatarTexto(pokemon.nome)})
+        ON DUPLICATE KEY UPDATE nome = VALUES(nome);
     `;
 
-    console.log("Salvando Pokémon da equipe: \n" + instrucaoSql);
+    console.log("Garantindo Pokémon cadastrado: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
