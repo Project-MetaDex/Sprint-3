@@ -126,7 +126,7 @@
     containerRiscos.innerHTML = '<h3>Alunos em Risco</h3>';
 
     // 1. Filtra do array global quem se encaixa na regra de DESTAQUE (>= 70% Win Rate)
-    const alunosDestaque = dadosGlobais.filter(aluno => aluno.winRate >= 70);
+    const alunosDestaque = dadosGlobais.filter(aluno => aluno.winRate > 70 && aluno.totalBatalhas > 20);
     document.getElementById("alunosDestaque").innerHTML = alunosDestaque.length;
 
     // Ordena os destaques do maior Win Rate para o menor (Estilo Top 1, Top 2...)
@@ -149,7 +149,7 @@
     });
 
     // 2. Filtra do array global quem se encaixa na regra de RISCO (< 50% Win Rate)
-    const alunosRisco = dadosGlobais.filter(aluno => aluno.winRate < 50);
+    const alunosRisco = dadosGlobais.filter(aluno => aluno.winRate < 30 && aluno.totalBatalhas > 20 && aluno.dias > 40);
     document.getElementById("alunosRisco").innerHTML = alunosRisco.length;
 
     // Desenha os cards de risco automaticamente
@@ -347,7 +347,7 @@
       .then(function (resp) {
         if (resp.ok) {
           resp.json().then(function (dados) {
-
+            console.log(dados);
             // injeta a cor em cada aluno pelo índice
             const cores = gerarCores(dados.length);
             dados = dados.map(function (aluno, index) {
