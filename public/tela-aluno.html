@@ -183,8 +183,8 @@
       return `
         <div class="time">
           <div class="time-info">
-            <span class="time-nome">${t.nomeTime}</span>
-            <span class="time-tipo">${t.tipoTime} · ${t.totalBatalhas} batalhas</span>
+            <span class="time-nome">${t.nome}</span>
+            <span class="time-tipo">${t.totalBatalhas} batalhas</span>
           </div>
           <span class="time-wr" style="color:${cor};">${t.winRate}%</span>
           <button>Detalhes</button>
@@ -231,13 +231,33 @@
   // FETCH 2 — equipes do aluno
   // =========================================================
   function buscarEquipes(idAluno) {
-    fetch('/ROTA_EQUIPES_ALUNO/' + idAluno, {
-      method: 'GET'
+    fetch('/equipes/listarEquipes/', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        idUsuarioServer: idAluno
+      })
     })
       .then(function (resposta) {
         if (resposta.ok) {
           resposta.json().then(function (times) {
             console.log('Equipes do aluno recebidas:', times);
+
+             var timesComWinRate = times.map(function (time) {
+                var vitorias = Number(time.totalVitorias || 0);
+                var batalhas = Number(time.totalBatalhas || 0);
+                
+                // Evita a divisão por zero se o time nunca batalhou
+                var calculoWinRate = batalhas > 0 ? (vitorias / batalhas) * 100 : 0;
+                
+                // Adiciona a propriedade winRate arrendondando com Math.round
+                time.winRate = Math.round(calculoWinRate);
+                
+                return time;
+            });
+
             renderTimes(times);
           });
         } else {
@@ -257,9 +277,7 @@
       });
   }
 
-  // =========================================================
-  // FETCH 3 — histórico de win rate por mês para o gráfico
-  // =========================================================
+
   function buscarHistoricoGrafico(idAluno) {
     fetch('/showdown/dadosShowdown/' + idAluno, {
       method: 'GET'
@@ -281,10 +299,7 @@
       })
       .catch(function (erroDeRede) {
         console.log('Erro de conexão com o servidor:', erroDeRede);
-        renderGrafico(
-          ['Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
-          [72, 74, 79, 80, 83, 85]
-        );
+
       });
   }
 
