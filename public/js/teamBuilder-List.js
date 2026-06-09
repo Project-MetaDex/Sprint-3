@@ -1,8 +1,17 @@
 var times = [];
 
+window.addEventListener("load", () => {
+    const barraPesquisa = document.getElementById("barraPesquisa");
+
+    if (barraPesquisa) {
+        barraPesquisa.oninput = pesquisarTimes;
+    }
+});
+
 async function listarTimes() {
     var idUsuario = sessionStorage.ID_USUARIO;
     var cardEquipe = "";
+    times = [];
 
     console.log(idUsuario)
 
@@ -16,6 +25,7 @@ async function listarTimes() {
 
         if (res.status === 204) { // Correção para comparação
             console.log("Nenhum time cadastrado");
+            times = [];
             document.querySelector(".cardTimes").innerHTML = "<p>Nenhum time cadastrado</p>";
             return; // Encerra a função se não tiver time
         }
@@ -27,12 +37,18 @@ async function listarTimes() {
         // Usamos for...of para permitir o uso do await dentro do loop
         for (const equipe of equipes) {
         
-            const pokemonEquipeHtml = await getPokemonEquipe(equipe.idEquipe);
+            const pokemonEquipe = await getPokemonEquipe(equipe.idEquipe);
 
             const dataFormatada = new Date(equipe.dataCriacao).toLocaleDateString('pt-BR');
+            const textoPesquisa = normalizarTexto(`${equipe.nome} ${pokemonEquipe.nomes.join(" ")}`);
+
+            times.push({
+                idEquipe: equipe.idEquipe,
+                textoPesquisa: textoPesquisa
+            });
 
             cardEquipe += `
-            <div class="card" id="card-${equipe.idEquipe}">
+            <div class="card" id="card-${equipe.idEquipe}" data-pesquisa="${textoPesquisa}">
                 <div id="iconCard">
                     <img src="assets/icon/Icon_Poke.svg" alt="">
                 </div>
@@ -49,7 +65,7 @@ async function listarTimes() {
                     </button>
                 </div>
 
-                ${pokemonEquipeHtml}
+                ${pokemonEquipe.html}
             </div>
             `;
         }
@@ -64,6 +80,7 @@ async function listarTimes() {
 
 async function getPokemonEquipe(idEquipe) {
     let pokemonImg = `<ul class="imgList">`;
+    let nomesPokemon = [];
 
     try {
         const res = await fetch("/equipes/getPokemonEquipe/", {
@@ -74,7 +91,10 @@ async function getPokemonEquipe(idEquipe) {
 
         if (!res.ok) throw new Error("Erro ao buscar Pokémons da equipe");
         if (res.status === 204) { 
-            return `<ul class="imgList"><li>Sem Pokémons</li></ul>`;
+            return {
+                html: `<ul class="imgList"><li>Sem Pokémons</li></ul>`,
+                nomes: []
+            };
         }
 
         console.log("Dados recebidos: ", res);
@@ -83,6 +103,7 @@ async function getPokemonEquipe(idEquipe) {
 
 
         for (const pokemon of pokemons) {   
+            nomesPokemon.push(pokemon.nome);
             
             const pokemonData = await getPokemon(pokemon.nome);
             
@@ -93,12 +114,54 @@ async function getPokemonEquipe(idEquipe) {
         }
 
         pokemonImg += `</ul>`;
-        return pokemonImg; 
+        return {
+            html: pokemonImg,
+            nomes: nomesPokemon
+        }; 
 
     } catch (error) {
         console.error("Erro ao montar imagens da equipe:", error);
-        return `<ul class="imgList"><li>Erro ao carregar imagens</li></ul>`;
+        return {
+            html: `<ul class="imgList"><li>Erro ao carregar imagens</li></ul>`,
+            nomes: nomesPokemon
+        };
     }
+}
+
+function pesquisarTimes() {
+    const pesquisa = normalizarTexto(document.getElementById("barraPesquisa").value);
+    const cards = document.querySelectorAll(".cardTimes .card");
+    var qtdVisivel = 0;
+
+    for (let i = 0; i < cards.length; i++) {
+        const card = cards[i];
+        const textoCard = card.dataset.pesquisa || "";
+        const encontrou = textoCard.includes(pesquisa);
+
+        card.style.display = encontrou ? "" : "none";
+
+        if (encontrou) {
+            qtdVisivel++;
+        }
+    }
+
+    let avisoPesquisa = document.getElementById("avisoPesquisaTimes");
+
+    if (!avisoPesquisa) {
+        avisoPesquisa = document.createElement("p");
+        avisoPesquisa.id = "avisoPesquisaTimes";
+        document.querySelector(".cardTimes").appendChild(avisoPesquisa);
+    }
+
+    avisoPesquisa.innerText = pesquisa && qtdVisivel == 0 ? "Nenhum time encontrado" : "";
+}
+
+function normalizarTexto(texto) {
+    return String(texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
 }
 
 async function getPokemon(pokemon) {
