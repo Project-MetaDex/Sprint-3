@@ -84,7 +84,7 @@
 
           </div>
 
-          <div class="list-alunos" id="listaRiscos" >
+          <div class="list-alunos" id="listaRiscos">
             <h3>Alunos em Risco</h3>
 
           </div>
@@ -126,7 +126,7 @@
     containerRiscos.innerHTML = '<h3>Alunos em Risco</h3>';
 
     // 1. Filtra do array global quem se encaixa na regra de DESTAQUE (>= 70% Win Rate)
-    const alunosDestaque = dadosGlobais.filter(aluno => aluno.winRate > 70 && aluno.totalBatalhas > 20);
+    const alunosDestaque = dadosGlobais.filter(aluno => aluno.estaNoLadder || (aluno.winRate > 70 && aluno.totalBatalhas > 20));
     document.getElementById("alunosDestaque").innerHTML = alunosDestaque.length;
 
     // Ordena os destaques do maior Win Rate para o menor (Estilo Top 1, Top 2...)
@@ -346,24 +346,51 @@
     fetch(`usuarios/listarAlunos/${sessionStorage.ID_USUARIO}`)
       .then(function (resp) {
         if (resp.ok) {
+
           resp.json().then(function (dados) {
-            console.log(dados);
-            // injeta a cor em cada aluno pelo índice
-            const cores = gerarCores(dados.length);
-            dados = dados.map(function (aluno, index) {
-              aluno.cor = cores[index] || '#888888';
-              return aluno;
-            });
 
-            dadosGlobais = dados;
-            renderGrafico(dadosGlobais);
-            renderPagina(1);
-            renderizarListasLaterais();
+            fetch("https://pokemonshowdown.com/ladder/gen9championsvgc2026regma.json")
+              .then(function (respostaLadder) {
+                return respostaLadder.json();
+              })
+              .then(function (dadosLadder) {
 
-            // Preenchendo as KPIs
-            document.getElementById("qtdAlunos").innerHTML = dados.length;
+                console.log("Dados dos alunos:");
+                console.log(dados);
+
+                console.log("Dados do ladder:");
+                console.log(dadosLadder);
+
+                // injeta a cor em cada aluno pelo índice
+                const cores = gerarCores(dados.length);
+
+                const jogadoresLadder = dadosLadder.toplist;
+
+                dados = dados.map(function (aluno, index) {
+
+                  aluno.cor = cores[index] || '#888888';
+
+                  aluno.estaNoLadder = jogadoresLadder.some(function (jogador) {
+                    return jogador.userid.toLowerCase() === aluno.nickname.toLowerCase();
+                  });
+
+                  return aluno;
+                });
+
+                console.log("Alunos após cruzamento com o ladder:");
+                console.log(dados);
+                dadosGlobais = dados;
+
+                renderGrafico(dadosGlobais);
+                renderPagina(1);
+                renderizarListasLaterais();
+
+                document.getElementById("qtdAlunos").innerHTML = dados.length;
+
+              });
 
           });
+
         } else {
           console.log('Erro ao buscar alunos: ' + resp.status + ' ' + resp.statusText);
         }
