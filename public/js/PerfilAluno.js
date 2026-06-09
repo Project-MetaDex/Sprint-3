@@ -2,11 +2,16 @@
 // PerfilAluno.js — Lógica da página de perfil
 // ================================================
 function sairDaConta() {
- // Limpando o sessionStorage
  sessionStorage.clear();
-
- // Redirecionando para a tela de index
  window.location.href = "index.html";
+}
+
+function deletarConta() {
+ var confirmado = window.confirm('Deseja mesmo deletar sua conta?');
+ if (confirmado) {
+ sessionStorage.clear();
+ window.location.href = 'index.html';
+ }
 }
 
 window.onload = function () {
