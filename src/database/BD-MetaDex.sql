@@ -175,7 +175,7 @@ CREATE TABLE SimulacaoUsuario (
 -- ================================================================
 -- TABELA: SimlacaoAdversario
 -- ================================================================
-CREATE TABLE SimlacaoAdversario (
+CREATE TABLE SimulacaoAdversario (
     fkSimulacao         INT          NOT NULL,
     PokemonAdversario   INT          NOT NULL,
     Ataque1             VARCHAR(50)  NOT NULL,
