@@ -195,3 +195,9 @@ CREATE TABLE SimulacaoAdversario (
     CONSTRAINT fk_adversario_pokemon
         FOREIGN KEY (PokemonAdversario) REFERENCES Pokemon (idPokemon)
 );
+
+-- ================================================================
+-- INSERT: Usuario Mentor
+-- ================================================================
+INSERT INTO Usuario (nome, email, senha, fkMentor, tokenMentor, notificacao) 
+VALUES ('Gleison', 'gleisonfreitas11@gmail.com', '123456789', null, "testeT", true);
