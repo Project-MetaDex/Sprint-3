@@ -56,7 +56,7 @@ function criarSimulacao(simulacao) {
             var idSimulacao = resultadoSimulacao.insertId;
 
             var instrucaoAdversario = `
-            INSERT INTO SimlacaoAdversario (
+            INSERT INTO SimulacaoAdversario (
                 fkSimulacao,
                 PokemonAdversario,
                 Ataque1,
@@ -111,7 +111,7 @@ function listarSimulacoes(idUsuario) {
         pa.nome AS nomePokemonAdversario
     FROM SimulacaoUsuario s
         INNER JOIN Pokemon pu ON s.fkPokemonUsuario = pu.idPokemon
-        LEFT JOIN SimlacaoAdversario adv ON adv.fkSimulacao = s.idSimulacaoUsuario
+        LEFT JOIN SimulacaoAdversario adv ON adv.fkSimulacao = s.idSimulacaoUsuario
         LEFT JOIN Pokemon pa ON adv.PokemonAdversario = pa.idPokemon
     WHERE s.fkUsuario = ${Number(idUsuario)}
     ORDER BY s.idSimulacaoUsuario DESC;
@@ -157,7 +157,7 @@ function buscarSimulacao(idSimulacao, idUsuario) {
         adv.Speed AS adversarioSpeed
     FROM SimulacaoUsuario s
         INNER JOIN Pokemon pu ON s.fkPokemonUsuario = pu.idPokemon
-        LEFT JOIN SimlacaoAdversario adv ON adv.fkSimulacao = s.idSimulacaoUsuario
+        LEFT JOIN SimulacaoAdversario adv ON adv.fkSimulacao = s.idSimulacaoUsuario
         LEFT JOIN Pokemon pa ON adv.PokemonAdversario = pa.idPokemon
     WHERE s.idSimulacaoUsuario = ${Number(idSimulacao)} AND s.fkUsuario = ${Number(idUsuario)};
     `;

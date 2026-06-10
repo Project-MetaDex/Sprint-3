@@ -6,7 +6,7 @@
 }
 
 body {
- background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
+ background-color: #F8F9FB;
 }
 
 /* ======= LAYOUT PRINCIPAL ======= */
@@ -231,7 +231,7 @@ body {
  grid-column: 3;
  /* grid-row: 2; */
  grid-row: 1 / 3;
-  background-color: #E0CBF9;
+ background-color: #FFFFFF;
  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
  border: 1px solid #edf2f7;
  border-radius: 14px;

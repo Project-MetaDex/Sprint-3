@@ -20,14 +20,7 @@ function irParaPokedex() {
  MOCK DATA
 ════════════════════════════════ */
 const RANKING = [
- { name:'amoonguss', id:591, usage:62.4 },
- { name:'garchomp', id:445, usage:58.1 },
- { name:'thundurus', id:642, usage:51.3 },
- { name:'incineroar', id:727, usage:49.7 },
- { name:'flutter-mane', id:1000, usage:45.2 },
- { name:'urshifu', id:892, usage:41.5 },
- { name:'rillaboom', id:812, usage:38.7 },
- { name:'landorus', id:645, usage:36.2 },
+    
 ];
 
 const TEAMS = [
@@ -658,5 +651,3 @@ async function init() {
  })
  .catch(() => {});
 }
-
-init();
