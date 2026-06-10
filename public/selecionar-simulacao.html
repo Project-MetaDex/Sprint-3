@@ -1,87 +1,86 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Selecionar Simulacao</title>
- <link rel="stylesheet" href="css/global.css">
- <link rel="stylesheet" href="css/selecionar-simulacao.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecionar Simulacao</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/selecionar-simulacao.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
- 
+    
 <!-- Inicio Navbar -->
 
- <nav class="Nav-Container">
+    <nav class="Nav-Container">
 
- <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
- <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
 
- <ul class="Nav-Options">
- <li><a href="index.html">Home</a></li> 
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li class="Selected"><a href="selecionar-simulacao.html"><img src="./assets/icon/Icon-NavSelected.svg" alt="">Battle Simulator</a></li>
- </ul>
+      <ul class="Nav-Options">
+        <li><a href="index.html">Home</a></li> 
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li class="Selected"><a href="#"><img src="./assets/icon/Icon-NavSelected.svg" alt="">Team Buider</a></li>
+        <li><a href="simulacao1.html">Battle Simulator</a></li>
+      </ul>
 
- <div class="Button-Container">
- <a href="#">
- <img src="assets/imgs/iconeUSER.png" class="user">
- </a>
- </div>
+        <div class="Button-Container">
+            <a href="#">
+                <img src="assets/imgs/iconeUSER.png" class="user">
+            </a>
+        </div>
 
- </nav>
+    </nav>
 
- <aside style="display: none;" class="Side-Container">
- 
- <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+    <aside style="display: none;" class="Side-Container">
+      
+      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
 
- <div class="Side-Flex">
- <div class="Perfil">
+      <div class="Side-Flex">
+        <div class="Perfil">
 
- <img src="assets/icon/Icon-User.svg" alt="">
- <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+          <img src="assets/icon/Icon-User.svg" alt="">
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
 
- </div>
+        </div>
 
- <ul class="Side-Options">
- <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
+        <ul class="Side-Options">
+          <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
+          <li><a href="cadastro.html">Pokedex</a></li>
+          <li><a href="cadastro.html">Ranks</a></li>
+          <li><a href="cadastro.html">Team Buider</a></li>
+          <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
 
- <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
- </div>
- </aside>
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      </div>
+    </aside>
 
- <!-- Fim Navbar -->
+    <!-- Fim Navbar -->
 
- <!-- Inicio lista de simulações -->
+    <!-- Inicio lista de simulações -->
 
- <div class="container">
+    <div class="container">
 
- <div id="title">
- <div>
- <h1>Selecionar Simulações</h1>
- <p>Escolha uma simulação para analisar estratégias e acompanhar o desempenho no competitivo.</p>
- </div>
- <a href="simulacao.html">
- <button id="novaSimulacao">+ Nova Simulação</button>
- </a>
- </div>
+        <div id="title">
+            <div>
+                <h1>Selecionar Simulações</h1>
+                <p>Escolha uma simulação para analisar estratégias e acompanhar o desempenho no competitivo.</p>
+            </div>
+        <a href="simulacao1.html">
+            <button id="novaSimulacao">+ Nova Simulação</button>
+        </a>
+        </div>
 
- <input type="text" id="barraPesquisa" placeholder="Pesquisar">
+        <input type="text" id="barraPesquisa" placeholder="Pesquisar">
 
- <div class="containerCard"></div>
+        <div class="containerCard"></div>
 
- </div>
+    </div>
 
- <!-- Fim lista de simulações -->
+    <!-- Fim lista de simulações -->
 
- <script src="js/selecionar-simulacao.js"></script>
-<script src="js/navbar.js"></script>
+    <script src="js/selecionar-simulacao.js"></script>
 </body>
 </html>

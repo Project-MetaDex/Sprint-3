@@ -1,105 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Metadex - Selecionar Pokemon</title>
- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="css/simulacao.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metadex · Simulador de Batalha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/simulacao.css">
 </head>
 <body>
 
- <!-- Navbar -->
- <nav class="nav-container">
- <img onclick="abrirMenu()" id="icone-menu" src="assets/icon/Icon-Hanburguer.svg" alt="">
- <img id="logo-nav" src="./assets/icon/Logo-Nav.svg" alt="Metadex">
- <ul class="nav-opcoes">
- <li><a href="index.html">Home</a></li>
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li class="nav-selecionado">
- <img src="./assets/icon/Icon-NavSelected.svg" alt="">
- <a href="selecionar-simulacao.html">Battle Simulator</a>
- </li>
- </ul>
- <div class="container-botoes-nav">
- <a href="#"><img src="assets/imgs/iconeUSER.png" class="usuario-nav"></a>
- </div>
- </nav>
+  <!-- ── NAVBAR ── -->
+  <nav class="nav-container">
+    <img onclick="abrirMenu()" id="icone-menu" src="assets/icon/Icon-Hanburguer.svg" alt="">
+    <img id="logo-nav" src="./assets/icon/Logo-Nav.svg" alt="Metadex">
 
- <aside style="display:none;" class="menu-lateral">
- <button onclick="fecharMenu()"><img id="icone-fechar" src="assets/icon/Icon-Close.svg" alt=""></button>
- <div class="menu-lateral-flex">
- <div class="perfil-lateral">
- <img src="assets/icon/Icon-User.svg" alt="">
- <button class="botao-lateral botao-login-lateral" onclick="window.location.href='./login.html'">Entrar</button>
- </div>
- <ul class="opcoes-laterais">
- <li><a href="index.html">Home</a></li>
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li class="nav-selecionado"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
- <img class="logo-lateral" src="./assets/icon/Logo-Nav.svg" alt="">
- </div>
- </aside>
+    <ul class="nav-opcoes">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="pokedex.html">Pokedex</a></li>
+      <li><a href="ranking.html">Ranks</a></li>
+      <li><a href="teamBuilder-List.html">Team Builder</a></li>
+      <li class="nav-selecionado">
+        <img src="./assets/icon/Icon-NavSelected.svg" alt="">
+        <a href="simulacao.html">Battle Simulator</a>
+      </li>
+    </ul>
 
- <!-- Conteudo -->
- <div class="pagina-selecao">
- <div class="cabecalho-pagina">
- <h1>SIMULADOR DE BATALHA</h1>
- <p>Escolha seu Pokemon e o adversario, depois personalize e simule</p>
- </div>
+    <div class="container-botoes-nav">
+      <a href="#">
+        <img src="assets/imgs/iconeUSER.png" class="usuario-nav">
+      </a>
+    </div>
+  </nav>
 
- <div class="barra-acoes">
- <button class="btn-secundario" onclick="limparSelecao()">Limpar selecao</button>
- <button class="btn-iniciar" id="btn-iniciar-batalha" onclick="iniciarBatalha()" disabled>
- Iniciar Batalha
- </button>
- </div>
+  <!-- ── MENU LATERAL ── -->
+  <aside style="display:none;" class="menu-lateral">
+    <button onclick="fecharMenu()">
+      <img id="icone-fechar" src="assets/icon/Icon-Close.svg" alt="">
+    </button>
+    <div class="menu-lateral-flex">
+      <div class="perfil-lateral">
+        <img src="assets/icon/Icon-User.svg" alt="">
+        <button class="botao-lateral botao-login-lateral" onclick="window.location.href='./login.html'">Entrar</button>
+      </div>
+      <ul class="opcoes-laterais">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li><a href="teamBuilder-List.html">Team Builder</a></li>
+        <li class="nav-selecionado"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="simulacao.html">Battle Simulator</a></li>
+      </ul>
+      <img class="logo-lateral" src="./assets/icon/Logo-Nav.svg" alt="">
+    </div>
+  </aside>
 
- <div class="area-selecao">
- <!-- Painel Meu Pokemon -->
- <div class="painel-selecao">
- <div class="painel-selecao-header">
- <h3>1. Selecionar Meu Pokemon</h3>
- <div class="preview-selecionado" id="preview-meu"></div>
- </div>
- <div class="painel-selecao-body">
- <div class="abas-geracao" id="abas-meu"></div>
- <div class="barra-pesquisa-selecao">
- <input type="text" id="busca-meu" placeholder="Pesquisar Pokemon..." autocomplete="off">
- <button onclick="buscarPokemon('meu')">Buscar</button>
- </div>
- <div class="grade-selecao-poke" id="grade-meu">
- <div class="carregando-selecao"><div class="icone-carregando"></div> Carregando...</div>
- </div>
- </div>
- </div>
+  <!-- ── CONTEÚDO PRINCIPAL ── -->
+  <div class="pagina-simulacao">
 
- <!-- Painel Adversario -->
- <div class="painel-selecao">
- <div class="painel-selecao-header">
- <h3>2. Selecionar Adversario</h3>
- <div class="preview-selecionado" id="preview-adv"></div>
- </div>
- <div class="painel-selecao-body">
- <div class="abas-geracao" id="abas-adv"></div>
- <div class="barra-pesquisa-selecao">
- <input type="text" id="busca-adv" placeholder="Pesquisar Pokemon..." autocomplete="off">
- <button onclick="buscarPokemon('adv')">Buscar</button>
- </div>
- <div class="grade-selecao-poke" id="grade-adv">
- <div class="carregando-selecao"><div class="icone-carregando"></div> Carregando...</div>
- </div>
- </div>
- </div>
- </div>
- </div>
+    <div class="cabecalho-pagina">
+      <h1>SIMULADOR · VGC</h1>
+      <p class="subtitulo-pagina">Monte seu conjunto de ataques e analise seu Pokémon</p>
+    </div>
 
- <script src="js/simulacao.js"></script>
-<script src="js/navbar.js"></script>
+    <!-- TOPO: pokemon + ataques -->
+    <div class="topo-simulacao">
+
+      <!-- Card do Pokémon selecionado -->
+      <div class="cartao-pokemon-selecionado">
+        <div class="envoltorio-imagem-pokemon">
+          <div class="efeito-brilho-imagem"></div>
+          <img id="imagem-pokemon-detalhe" src="" alt="" style="display:none">
+          <div id="placeholder-imagem" class="placeholder-imagem">?</div>
+        </div>
+        <div class="container-info-pokemon">
+          <h2 id="nome-pokemon-detalhe">Selecione um Pokémon</h2>
+          <div class="container-badges-tipo" id="tipos-pokemon-detalhe">
+            <span class="badge-tipo-vazio">—</span>
+          </div>
+          <div id="container-estatisticas">
+            <div class="estado-vazio-stats">
+              <p>Escolha um Pokémon na grade abaixo para ver suas estatísticas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ataques editáveis -->
+      <div class="painel-ataques-editaveis">
+        <h2 class="titulo-painel-ataques">ATAQUES DO POKÉMON</h2>
+        <p class="dica-ataques">Clique em um ataque para editá-lo</p>
+        <div class="grade-slots-ataque" id="grade-slots-ataque">
+          <!-- Slots gerados pelo JS -->
+          <div class="slot-ataque-vazio">
+            <span>Selecione um Pokémon para ver seus ataques</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BASE: seletor de pokémon + lista de ataques -->
+    <div class="base-simulacao">
+
+      <!-- Seletor de Pokémon -->
+      <div class="painel-seletor">
+        <div class="cabecalho-painel-seletor">
+          <button class="botao-aba ativo">Pokémon</button>
+        </div>
+        <div class="corpo-painel">
+          <div class="barra-pesquisa">
+            <input type="text" id="campo-busca-pokemon" placeholder="Pesquisar Pokémon..." autocomplete="off">
+            <button onclick="filtrarCartoesPokemon()">Pesquisar</button>
+          </div>
+          <div class="grade-cartoes-pokemon" id="grade-cartoes-pokemon">
+            <div class="carregando-pokemon">
+              <div class="icone-carregando"></div>
+              Carregando Pokémon...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumo dos ataques selecionados -->
+      <div class="painel-resumo-ataques">
+        <div class="cabecalho-painel-seletor">
+          <button class="botao-aba ativo">Ataques Selecionados</button>
+        </div>
+        <div class="corpo-painel">
+          <div class="lista-resumo-ataques" id="lista-resumo-ataques">
+            <div class="estado-vazio-ataques">
+              <p>Nenhum Pokémon selecionado ainda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── MODAL DE EDIÇÃO DE ATAQUE ── -->
+  <div class="sobreposicao-modal" id="sobreposicao-modal" onclick="fecharModal(event)">
+    <div class="janela-modal">
+      <div class="cabecalho-modal">
+        <h3 id="titulo-modal">Selecionar Ataque</h3>
+        <button class="botao-fechar-modal" onclick="fecharModalDireto()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="corpo-modal">
+        <div class="barra-busca-modal">
+          <input type="text" id="campo-busca-ataque" placeholder="Buscar ataque..." autocomplete="off">
+        </div>
+        <div class="lista-ataques-modal" id="lista-ataques-modal">
+          <div class="carregando-pokemon"><div class="icone-carregando"></div>Carregando ataques...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/simulacao.js"></script>
 </body>
 </html>

@@ -1,271 +1,271 @@
 * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
- font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
- }
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
- body, html {
- background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
+        body, html {
+            background: linear-gradient(233deg, #fae3ff 19.26%, #e2e7fb 100%);
 
- color: #1a1a24;
- height: 100%;
- width: 100%;
- overflow-x: hidden;
- }
+            color: #1a1a24;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
 
- /* Container Principal */
- .formulario-container {
- display: flex;
- height: 100vh; 
- width: 100vw; 
- }
+        /* Container Principal  */
+        .formulario-container {
+            display: flex;
+            height: 100vh; 
+            width: 100vw;  
+        }
 
- /* informações formulario */
- .main-cadastro {
- display: flex;
- flex-direction: column;
- justify-content: center;
- padding: 0 4%; 
- }
+        /* informações formulario */
+        .main-cadastro {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 4%; 
+        }
 
- .titulo01 {
- font-size: 2.8rem;
- font-weight: 900;
- line-height: 1.1;
- color: #181820;
- margin-bottom: 1rem;
- }
+        .titulo01 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.1;
+            color: #181820;
+            margin-bottom: 1rem;
+        }
 
- .titulo02 {
- font-size: 1rem;
- color: #4a4a52;
- margin-bottom: 2.5rem;
- max-width: 90%;
- }
+        .titulo02 {
+            font-size: 1rem;
+            color: #4a4a52;
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+        }
 
- /* Inputs */
- .div-informacoes {
- display: grid;
- grid-template-columns: 1fr 0fr;
- gap: 1rem;
- margin-bottom: 1.5rem;
- }
+        /* Inputs */
+        .div-informacoes {
+            display: grid;
+            grid-template-columns: 1fr 0fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
 
- .input-informacoes {
- position: relative;
- display: flex;
- align-items: center;
- }
+        .input-informacoes {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
- .input-informacoes .icon {
- position: absolute;
- left: 15px;
- top: 30%; 
- width: 20px; 
- height: auto;
- pointer-events: none;
- z-index: 10;
- }
+        .input-informacoes .icon {
+            position: absolute;
+            left: 15px;
+            top: 30%;                
+            width: 20px; 
+            height: auto;
+            pointer-events: none;
+            z-index: 10;
+        }
 
- .input-informacoes input {
- width: 100%;
- padding: 12px 15px 12px 45px;
- border: 1px solid #7a7a7a;
- border-radius: 30px;
- background-color: transparent;
- font-size: 0.9rem;
- outline: none;
- transition: border-color 0.3s;
- }
+        .input-informacoes input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #7a7a7a;
+            border-radius: 30px;
+            background-color: transparent;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
 
- .input-informacoes input:focus {
- border-color: #d85c1c;
- }
+        .input-informacoes input:focus {
+            border-color: #d85c1c;
+        }
 
- /* Botão */
- .botao {
- width: 100%;
- padding: 15px;
- background-color: #db6116;
- color: white;
- border: none;
- border-radius: 30px;
- font-size: 1rem;
- font-weight: bold;
- text-align: center;
- text-decoration: none;
- display: block;
- transition: background-color 0.3s;
- margin-bottom: 0.5rem;
- }
+        /* Botão */
+        .botao {
+            width: 100%;
+            padding: 15px;
+            background-color: #db6116;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            margin-bottom: 0.5rem;
+        }
 
- .botao:hover {
- background-color: #bd4f0f;
- }
+        .botao:hover {
+            background-color: #bd4f0f;
+        }
 
- /* ja tem conta */
- .ja-tem-conta {
- text-align: center;
- font-size: 0.95rem;
- color: #333;
- top: 30px;
- }
+        /* ja tem conta */
+        .ja-tem-conta {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #333;
+            top: 30px;
+        }
 
- .ja-tem-conta a {
- color: #1a1a24;
- text-decoration: none;
- font-weight: bold;
- }
+        .ja-tem-conta a {
+            color: #1a1a24;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
- .ja-tem-conta a:hover {
- text-decoration: underline;
- }
+        .ja-tem-conta a:hover {
+            text-decoration: underline;
+        }
 
- /* CHARMANDERr */
- .imagem-charmander {
- flex: 1; 
- display: flex;
- position: relative;
- justify-content: center;
- align-items: center;
- }
-
-
- .fundo-pc {
- position: absolute;
- top: 0; 
- left: 0; 
- width: 100%; 
- height: 100%; 
- object-fit: cover; 
- z-index: 1;
- display: block; 
- }
-
- .fundo-ipad {
- position: absolute;
- bottom: 90px; 
- left: 12%; 
- width: 80%; 
- object-fit: cover; 
- z-index: 1;
- display: none; 
- }
-
- .charmander {
- position: absolute;
- width: 130%; 
- object-fit: contain;
- z-index: 2;
- bottom: 16%; 
- left: -10% ;
- }
+        /* CHARMANDERr */
+        .imagem-charmander {
+            flex: 1; 
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+        }
 
 
- /* Ipad MINI*/
- 
- @media (max-width: 992px) {
+        .fundo-pc {
+            position: absolute;
+            top: 0;      
+            left: 0;         
+            width: 100%;    
+            height: 100%;    
+            object-fit: cover; 
+            z-index: 1;
+            display: block; 
+        }
 
- 
- .formulario-container {
- display: block; 
- position: relative;
- min-height: 100vh;
- padding-bottom: 0;
- }
+        .fundo-ipad {
+            position: absolute;
+            bottom: 90px;      
+            left: 12%;         
+            width: 80%;    
+            object-fit: cover; 
+            z-index: 1;
+            display: none; 
+        }
 
- .main-cadastro {
- display: contents; 
- }
+        .charmander {
+            position: absolute;
+            width: 130%; 
+            object-fit: contain;
+            z-index: 2;
+            bottom: 16%; 
+            left: -10% ;
+        }
 
- .titulo01 {
- position: relative;
- text-align: center;
- font-size: 2.7rem;
- top: 8%;
- z-index: 5;
- }
 
- .titulo02 {
- position: relative;
- text-align: center;
- font-size: 1.3rem;
- top: 7%; 
- left: 7%;
- z-index: 5;
- }
+        /* Ipad MINI*/
+    
+        @media (max-width: 992px) {
 
- .imagem-charmander {
- position: relative;
- width: 100%;
- height: 75vh; 
- min-height: 650px; 
- display: block;
- z-index: 1;
- margin-top: 1rem;
- }
+            
+            .formulario-container {
+                display: block; 
+                position: relative;
+                min-height: 100vh;
+                padding-bottom: 0;
+            }
 
- .fundo-pc {
- display: none; 
- }
+            .main-cadastro {
+                display: contents; 
+            }
 
- .fundo-ipad {
- display: block; 
- object-fit: cover;
- transform: scale(1.3); 
- }
+            .titulo01 {
+                position: relative;
+                text-align: center;
+                font-size: 2.7rem;
+                top: 8%;
+                z-index: 5;
+            }
 
- .charmander {
- bottom: 45%; 
- width: 850px;
- left: -7%;
- }
+            .titulo02 {
+                position: relative;
+                text-align: center;
+                font-size: 1.3rem;
+                top: 7%;    
+                left: 7%;
+                z-index: 5;
+            }
 
- 
- .div-informacoes {
- position: absolute;
- display: grid; 
- grid-template-columns: 1fr 0fr; 
- gap: 1rem;
- width: 90%;
- max-width: 500px;
- left: 23%;
- bottom: 14%; 
- z-index: 10; 
- }
+            .imagem-charmander {
+                position: relative;
+                width: 100%;
+                height: 75vh; 
+                min-height: 650px; 
+                display: block;
+                z-index: 1;
+                margin-top: 1rem;
+            }
 
- 
- .input-informacoes input {
- position: relative;
- width: 85%; 
- background-color: #fcf6ec;
- }
+            .fundo-pc {
+                display: none; 
+            }
 
- 
- .input-informacoes {
- position: relative;
- display: flex;
- }
- 
+            .fundo-ipad {
+                display: block; 
+                object-fit: cover;
+                transform: scale(1.3); 
+            }
 
- .botao {
- position: absolute;
- width: 60%;
- max-width: 350px;
- left: 26%;
- bottom: 10%; 
- z-index: 10;
- padding: 12px;
+            .charmander {
+                bottom: 45%; 
+                width: 850px;
+                left: -7%;
+            }
 
- }
+        
+            .div-informacoes {
+                position: absolute;
+                display: grid; 
+                grid-template-columns: 1fr 0fr;     
+                gap: 1rem;
+                width: 90%;
+                max-width: 500px;
+                left: 23%;
+                bottom: 14%; 
+                z-index: 10; 
+            }
 
- .ja-tem-conta {
- position: absolute;
- width: 100%;
- top: 90%;
- z-index: 10;
- color: #ffffff;
- font-size: 18px;
- }
- }
+            
+            .input-informacoes input {
+                position: relative;
+                width: 85%; 
+                background-color: #fcf6ec;
+            }
+
+          
+            .input-informacoes {
+                position: relative;
+                display: flex;
+            }
+            
+
+            .botao {
+                position: absolute;
+                width: 60%;
+                max-width: 350px;
+                left: 26%;
+                bottom: 10%; 
+                z-index: 10;
+                padding: 12px;
+
+            }
+
+            .ja-tem-conta {
+                position: absolute;
+                width: 100%;
+                top: 90%;
+                z-index: 10;
+                color: #ffffff;
+                font-size: 18px;
+            }
+        }

@@ -3,28 +3,28 @@
 /* Inicio config css */
 
 * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
- border: none;
- background: none;
- font-family: 'Poppins';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  font-family: 'Poppins';
 }
 
 a {
- text-decoration: none;
- color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 li {
- list-style: none;
+  list-style: none;
 }
 
 html, body{
 
- min-height: 100vh;
- overflow-x: hidden;
- color: #101828;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #101828;
 
 }
 
@@ -34,18 +34,18 @@ html, body{
 
 :root {
 
- --Bg-nav: rgba(33, 33, 33, 0.85);
- --Bg-footer: #212121;
- --Text-verde01: #41995C;
- --Text-verde02: #07EF4E;
- --Button-verde01: #00D94C;
- --Button-verde02: #5DCE84;
- --Card-verde: #00A310;
- --Card-laranja: #DD5C00;
- --Card-azul: #0C0075;
- --Laranja-koraidon: #D84B36;
- --Azul-miraidon: #2D305F;
- --Button-gradiend: linear-gradient(90deg, var(--Laranja-koraidon) 0%, var(--Azul-miraidon) 91%);
+  --Bg-nav: rgba(33, 33, 33, 0.85);
+  --Bg-footer: #212121;
+  --Text-verde01: #41995C;
+  --Text-verde02: #07EF4E;
+  --Button-verde01: #00D94C;
+  --Button-verde02: #5DCE84;
+  --Card-verde: #00A310;
+  --Card-laranja: #DD5C00;
+  --Card-azul: #0C0075;
+  --Laranja-koraidon: #D84B36;
+  --Azul-miraidon: #2D305F;
+  --Button-gradiend: linear-gradient(90deg, var(--Laranja-koraidon) 0%, var(--Azul-miraidon) 91%);
 
 }
 
@@ -57,117 +57,117 @@ html, body{
 
 .Nav-Container {
 
- display: flex;
- flex-direction: row;
- justify-content: center;
- align-items: center;
- background-color: var(--Bg-nav);
- width: 100vw;
- height: 4vw;
- position: fixed;
- top: 0;
- z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--Bg-nav);
+  width: 100vw;
+  height: 4vw;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 
 }
 
 #options{
 
- display: none;
+  display: none;
 
 }
 
 #logo {
 
- height: 80%;
+  height: 80%;
 
 }
 
 .Nav-Options {
 
- display: flex;
- flex-direction: row;
- justify-content: center;
- width: 40%;
- margin: 0 3% 0 15%;
- gap: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 40%;
+  margin: 0 3% 0 15%;
+  gap: 5%;
 
- font-size: .7vw;
- font-weight: 600;
- color: #DADADA;
+  font-size: .7vw;
+  font-weight: 600;
+  color: #DADADA;
 
 }
 
 .Nav-Container li{
 
- display: flex;
- flex-direction: row;
- justify-content: center;
- align-items: center;
- gap: 2%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
 
 }
 
 .Nav-Container li a {
 
- display: flex;
- align-items: center;
- justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
 .Nav-Options li a:hover {
 
- color: #ffffff;
+    color: #ffffff;
 
 }
 
 .Nav-Options img{
 
- height: 2vw;
+    height: 2vw;
 
 }
 
 .Selected{
 
- color: #FFF;
+    color: #FFF;
 
 }
 
 .Button-Container{
 
- display: flex;
- flex-direction: row;
- justify-content: center;
- align-items: center;
- gap: 10%;
- width: 20%;
- height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    width: 20%;
+    height: 100%;
 
 }
 
 .Button-Nav {
 
- color: #FFFFFF;
- font-size: .8vw;
- font-weight: 600;
- width: 60%;
- height: 50%;
- border-radius: 10px;
- border: 2px solid #FFF;
- cursor: pointer;
+    color: #FFFFFF;
+    font-size: .8vw;
+    font-weight: 600;
+    width: 60%;
+    height: 50%;
+    border-radius: 10px;
+    border: 2px solid #FFF;
+    cursor: pointer;
 
 }
 
 .Cadastro {
 
- background-color: var(--Laranja-koraidon);
+    background-color: var(--Laranja-koraidon);
 
 }
 
 .Login {
 
- background-color: var(--Azul-miraidon);
- 
+    background-color: var(--Azul-miraidon);
+    
 }
 
 .Button-Container a{
@@ -177,8 +177,8 @@ justify-content: end;
 }
 
 .user{
- width: 14%;
- filter: invert(100%);
+    width: 14%;
+    filter: invert(100%);
 }
 
 /* Fim Navbar css */
@@ -186,74 +186,74 @@ justify-content: end;
 /* Inicio tipos */
 
 .steel {
- background-color: #b7b7ce;
+    background-color: #b7b7ce;
 }
 
 .water {
- background-color: #6390f0;
+    background-color: #6390f0;
 }
 
 .dragon {
- background-color: #6f35fc;
+    background-color: #6f35fc;
 }
 
 .electric {
- background-color: #f7d02c;
+    background-color: #f7d02c;
 }
 
 .fairy {
- background-color: #d685ad;
+    background-color: #d685ad;
 }
 
 .ghost {
- background-color: #735797;
+    background-color: #735797;
 }
 
 .fire {
- background-color: #ee8130;
+    background-color: #ee8130;
 }
 
 .ice {
- background-color: #96d9d6;
+    background-color: #96d9d6;
 }
 
 .bug {
- background-color: #a6b91a;
+    background-color: #a6b91a;
 }
 
 .fighting {
- background-color: #c22e28;
+    background-color: #c22e28;
 }
 
 .normal {
- background-color: #a8a77a;
+    background-color: #a8a77a;
 }
 
 .rock {
- background-color: #b6a136;
+    background-color: #b6a136;
 }
 
 .grass {
- background-color: #7ac74c;
+    background-color: #7ac74c;
 }
 
 .psychic {
- background-color: #f95587;
+    background-color: #f95587;
 }
 
 .dark {
- background-color: #705746;
+    background-color: #705746;
 }
 
 .ground {
- background-color: #e2bf65;
+    background-color: #e2bf65;
 }
 
 .poison {
- background-color: #a33ea1;
+    background-color: #a33ea1;
 }
 
 .flying {
- background-color: #a98ff3;
+    background-color: #a98ff3;
 }
 

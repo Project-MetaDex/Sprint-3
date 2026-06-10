@@ -2,205 +2,204 @@
 <html lang="pt-BR">
 
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
- <title>Metadex</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Metadex</title>
 
- <link rel="shortcut icon" href="assets/icon/Favicon.svg" type="image/x-icon">
- <link rel="stylesheet" href="css/global.css">
- <link rel="stylesheet" href="css/LandingPage.css">
- <script src="js/sideBar.js"></script>
+  <link rel="shortcut icon" href="assets/icon/Favicon.svg" type="image/x-icon">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/LandingPage.css">
+  <script src="js/sideBar.js"></script>
 </head>
 
 <body>
 
- <main class="Container">
+  <main class="Container">
 
- <!-- Inicio Navbar -->
+    <!-- Inicio Navbar -->
 
- <nav class="Nav-Container">
+    <nav class="Nav-Container">
 
- <img onclick="Side('Open')" id="options" src="./assets/icon/Icon-Hanburguer.svg" alt="">
- <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      <img onclick="Side('Open')" id="options" src="./assets/icon/Icon-Hanburguer.svg" alt="">
+      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
 
- <ul class="Nav-Options">
- <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
+      <ul class="Nav-Options">
+        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li><a href="teamBuilder-List.html">Team Buider</a></li>
+        <li><a href="simulacao1.html">Battle Simulator</a></li>
+      </ul>
 
- <div class="Button-Container">
- <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
- <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
- </div>
- </nav>
+      <div class="Button-Container">
+        <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'" >Cadastre-se</button>
+        <button class="Button-Nav Login" onclick="window.location.href='./login.html'" >Entrar</button>
+      </div>
+    </nav>
 
- <aside style="display: none;" class="Side-Container">
- 
- <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+    <aside style="display: none;" class="Side-Container">
+      
+      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
 
- <div class="Side-Flex">
- <div class="Perfil">
+      <div class="Side-Flex">
+        <div class="Perfil">
 
- <img src="assets/icon/Icon-User.svg" alt="">
- <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+          <img src="assets/icon/Icon-User.svg" alt="">
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
 
- </div>
+        </div>
 
- <ul class="Side-Options">
- <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
+        <ul class="Side-Options">
+          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
+          <li><a href="cadastro.html">Pokedex</a></li>
+          <li><a href="cadastro.html">Ranks</a></li>
+          <li><a href="cadastro.html">Team Buider</a></li>
+          <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
 
- <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
- </div>
- </aside>
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      </div>
+    </aside>
 
- <!-- Fim Navbar -->
+    <!-- Fim Navbar -->
 
- <!-- Inicio Banner -->
+    <!-- Inicio Banner -->
 
- <section class="Banner-Container">
- <div class="Img-Banner">
- <img id="cenario" src="assets/imgs/Ellipse-BulbaCenario.png" alt="">
- <img id="bulba" src="assets/imgs/Bulbasaur-Fundo.png" alt="">
- </div>
- <div class="Text-Banner">
- <h1>Domine o cenário competitivo de <span>Pokémon VGC</span></h1>
- <p>Pare de prever, comece a calcular. Otimize seus times com dados reais do meta e alcance o topo da ladder.</p>
- <Button class="Button" onclick="window.location.href='./cadastro.html'" >Cadastre-se agora!!</Button>
- </div>
- </section>
+    <section class="Banner-Container">
+      <div class="Img-Banner">
+        <img id="cenario" src="assets/imgs/Ellipse-BulbaCenario.png" alt="">
+        <img id="bulba" src="assets/imgs/Bulbasaur-Fundo.png" alt="">
+      </div>
+      <div class="Text-Banner">
+        <h1>Domine o cenário competitivo de <span>Pokémon VGC</span></h1>
+        <p>Pare de prever, comece a calcular. Otimize seus times com dados reais do meta e alcance o topo da ladder.</p>
+        <Button class="Button" onclick="window.location.href='./cadastro.html'" >Cadastre-se agora!!</Button>
+      </div>
+    </section>
 
- <!-- Fim Banner -->
+    <!-- Fim Banner -->
 
- <!-- Inicio Cards Beneficios -->
+    <!-- Inicio Cards Beneficios -->
 
- <section class="Cards-Container">
+    <section class="Cards-Container">
 
- <h2>Todos os recursos que voce precisa para <span>vencer</span></h2>
- 
- <div class="Flex-Box">
+      <h2>Todos os recursos que voce precisa para <span>vencer</span></h2>
+      
+      <div class="Flex-Box">
 
- <div class="Card Pokedex">
- <img src="assets/icon/Icon-Pokedex.svg" alt="">
- <h3>Analise qualquer Pokemon</h3>
- <p>Acesse dados técnicos de todos os Pokémon, incluindo usage rates,
- speed tiers e os movesets mais eficazes do meta atual.</p>
- </div>
+        <div class="Card Pokedex">
+            <img src="assets/icon/Icon-Pokedex.svg" alt="">
+            <h3>Analise qualquer Pokemon</h3>
+            <p>Acesse dados técnicos de todos os Pokémon, incluindo usage rates,
+              speed tiers e os movesets mais eficazes do meta atual.</p>
+        </div>
 
- <div class="Card Team-Buider Card-Foco ">
- <img src="assets/icon/Icon-TeamBuilder.svg" alt="">
- <h3>Monte seus times</h3>
- <p>Construa e valide seus times com precisão. Calcule sinergias e ajuste 
- seus EVs para sobreviver às ameaças mais comuns do cenário.</p>
- </div>
- 
- <div class="Card Simulator">
- <img src="assets/icon/Icon-Battle.svg" alt="">
- <h3>Simule suas Batalhas</h3>
- <p>Teste suas estratégias em cenários controlados. Simule matchups críticos 
- e refine suas decisões antes de ir para a ladder.</p>
- </div>
- 
- </div>
- </div>
+        <div class="Card Team-Buider Card-Foco ">
+            <img src="assets/icon/Icon-TeamBuilder.svg" alt="">
+            <h3>Monte seus times</h3>
+            <p>Construa e valide seus times com precisão. Calcule sinergias e ajuste 
+              seus EVs para sobreviver às ameaças mais comuns do cenário.</p>
+        </div>
+          
+          <div class="Card Simulator">
+            <img src="assets/icon/Icon-Battle.svg" alt="">
+            <h3>Simule suas Batalhas</h3>
+            <p>Teste suas estratégias em cenários controlados. Simule matchups críticos 
+              e refine suas decisões antes de ir para a ladder.</p>
+        </div>
+          
+        </div>
+      </div>
 
- <div class="Background-Cards">
- <img id="back" src="assets/imgs/Pokemons-Fundo.png" alt="">
- <img id="front" src="assets/imgs/Pokemon-Linha01-Fundo.png" alt="">
- </div>
+      <div class="Background-Cards">
+        <img id="back" src="assets/imgs/Pokemons-Fundo.png" alt="">
+        <img id="front" src="assets/imgs/Pokemon-Linha01-Fundo.png" alt="">
+      </div>
 
- </section>
+    </section>
 
- <!-- Fim Cards Beneficios -->
+    <!-- Fim Cards Beneficios -->
 
- <!-- Inicio Section Koraidon Miraidon -->
+    <!-- Inicio Section Koraidon Miraidon -->
 
- <section class="Section-Conteiner">
+    <section class="Section-Conteiner">
 
- <img id="Prefab-Img" src="assets/imgs/Prefab.svg" alt="">
- <img id="Prefab-Img-Cell" src="assets/imgs/Prefab-Cell.svg" alt="">
+      <img id="Prefab-Img" src="assets/imgs/Prefab.svg" alt="">
+      <img id="Prefab-Img-Cell" src="assets/imgs/Prefab-Cell.svg" alt="">
 
- <div class="Koraidon">
- <img id="Koraidon" src="assets/imgs/Koraidon-Fundo.png" alt="">
- <img id="Koraidon-Cell" src="assets/imgs/Koraidon-Cell-Fundo.png" alt="">
+      <div class="Koraidon">
+        <img id="Koraidon" src="assets/imgs/Koraidon-Fundo.png" alt="">
+        <img id="Koraidon-Cell" src="assets/imgs/Koraidon-Cell-Fundo.png" alt="">
 
- <div class="Text-Koraidon">
- <h3>Entenda as regras e <span>domine</span> o jogo</h3>
- <p>Tudo o que você precisa para dominar o Pokémon VGC em um só lugar.</p>
- <button class="Button" onclick="window.location.href='./cadastro.html'">Conheça mais</button>
- </div>
- </div>
+        <div class="Text-Koraidon">
+          <h3>Entenda as regras e <span>domine</span> o jogo</h3>
+          <p>Tudo o que você precisa para dominar o Pokémon VGC em um só lugar.</p>
+          <button class="Button" onclick="window.location.href='./cadastro.html'">Conheça mais</button>
+        </div>
+      </div>
 
- <div class="Miraidon">
- <img id="Miraidon" src="assets/imgs/Miraidon-Fundo.png" alt="">
- <img id="Miraidon-Cell" src="assets/imgs/Miraidon-Cell-Fundo.png" alt="">
+      <div class="Miraidon">
+        <img id="Miraidon" src="assets/imgs/Miraidon-Fundo.png" alt="">
+        <img id="Miraidon-Cell" src="assets/imgs/Miraidon-Cell-Fundo.png" alt="">
 
- <div class="Text-Miraidon">
- <h3><span id="white">Veja os ranks</span><br> e <span id="destaque">explore</span> o meta</h3>
- <p>Antecipe os movimentos dos seus adversários e refine suas estratégias</p>
- <button class="Button" onclick="window.location.href='./cadastro.html'">Explore o Meta</button>
- </div>
- </div>
- 
- </section>
+        <div class="Text-Miraidon">
+          <h3><span id="white">Veja os ranks</span><br> e <span id="destaque">explore</span> o meta</h3>
+          <p>Antecipe os movimentos dos seus adversários e refine suas estratégias</p>
+          <button class="Button" onclick="window.location.href='./cadastro.html'">Explore o Meta</button>
+        </div>
+      </div>
+      
+    </section>
 
- <!-- Fim Section Koraidon Miraidon -->
+    <!-- Fim Section Koraidon Miraidon -->
 
- <!-- Inicio Footer -->
- <footer class="Footer-Container">
+    <!-- Inicio Footer -->
+      <footer class="Footer-Container">
 
- <img id="backgroundFooter" src="assets/imgs/Footer.png" alt="">
+        <img id="backgroundFooter" src="assets/imgs/Footer.png" alt="">
 
- <div class="Logo-Footer">
- <img src="assets/icon/Logo-Footer.svg" alt="">
+        <div class="Logo-Footer">
+          <img src="assets/icon/Logo-Footer.svg" alt="">
 
- <div class="Redes-Footer">
- <img src="assets/icon/Icon-Instagram.svg" alt="">
- <img src="assets/icon/Icon.Discord.svg" alt="">
- <img src="assets/icon/Icon.Facebook.svg" alt="">
- </div>
- </div>
+          <div class="Redes-Footer">
+            <img src="assets/icon/Icon-Instagram.svg" alt="">
+            <img src="assets/icon/Icon.Discord.svg" alt="">
+            <img src="assets/icon/Icon.Facebook.svg" alt="">
+          </div>
+        </div>
 
- <div class="Recursos-Footer">
- <h4>Recursos</h4>
- <ul>
- <li><a href="index.html">Home</a></li>
- <li><a href="pokedex.html">Pokedex</a></li>
- <li><a href="ranking.html">Ranking</a></li>
- <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
- </div>
+        <div class="Recursos-Footer">
+          <h4>Recursos</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="./cadastro.html">Pokedex</a></li>
+            <li><a href="./cadastro.html">Ranking</a></li>
+            <li><a href="./cadastro.html">Team Builder</a></li>
+            <li><a href="./cadastro.html">Battle Simulator</a></li>
+          </ul>
+        </div>
 
- <div class="Contatos-Footer">
- <h4>Contatos</h4>
- <ul>
- <li><img src="" alt="">(11) 98153-1777</li>
- <li><img src="" alt="">suporte@metadex.com</li>
- <li><img src="" alt="">Rua Haddock Lobo, 595</li>
- </ul>
- </div>
+        <div class="Contatos-Footer">
+          <h4>Contatos</h4>
+          <ul>
+            <li><img src="" alt="">(11) 98153-1777</li>
+            <li><img src="" alt="">suporte@metadex.com</li>
+            <li><img src="" alt="">Rua Haddock Lobo, 595</li>
+          </ul>
+        </div>
 
- <div class="Text-Footer">
- <hr/>
- <span>&copy; 2026 MetaDex Company. Todos os direitos reservados.</span>
- <span>Pokémon e todos os respectivos nomes são marcas registradas da Nintendo, Game Freak e The Pokémon Company.</span>
- </div>
+        <div class="Text-Footer">
+          <hr/>
+          <span>&copy; 2026 MetaDex Company. Todos os direitos reservados.</span>
+          <span>Pokémon e todos os respectivos nomes são marcas registradas da Nintendo, Game Freak e The Pokémon Company.</span>
+        </div>
 
- </footer>
- <!-- Fim Footer -->
+      </footer>
+    <!-- Fim Footer -->
 
- </main>
+  </main>
 
 
-<script src="js/navbar.js"></script>
 </body>
 </html>

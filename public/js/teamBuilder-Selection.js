@@ -1,255 +1,442 @@
-// team builder - selecao do duelo
-// geracoes
+var abas = [];
+var pokemonList = [];
+var pokemonListCompleta = [];
+var pokemonSelected = [];
 var geracoes = [
- { nome: 'Gen 1', inicio: 1, fim: 151 },
- { nome: 'Gen 2', inicio: 152, fim: 251 },
- { nome: 'Gen 3', inicio: 252, fim: 386 },
- { nome: 'Gen 4', inicio: 387, fim: 493 },
- { nome: 'Gen 5', inicio: 494, fim: 649 },
- { nome: 'Gen 6', inicio: 650, fim: 721 },
- { nome: 'Gen 7', inicio: 722, fim: 809 },
- { nome: 'Gen 8', inicio: 810, fim: 905 },
- { nome: 'Gen 9', inicio: 906, fim: 1025 }
+    { inicio: 1, fim: 151 },
+    { inicio: 152, fim: 251 },
+    { inicio: 252, fim: 386 },
+    { inicio: 387, fim: 493 },
+    { inicio: 494, fim: 649 },
+    { inicio: 650, fim: 721 },
+    { inicio: 722, fim: 809 },
+    { inicio: 810, fim: 905 },
+    { inicio: 906, fim: 1025 }
 ];
 
-// cache
-var cacheListas = {};
+const containerSelected = document.querySelector(".containerCardSelected")
+const containerCard = document.querySelector(".containerCard")
 
-// pokemons escolhidos
-var pokemonMeu = null;
-var pokemonAdv = null;
+window.addEventListener("load", () => {
+    restaurarTimeSelecionado();
+    carregarEquipeEditando();
 
-// gen ativa
-var genMeu = 0;
-var genAdv = 0;
+    const nomeTime = document.getElementById("nomeTime");
 
-// indice do duelo
-var dueloIdx = Number(localStorage.getItem("DUELO_EDITANDO_IDX") || "0");
+    if (nomeTime) {
+        const nomeSalvo = sessionStorage.getItem("NOME_TIME_SELECIONADO");
 
-// duelos salvos
-var duelos = JSON.parse(localStorage.getItem("DUELOS_SALVOS") || "[]");
+        if (nomeSalvo) {
+            nomeTime.value = nomeSalvo;
+        }
 
-// duelo atual
-var duelo = duelos[dueloIdx] || {
- id: Date.now(),
- nome: "Duelo " + (duelos.length + 1),
- data: new Date().toLocaleDateString("pt-BR"),
- meu: null,
- adversario: null
-};
+        nomeTime.oninput = () => {
+            sessionStorage.setItem("NOME_TIME_SELECIONADO", nomeTime.value);
+        };
+    }
 
-function capitalizar(texto) {
- if (!texto) return '';
- return texto.charAt(0).toUpperCase() + texto.slice(1);
+    const botaoSalvar = document.getElementById("btnSalvar");
+    if (botaoSalvar) {
+        botaoSalvar.onclick = salvarSelecao;
+    }
+});
+
+
+function SelecionarAba(Aba){
+
+   document.querySelector(".selectedAba")?.classList.remove("selectedAba")
+
+   var abaSelecionada = document.querySelector(`#aba${Aba}`)
+    var indiceGeracao = Number(abaSelecionada.dataset.geracao)
+    var geracaoSelecionada = geracoes[indiceGeracao]
+
+   abaSelecionada.classList.add("selectedAba")
+
+    GetPokemonList(geracaoSelecionada.fim, geracaoSelecionada.inicio)
+
 }
 
-function urlSprite(id) {
- return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + id + '.png';
+async function Filter(type) {
+
+    document.querySelector(".selectedAba")?.classList.remove("selectedAba")
+    document.querySelector(".filterSelected")?.classList.remove("filterSelected")
+    document.querySelector(`#${type}`)?.classList.add("filterSelected")
+
+
+    pokemonList = []
+    const promises = []
+
+    try{
+
+        var res = await fetch(`https://pokeapi.co/api/v2/type/${type}`).then(resp => resp.json())
+
+        for (let i = 0; i < res.pokemon.length; i++) {
+            promises.push(fetch(res.pokemon[i].pokemon.url).then(response => response.json()))
+        }
+
+        pokemonListCompleta = await Promise.all(promises);
+        pokemonList = pokemonListCompleta;
+
+        PesquisarPokemon()
+
+    }catch (error){
+
+        console.error(error)
+
+    }
+        
 }
 
-function urlArte(id) {
- return 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png';
+async function GetPokemonList (fim, inicio) {
+
+    pokemonList = []
+    pokemonListCompleta = []
+    const promises = [] 
+
+    for (let i = inicio; i <= fim; i++) {
+        promises.push(fetch(`https://pokeapi.co/api/v2/pokemon/${i}`).then(res => res.json()));
+    }
+
+    try {
+        pokemonListCompleta = await Promise.all(promises);
+        pokemonList = pokemonListCompleta;
+
+        PesquisarPokemon()
+    }catch (error){
+        console.error(error);
+    }
+
 }
 
-document.addEventListener('DOMContentLoaded', iniciar);
+function PesquisarPokemon(){
 
-function iniciar() {
- // Se o duelo ja tem pokemons, pre-seleciona eles
- if (duelo.meu && duelo.meu.pokemon) {
- pokemonMeu = { id: duelo.meu.pokemon.id, name: duelo.meu.pokemon.name };
- }
- if (duelo.adversario && duelo.adversario.pokemon) {
- pokemonAdv = { id: duelo.adversario.pokemon.id, name: duelo.adversario.pokemon.name };
- }
- atualizarPreview('meu');
- atualizarPreview('adv');
+    var pesquisa = document.getElementById("barraPesquisa").value.toLowerCase().trim()
 
- // Cria os botoes de geracao
- criarAbasGen('abas-meu', 'meu');
- criarAbasGen('abas-adv', 'adv');
+    if (pesquisa == "") {
+        pokemonList = pokemonListCompleta
+    } else {
+        pokemonList = pokemonListCompleta.filter(pokemon => pokemon.name.toLowerCase().includes(pesquisa))
+    }
 
- // Carrega a Gen 1 em cada lado
- carregarGen(0, 'meu');
- carregarGen(0, 'adv');
+    ConstruirCardList()
 
- // Enter na busca
- document.getElementById('busca-meu').addEventListener('keydown', function (e) {
- if (e.key === 'Enter') buscarPokemon('meu');
- });
- document.getElementById('busca-adv').addEventListener('keydown', function (e) {
- if (e.key === 'Enter') buscarPokemon('adv');
- });
-
- atualizarBotaoSalvar();
 }
 
-function criarAbasGen(idDoContainer, lado) {
- var container = document.getElementById(idDoContainer);
- var html = '';
- for (var i = 0; i < geracoes.length; i++) {
- var classe = i === 0 ? 'aba-gen ativo' : 'aba-gen';
- html += '<button class="' + classe + '" onclick="selecionarGen(' + i + ', \'' + lado + '\')">' + geracoes[i].nome + '</button>';
- }
- container.innerHTML = html;
+function ConstruirCardList(){
+
+    var list = "";
+
+    for (let i = 0; i < pokemonList.length; i++) {
+        let element = pokemonList[i];
+        const type1 = element.types[0].type.name
+        const type2 = element.types[1] ? element.types[1].type.name : null
+
+        list += `
+        <div class="pokemonCard">
+
+            <div class="pokemonContainer">
+              <img src="${element.sprites.front_default}" alt="">
+              <div class="detalhes">
+                <h3>${element.name}</h3>
+                <span class="tipo1 ${type1}">${type1}</span>
+                <span class="tipo2 ${type2? type2 : "" }">${type2? type2 : ""}</span>
+              </div>
+            </div>
+
+            <Button onclick="Adicionar(${i})" class="addButton">Adicionar</Button>
+          </div>
+        `
+    }
+
+    containerCard.innerHTML = list;
+
 }
 
-function selecionarGen(indice, lado) {
- var botoes = document.querySelectorAll('#abas-' + lado + ' .aba-gen');
- for (var i = 0; i < botoes.length; i++) {
- if (i === indice) botoes[i].classList.add('ativo');
- else botoes[i].classList.remove('ativo');
- }
- if (lado === 'meu') genMeu = indice;
- else genAdv = indice;
- carregarGen(indice, lado);
+function Adicionar(pokemon){
+    if (pokemonSelected.length < 6){
+        pokemonSelected.push(pokemonList[pokemon])
+        ConstruirCardSelectd()
+        persistirTimeSelecionado()
+    }else{
+        var continuar = confirm("Seu time esta cheio deseja deseja continuar ?")
+        if(continuar){
+            pokemonSelected.splice(0, 1)
+            pokemonSelected.push(pokemonList[pokemon])
+            document.querySelector(".cardSelecionado").remove()
+            ConstruirCardSelectd()
+            persistirTimeSelecionado()
+        }   
+    }
 }
 
-function carregarGen(indice, lado) {
- var gen = geracoes[indice];
- var chave = 'gen_' + gen.inicio + '_' + gen.fim;
- var grade = document.getElementById('grade-' + lado);
+function ConstruirCardSelectd(){
 
- if (cacheListas[chave]) {
- desenharGrade(cacheListas[chave], grade, lado);
- return;
- }
+    var time = ""
+    containerSelected.innerHTML = "";
 
- grade.innerHTML = '<div class="carregando-selecao"><div class="icone-carregando"></div> Carregando...</div>';
+    for (let i = 0; i < pokemonSelected.length; i++) {
+        const element = pokemonSelected[i];
+        const type1 = element.types[0].type.name
+        const type2 = element.types[1] ? element.types[1].type.name : null
 
- // Monta a lista direto com sprites (sem precisar de fetch por pokemon)
- var lista = [];
- for (var id = gen.inicio; id <= gen.fim; id++) {
- lista.push({ id: id, name: 'pokemon-' + id, img: urlSprite(id) });
- }
+        time = `
+        <div id="IdPokemon${i}" class="cardSelecionado">
+            <img src="${element.sprites.front_default}" alt="">
+            <div class="selecionadosDetalhes">
+                <h3><a href="#" onclick="EditarPokemon(${i})">${element.name}</a></h3>
+                <span class="tipos tipo1 ${type1}">${type1}</span>
+                <span class="tipos tipo2 ${type2? type2 : "" }">${type2? type2 : ""}</span>
+            </div>
+            <button class="excluir" onclick="RemoverPokemon('IdPokemon${i}', ${i})"><img id="imgExcluir" src="assets/icon/Icon-Trash.svg" alt=""></button>
+        </div>
+        `
 
- // Uma unica requisicao para pegar todos os nomes da geracao
- var limite = gen.fim - gen.inicio + 1;
- var offset = gen.inicio - 1;
- var url = 'https://pokeapi.co/api/v2/pokemon?limit=' + limite + '&offset=' + offset;
+        containerSelected.innerHTML += time;
+    }
 
- fetch(url)
- .then(function (r) { return r.json(); })
- .then(function (dados) {
- for (var i = 0; i < dados.results.length; i++) {
- if (lista[i]) lista[i].name = dados.results[i].name;
- }
- cacheListas[chave] = lista;
- desenharGrade(lista, grade, lado);
- })
- .catch(function () {
- cacheListas[chave] = lista;
- desenharGrade(lista, grade, lado);
- });
 }
 
-function desenharGrade(lista, grade, lado) {
- var selecionado = lado === 'meu' ? pokemonMeu : pokemonAdv;
- grade.innerHTML = '';
+function RemoverPokemon(pokemon, index){
 
- for (var i = 0; i < lista.length; i++) {
- var p = lista[i];
- var div = document.createElement('div');
- var ehSelecionado = selecionado && selecionado.id === p.id;
- div.className = ehSelecionado ? 'card-selecao selecionado' : 'card-selecao';
+    pokemonSelected.splice(index, 1)
+    ConstruirCardSelectd()
+    persistirTimeSelecionado()
 
- div.innerHTML =
- '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" ' +
- 'onerror="if(!this._erro){this._erro=1;this.src=\'' + urlArte(p.id) + '\'}else{this.style.opacity=\'0.2\'}">' +
- '<span class="id-poke">#' + String(p.id).padStart(3, '0') + '</span>' +
- '<span>' + capitalizar(p.name) + '</span>';
-
- (function (id, name) {
- div.addEventListener('click', function () {
- selecionarPokemon(id, name, lado);
- });
- })(p.id, p.name);
-
- grade.appendChild(div);
- }
 }
 
-function buscarPokemon(lado) {
- var termo = document.getElementById('busca-' + lado).value.trim().toLowerCase();
- if (!termo) return;
+function EditarPokemon(index){  
 
- var grade = document.getElementById('grade-' + lado);
- grade.innerHTML = '<div class="carregando-selecao"><div class="icone-carregando"></div> Buscando...</div>';
+    sessionStorage.setItem("POKEMON_EDITANDO", String(index));
+    persistirNomeTime();
+    persistirTimeSelecionado();
 
- fetch('https://pokeapi.co/api/v2/pokemon/' + termo)
- .then(function (r) {
- if (!r.ok) throw new Error('nao achou');
- return r.json();
- })
- .then(function (dados) {
- var p = { id: dados.id, name: dados.name, img: urlSprite(dados.id) };
- desenharGrade([p], grade, lado);
- selecionarPokemon(p.id, p.name, lado);
- })
- .catch(function () {
- grade.innerHTML = '<div class="carregando-selecao" style="color:#D84B36">Pokemon "' + termo + '" nao encontrado.</div>';
- });
+    location.href = "teamBuilder-Pokemon.html"
+
 }
 
-function selecionarPokemon(id, nome, lado) {
- if (lado === 'meu') pokemonMeu = { id: id, name: nome };
- else pokemonAdv = { id: id, name: nome };
+function persistirNomeTime(){
+    const nomeTime = document.getElementById("nomeTime");
 
- var cards = document.querySelectorAll('#grade-' + lado + ' .card-selecao');
- for (var i = 0; i < cards.length; i++) cards[i].classList.remove('selecionado');
- for (var j = 0; j < cards.length; j++) {
- var img = cards[j].querySelector('img');
- if (img && img.alt && nome && img.alt.toLowerCase() === nome.toLowerCase()) {
- cards[j].classList.add('selecionado');
- }
- }
-
- atualizarPreview(lado);
- atualizarBotaoSalvar();
+    if (nomeTime) {
+        sessionStorage.setItem("NOME_TIME_SELECIONADO", nomeTime.value);
+    }
 }
 
-function atualizarPreview(lado) {
- var el = document.getElementById('preview-' + lado);
- var p = lado === 'meu' ? pokemonMeu : pokemonAdv;
- if (!p) { el.innerHTML = ''; return; }
+function persistirTimeSelecionado(){
+    sessionStorage.setItem("TOTAL_POKEMONS_TIME", String(pokemonSelected.length));
 
- el.innerHTML =
- '<img src="' + urlSprite(p.id) + '" alt="' + p.name + '" ' +
- 'onerror="if(!this._erro){this._erro=1;this.src=\'' + urlArte(p.id) + '\'}">' +
- '<span>' + capitalizar(p.name) + '</span>';
+    for (let i = 0; i < 6; i++) {
+        sessionStorage.removeItem(`POKEMON${i}`);
+        sessionStorage.removeItem(`pokemon${i + 1}`);
+    }
+
+    for (let i = 0; i < pokemonSelected.length; i++) {
+        sessionStorage.setItem(`POKEMON${i}`, JSON.stringify(pokemonSelected[i]));
+        sessionStorage.setItem(`pokemon${i + 1}`, JSON.stringify(montarPokemonParaSalvar(pokemonSelected[i])));
+    }
 }
 
-function atualizarBotaoSalvar() {
- var btn = document.getElementById('btn-iniciar-batalha');
- btn.disabled = !(pokemonMeu && pokemonAdv);
+function limparPokemonsTemporarios(){
+    for (let i = 0; i < 6; i++) {
+        sessionStorage.removeItem(`POKEMON${i}`);
+        sessionStorage.removeItem(`pokemon${i + 1}`);
+    }
+
+    sessionStorage.removeItem("TOTAL_POKEMONS_TIME");
+    sessionStorage.removeItem("POKEMON_EDITANDO");
 }
 
-function limparSelecao() {
- pokemonMeu = null;
- pokemonAdv = null;
- atualizarPreview('meu');
- atualizarPreview('adv');
- var cards = document.querySelectorAll('.card-selecao.selecionado');
- for (var i = 0; i < cards.length; i++) cards[i].classList.remove('selecionado');
- atualizarBotaoSalvar();
+function montarPokemonParaSalvar(pokemon){
+    var ataques = pokemon.ataquesSelecionados || [];
+    var status = pokemon.statusSelecionados || {};
+
+    return {
+        idPokemon: Number(pokemon.idPokemon || pokemon.fkPokemon || pokemon.id),
+        nome: pokemon.nome || pokemon.name,
+        Ataque1: pegarNomeAtaque(ataques[0] || pokemon.moves?.[0]),
+        Ataque2: pegarNomeAtaque(ataques[1] || pokemon.moves?.[1]),
+        Ataque3: pegarNomeAtaque(ataques[2] || pokemon.moves?.[2]),
+        Ataque4: pegarNomeAtaque(ataques[3] || pokemon.moves?.[3]),
+        HP: Number(status.HP ?? status.hp ?? pegarStatusBase(pokemon, 'hp')),
+        Attack: Number(status.Attack ?? status.attack ?? status.ataque ?? pegarStatusBase(pokemon, 'attack')),
+        Defense: Number(status.Defense ?? status.defense ?? status.defesa ?? pegarStatusBase(pokemon, 'defense')),
+        SpAtk: Number(status.SpAtk ?? status.ataqueEsp ?? pegarStatusBase(pokemon, 'special-attack')),
+        SpDef: Number(status.SpDef ?? status.defesaEsp ?? pegarStatusBase(pokemon, 'special-defense')),
+        Speed: Number(status.Speed ?? status.velocidade ?? pegarStatusBase(pokemon, 'speed'))
+    };
 }
 
-// salva e volta
-function salvarDuelo() {
- if (!pokemonMeu || !pokemonAdv) return;
+function pegarNomeAtaque(ataque){
+    if (!ataque) {
+        return null;
+    }
 
- duelo.meu = {
- pokemon: { id: pokemonMeu.id, name: pokemonMeu.name }
- };
- duelo.adversario = {
- pokemon: { id: pokemonAdv.id, name: pokemonAdv.name }
- };
-
- duelos[dueloIdx] = duelo;
- localStorage.setItem("DUELOS_SALVOS", JSON.stringify(duelos));
-
- alert("Duelo salvo!");
- window.location.href = "teamBuilder-List.html";
+    return ataque.nome || ataque.name || ataque.move?.name || ataque;
 }
 
-function abrirMenu() { document.querySelector('.menu-lateral').style.display = 'block'; }
-function fecharMenu() { document.querySelector('.menu-lateral').style.display = 'none'; }
+function pegarStatusBase(pokemon, nomeStatus){
+    var statusEncontrado = pokemon.stats?.find(status => status.stat && status.stat.name == nomeStatus);
+    return statusEncontrado ? statusEncontrado.base_stat : 0;
+}
+
+function montarPokemonsParaSalvar(){
+    var totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
+    var pokemonsParaSalvar = [];
+
+    for (let i = 0; i < totalSalvo; i++) {
+        var pokemonSalvo = sessionStorage.getItem(`pokemon${i + 1}`);
+
+        if (!pokemonSalvo) {
+            var pokemonCompleto = sessionStorage.getItem(`POKEMON${i}`);
+            pokemonSalvo = pokemonCompleto ? JSON.stringify(montarPokemonParaSalvar(JSON.parse(pokemonCompleto))) : null;
+        }
+
+        if (pokemonSalvo) {
+            pokemonsParaSalvar.push(JSON.parse(pokemonSalvo));
+        }
+    }
+
+    return pokemonsParaSalvar;
+}
+
+function restaurarTimeSelecionado(){
+    pokemonSelected = [];
+
+    const totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
+
+    for (let i = 0; i < totalSalvo; i++) {
+        const pokemonSalvo = sessionStorage.getItem(`POKEMON${i}`);
+
+        if (pokemonSalvo) {
+            pokemonSelected.push(JSON.parse(pokemonSalvo));
+        }
+    }
+
+    ConstruirCardSelectd();
+}
+
+async function carregarEquipeEditando(){
+    var idEquipe = sessionStorage.getItem("TIME_EDITANDO");
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!idEquipe || !idUsuario) {
+        return;
+    }
+
+    try {
+        const resposta = await fetch("/equipes/buscarEquipe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idEquipeServer: idEquipe,
+                idUsuarioServer: idUsuario
+            })
+        });
+
+        if (resposta.status === 204) {
+            return;
+        }
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao buscar equipe para edição.");
+        }
+
+        const equipe = await resposta.json();
+        const nomeTime = document.getElementById("nomeTime");
+
+        if (nomeTime && equipe[0]) {
+            nomeTime.value = equipe[0].nomeEquipe;
+            sessionStorage.setItem("NOME_TIME_SELECIONADO", equipe[0].nomeEquipe);
+        }
+
+        pokemonSelected = [];
+
+        for (let i = 0; i < equipe.length; i++) {
+            const pokemonBanco = equipe[i];
+            const pokemonApi = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonBanco.idPokemon}`).then(res => res.json());
+            const ataquesBanco = [pokemonBanco.Ataque1, pokemonBanco.Ataque2, pokemonBanco.Ataque3, pokemonBanco.Ataque4];
+
+            pokemonApi.ataquesSelecionados = ataquesBanco.map((ataqueBanco, index) => {
+                var ataqueApi = pokemonApi.moves.find(ataque => ataque.move.name == ataqueBanco) || pokemonApi.moves[index];
+
+                return {
+                    nome: ataqueBanco || ataqueApi.move.name,
+                    url: ataqueApi.move.url,
+                    tipo: null
+                };
+            });
+
+            pokemonApi.statusSelecionados = {
+                hp: pokemonBanco.HP,
+                attack: pokemonBanco.Attack,
+                defense: pokemonBanco.Defense,
+                ataqueEsp: pokemonBanco.SpAtk,
+                defesaEsp: pokemonBanco.SpDef,
+                velocidade: pokemonBanco.Speed
+            };
+
+            pokemonSelected.push(pokemonApi);
+        }
+
+        ConstruirCardSelectd();
+        persistirTimeSelecionado();
+    } catch (error) {
+        console.error("Erro ao carregar equipe para edição:", error);
+        alert("Não foi possível carregar a equipe para edição.");
+    }
+}
+
+
+async function salvarSelecao() {
+    persistirTimeSelecionado();
+
+    var pokemonsParaSalvar = montarPokemonsParaSalvar();
+
+    if (!pokemonsParaSalvar.length) {
+        alert("Selecione pelo menos um Pokémon antes de continuar.");
+        return;
+    }
+
+    var nomeTime = document.getElementById("nomeTime").value.trim();
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    if (!nomeTime) {
+        alert("Informe o nome do time antes de salvar.");
+        return;
+    }
+
+    if (!idUsuario) {
+        alert("Faça login antes de salvar uma equipe.");
+        return;
+    }
+
+    try {
+        var idEquipeEditando = sessionStorage.getItem("TIME_EDITANDO");
+        var rota = idEquipeEditando ? "/equipes/editarEquipe" : "/equipes/salvarEquipe";
+
+        const resposta = await fetch(rota, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                idEquipeServer: idEquipeEditando,
+                nomeServer: nomeTime,
+                idUsuarioServer: idUsuario,
+                pokemonsServer: pokemonsParaSalvar
+            })
+        });
+
+        if (!resposta.ok) {
+            const mensagemErro = await resposta.text();
+            throw new Error(mensagemErro || "Erro ao salvar equipe.");
+        }
+
+        sessionStorage.removeItem("TIME_EDITANDO");
+        sessionStorage.removeItem("NOME_TIME_SELECIONADO");
+        limparPokemonsTemporarios();
+        location.href = "teamBuilder-List.html";
+    } catch (error) {
+        console.error("Erro ao salvar equipe:", error);
+        alert("Não foi possível salvar a equipe.");
+    }
+
+}

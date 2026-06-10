@@ -1,61 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Team Builder 1v1 | MetaDex</title>
- <link rel="stylesheet" href="css/global.css">
- <link rel="stylesheet" href="css/teamBuilder-List.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team Builder</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/teamBuilder-List.css">
+    <script src="js/teamBuilder-List.js" defer></script>
 </head>
-<body>
- <nav class="Nav-Container">
- <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
- <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
- <ul class="Nav-Options">
- <li><a href="index.html">Home</a></li>
- <li><a href="pokedex.html">Pokédex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
- <div class="Button-Container">
- <a href="#"><img src="assets/imgs/iconeUSER.png" class="user"></a>
- </div>
- </nav>
- <aside style="display:none" class="Side-Container">
- <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
- <div class="Side-Flex">
- <div class="Perfil">
- <img src="assets/icon/Icon-User.svg" alt="">
- <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
- </div>
- <ul class="Side-Options">
- <li><a href="index.html">Home</a></li>
- <li><a href="pokedex.html">Pokédex</a></li>
- <li><a href="ranking.html">Ranks</a></li>
- <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
- </ul>
- <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
- </div>
- </aside>
 
- <div class="container">
- <div id="title">
- <div>
- <h1>Team Builder</h1>
- <p>Monte um duelo, escolha os Pokemons e simule a batalha.</p>
- </div>
- <button id="novoTime" onclick="criarNovoDuelo()">+ Novo Duelo</button>
- </div>
+<body onload="listarTimes()">
+<!-- Inicio Navbar -->
 
- <input type="text" id="barraPesquisa" placeholder="Pesquisar duelo...">
+    <nav class="Nav-Container">
 
- <div class="cardTimes" id="listaDuelos"></div>
- </div>
+      <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+      <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
 
- <script src="js/sideBar.js"></script>
- <script src="js/teamBuilder-List.js"></script>
-<script src="js/navbar.js"></script>
+      <ul class="Nav-Options">
+        <li><a href="index.html">Home</a></li> 
+        <li><a href="pokedex.html">Pokedex</a></li>
+        <li><a href="ranking.html">Ranks</a></li>
+        <li class="Selected"><a href="#"><img src="./assets/icon/Icon-NavSelected.svg" alt="">Team Buider</a></li>
+        <li><a href="simulacao1.html">Battle Simulator</a></li>
+      </ul>
+
+        <div class="Button-Container">
+            <a  href="#">
+                <img src="assets/imgs/iconeUSER.png" class="user">
+            </a>
+        </div>
+
+    </nav>
+
+    <aside style="display: none;" class="Side-Container">
+      
+      <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+
+      <div class="Side-Flex">
+        <div class="Perfil">
+
+          <img src="assets/icon/Icon-User.svg" alt="">
+          <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
+
+        </div>
+
+        <ul class="Side-Options">
+          <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
+          <li><a href="cadastro.html">Pokedex</a></li>
+          <li><a href="cadastro.html">Ranks</a></li>
+          <li><a href="cadastro.html">Team Buider</a></li>
+          <li><a href="cadastro.html">Battle Simulator</a></li>
+        </ul>
+
+        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+      </div>
+    </aside>
+
+    <!-- Fim Navbar -->
+
+    <!-- Inicio lista de times -->
+
+    <div class="container">
+
+        <div id="title">
+            <div>
+                <h1>Seus Times</h1>
+                <p>Gerencie e monte suas equipes para qualquer desafio</p>
+            </div>
+
+            <button onclick="criarNovoTime()" id="novoTime">+ Novo Time</button>
+        </div>
+
+        <input type="text" id="barraPesquisa" placeholder="Pesquisar">
+
+        <div class="cardTimes">
+            
+        </div>
+
+    </div>
+
+    <!-- Fim lista de times -->
+
+    
 </body>
 </html>

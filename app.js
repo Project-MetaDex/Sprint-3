@@ -18,8 +18,6 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var equipeRouter = require("./src/routes/equipes");
-var pokemonRouter = require("./src/routes/pokemons");
-var simulacaoRouter = require("./src/routes/simulacoes");
 
 
 app.use(express.json());
@@ -31,8 +29,6 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/equipes", equipeRouter);
-app.use("/pokemons", pokemonRouter);
-app.use("/simulacoes", simulacaoRouter);
 
 
 app.listen(PORTA_APP, function () {
