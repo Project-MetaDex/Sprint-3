@@ -363,3 +363,33 @@ function esconderToast() {
     const toast = document.getElementById('toast-feedback');
     if (toast) toast.style.display = 'none';
 }
+
+/**
+ * Deleta a conta do aluno após confirmação do usuário.
+ * Chama DELETE /usuarios/deletarConta/:idUsuario,
+ * limpa a sessão e redireciona para index.html em caso de sucesso.
+ */
+function deletarConta() {
+    var confirmado = window.confirm('Deseja mesmo deletar sua conta? Esta ação não pode ser desfeita.');
+    if (!confirmado) return;
+
+    fetch('/usuarios/deletarConta/' + sessionStorage.getItem('ID_USUARIO'), {
+        method: 'DELETE'
+    })
+        .then(function (resposta) {
+            if (resposta.ok) {
+                console.log('Conta do aluno deletada com sucesso!');
+                sessionStorage.clear();
+                window.location.href = 'index.html';
+            } else {
+                resposta.text().then(function (mensagemErro) {
+                    console.log('Erro ao deletar conta:', mensagemErro);
+                    mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Não foi possível deletar a conta.');
+                });
+            }
+        })
+        .catch(function (erroDeRede) {
+            console.log('Erro de conexão com o servidor:', erroDeRede);
+            mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Erro de conexão. Tente novamente.');
+        });
+}

@@ -306,17 +306,19 @@
   // INICIALIZAÇÃO
   // =========================================================
   function inicializar() {
-    var idAluno = sessionStorage.getItem('ID_ALUNO_SELECIONADO');
+    // Tenta obter o ID do aluno selecionado pelo mentor (tela-alunos.html).
+    // Se não existir, usa o ID do próprio usuário logado (acesso direto do aluno).
+    var idAluno = sessionStorage.getItem('ID_ALUNO_SELECIONADO') || sessionStorage.getItem('ID_USUARIO');
 
     if (!idAluno) {
-      console.log('Nenhum aluno selecionado. Redirecionando...');
-      window.location.href = 'tela-alunos.html';
+      console.log('Nenhum ID de aluno disponível. Redirecionando para login...');
+      window.location.href = 'login.html';
       return;
     }
 
-    buscarDadosAluno(sessionStorage.ID_ALUNO_SELECIONADO);
-    buscarEquipes(sessionStorage.ID_ALUNO_SELECIONADO);
-    buscarHistoricoGrafico(sessionStorage.ID_ALUNO_SELECIONADO);
+    buscarDadosAluno(idAluno);
+    buscarEquipes(idAluno);
+    buscarHistoricoGrafico(idAluno);
   }
 
   inicializar();
