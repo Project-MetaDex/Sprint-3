@@ -341,6 +341,7 @@
   const totalPaginas = Math.ceil(alunos.length / POR_PAGINA);
   const inicio = (pagina - 1) * POR_PAGINA;
   const fatia = alunos.slice(inicio, inicio + POR_PAGINA);
+  const winRate = a.winRate == null ? 0 : a.winRate;
 
   document.getElementById('listaScroll').innerHTML = fatia.map(a => `
     <div class="info-aluno">
@@ -354,9 +355,9 @@
         <div class="container-bar">
           <div class="skill-bar">
             <div class="bar-preenchida"
-                 style="width:${a.winRate == null ? 0 : a.winRate}%; background:${corBarra(a.winRate == null ? 0 : a.winRate)};"></div>
+                 style="width:${winRate}%; background:${corBarra(winRate)};"></div>
           </div>
-          <strong>${a.winRate}%</strong>
+          <strong>${winRate}%</strong>
         </div>
         <div class="qtd-pontos">
           <small>Elo</small>
