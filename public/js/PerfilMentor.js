@@ -1,6 +1,3 @@
-// =========================================================
-// INICIALIZAÇÃO — roda quando a página carrega
-// =========================================================
 window.onload = function () {
 
      var nomeSalvo = sessionStorage.getItem('NOME_USUARIO');
@@ -30,55 +27,99 @@ window.onload = function () {
     dadosPerfilMentor();
 };
 
-// =========================================================
-// FETCH — busca alunos do mentor e preenche os cards
-// =========================================================
+
 function dadosPerfilMentor() {
     fetch(`/usuarios/listarAlunos/${sessionStorage.ID_USUARIO}`, {
         method: 'GET'
     })
         .then(function (resposta) {
+
             if (resposta.ok) {
+
                 resposta.json().then(function (listaAlunos) {
+
                     console.log('Dados recebidos com sucesso:', listaAlunos);
 
-                    document.getElementById('qtdAlunos').textContent = listaAlunos.length;
+                    fetch("https://pokemonshowdown.com/ladder/gen9championsvgc2026regma.json")
+                        .then(function (respostaLadder) {
+                            return respostaLadder.json();
+                        })
+                        .then(function (dadosLadder) {
 
-                    var qtdRisco = 0;
-                    var qtdDestaque = 0;
+                            console.log("Dados do ladder:");
+                            console.log(dadosLadder);
 
-                    // Conta alunos em risco (winRate < 50) e em destaque (winRate >= 70)
-                    for (var i = 0; i < listaAlunos.length; i++) {
-                        if (listaAlunos[i].winRate < 50) {
-                            qtdRisco++;
-                        } else if (listaAlunos[i].winRate >= 70) {
-                            qtdDestaque++;
-                        }
-                    }
+                            const jogadoresLadder = dadosLadder.toplist;
 
-                    document.getElementById('qtdAlunosRisco').textContent = qtdRisco;
-                    document.getElementById('qtdAlunosDestaque').textContent = qtdDestaque;
+                            listaAlunos = listaAlunos.map(function (aluno) {
+
+                                aluno.estaNoLadder = jogadoresLadder.some(function (jogador) {
+                                    return jogador.userid.toLowerCase() === aluno.nickname.toLowerCase();
+                                });
+
+                                return aluno;
+                            });
+
+                            console.log(listaAlunos);
+
+                            document.getElementById('qtdAlunos').textContent = listaAlunos.length;
+
+                            var qtdRisco = 0;
+                            var qtdDestaque = 0;
+
+                            for (var i = 0; i < listaAlunos.length; i++) {
+
+                                const destaque =
+                                    listaAlunos[i].estaNoLadder ||
+                                    (
+                                        listaAlunos[i].winRate > 70 &&
+                                        listaAlunos[i].totalBatalhas > 20
+                                    );
+
+                                if (destaque) {
+                                    qtdDestaque++;
+                                }
+
+                                const risco =
+                                    listaAlunos[i].winRate < 30 &&
+                                    listaAlunos[i].totalBatalhas > 20 &&
+                                    listaAlunos[i].dias > 40;
+
+                                if (risco) {
+                                    qtdRisco++;
+                                }
+                            }
+
+                            document.getElementById('qtdAlunosRisco').textContent = qtdRisco;
+                            document.getElementById('qtdAlunosDestaque').textContent = qtdDestaque;
+
+                        });
+
                 });
+
             } else {
+
                 console.log('Erro ao buscar alunos: ' + resposta.status);
+
             }
+
         })
         .catch(function (erroDeRede) {
+
             console.log('Erro de conexão com o servidor:', erroDeRede);
+
         });
 }
 
-// =========================================================
-// NAVEGAÇÃO ENTRE SEÇÕES
-// =========================================================
+
 function mostrarSecao(secao) {
-    var secaoVisao  = document.getElementById('secao-visao-geral');
+    var secaoVisao = document.getElementById('secao-visao-geral');
     var secaoEditar = document.getElementById('secao-editar-perfil');
-    var menuVisao   = document.getElementById('menu-visao');
-    var menuEditar  = document.getElementById('menu-editar');
+    var menuVisao = document.getElementById('menu-visao');
+    var menuEditar = document.getElementById('menu-editar');
 
     if (secao === 'editar-perfil') {
-        secaoVisao.style.display  = 'none';
+        secaoVisao.style.display = 'none';
         secaoEditar.style.display = 'flex';
         menuVisao.classList.remove('opcao-ativa');
         menuEditar.classList.add('opcao-ativa');
@@ -92,18 +133,16 @@ function mostrarSecao(secao) {
         esconderToast();
     } else {
         secaoEditar.style.display = 'none';
-        secaoVisao.style.display  = 'flex';
+        secaoVisao.style.display = 'flex';
         menuEditar.classList.remove('opcao-ativa');
         menuVisao.classList.add('opcao-ativa');
         esconderToast();
     }
 }
 
-// =========================================================
-// SALVAR PERFIL
-// =========================================================
+
 function salvarPerfil() {
-    var nome    = document.getElementById('edit-nome').value.trim();
+    var nome = document.getElementById('edit-nome').value.trim();
     var senhaAt = document.getElementById('edit-senha-atual').value;
     var senhaNv = document.getElementById('edit-senha-nova').value;
     var senhaCf = document.getElementById('edit-senha-conf').value;
@@ -174,17 +213,13 @@ function salvarPerfil() {
         });
 }
 
-// =========================================================
-// SAIR DA CONTA
-// =========================================================
+
 function sairDaConta() {
     sessionStorage.clear();
     window.location.href = 'index.html';
 }
 
-// =========================================================
-// DELETAR CONTA (fetch será implementado posteriormente)
-// =========================================================
+
 function deletarConta() {
     var confirmado = window.confirm('Deseja mesmo deletar sua conta?');
     if (confirmado) {
@@ -201,7 +236,7 @@ function deletarConta() {
                     resposta.text().then(function (mensagemErro) {
                         console.log('Erro ao deletar conta:', mensagemErro);
                         mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Não foi possível deletar a conta.');
-                    }); 
+                    });
                 }
             })
             .catch(function (erroDeRede) {
@@ -212,9 +247,7 @@ function deletarConta() {
     }
 }
 
-// =========================================================
-// UTILITÁRIOS
-// =========================================================
+
 function toggleSenha(inputId, btn) {
     var input = document.getElementById(inputId);
     var icone = btn.querySelector('i');

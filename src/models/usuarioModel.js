@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function cadastrar(nome, email, senha, nickname, fkMentor) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, nickname, fkMentor);
-    
+
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
@@ -66,7 +66,29 @@ function listarAlunos(idMentor) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listarAlunos():", idMentor);
 
     var instrucaoSql = `
-        SELECT idUsuario, nome, nickname, posicaoRanking, ROUND(((qtdVitorias / totalBatalhas) * 100), 2) AS winRate, DATEDIFF(NOW(), dataCadastro) AS dias FROM usuario WHERE fkMentor = ${idMentor};
+        SELECT
+    u.idUsuario,
+    u.nome,
+    u.nickname,
+    u.posicaoRanking,
+    u.totalBatalhas,
+    ROUND(((u.qtdVitorias / u.totalBatalhas) * 100), 2) AS winRate,
+    DATEDIFF(NOW(), u.dataCadastro) AS dias,
+
+    (
+        SELECT MAX(e.dtCriacao)
+        FROM Equipe e
+        WHERE e.fkUsuario = u.idUsuario
+    ) AS ultimaEquipe,
+
+    (
+        SELECT MAX(ds.dataPartida)
+        FROM DadosShowdown ds
+        WHERE ds.fkUsuario = u.idUsuario
+    ) AS ultimaBatalha
+
+FROM Usuario u
+WHERE u.fkMentor = ${idMentor};
     `;
     console.log("Listando alunos do Mentor: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -76,7 +98,7 @@ function dadosPerfilAluno(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function dadosPerfilMentor():", idUsuario);
 
     var instrucaoSql = `
-        SELECT qtdVitorias, qtdDerrotas, posicaoRanking, totalBatalhas,
+        SELECT nome, qtdVitorias, qtdDerrotas, ROUND(((qtdVitorias / totalBatalhas) * 100), 2) As winRate, posicaoRanking, totalBatalhas,
             (SELECT COUNT(*) FROM Equipe WHERE fkUsuario = idUsuario) AS timesSalvos
                 FROM Usuario WHERE idUsuario = ${idUsuario};
     `;
