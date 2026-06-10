@@ -9,6 +9,33 @@ function sairDaConta() {
     window.location.href = "index.html";
 }
 
+function deletarConta() {
+    var confirmado = window.confirm('Deseja mesmo deletar sua conta?');
+    if (confirmado) {
+
+        fetch(`/usuarios/deletarConta/${sessionStorage.ID_USUARIO}`, {
+            method: 'DELETE'
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    console.log('Conta deletada com sucesso!');
+                    sessionStorage.clear();
+                    window.location.href = 'index.html';
+                } else {
+                    resposta.text().then(function (mensagemErro) {
+                        console.log('Erro ao deletar conta:', mensagemErro);
+                        mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Não foi possível deletar a conta.');
+                    });
+                }
+            })
+            .catch(function (erroDeRede) {
+                console.log('Erro de conexão com o servidor:', erroDeRede);
+                mostrarToast('erro', '<i class="bi bi-exclamation-circle-fill"></i> Erro de conexão. Tente novamente.');
+            });
+
+    }
+}
+
 async function buscarElo(){
         var nickName = sessionStorage.NICK_USUARIO;
 
