@@ -61,6 +61,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      - AMBIENTE_PROCESSO=producao
       - DB_HOST=database
       - DB_PORT=3306
       - DB_NAME=metadex

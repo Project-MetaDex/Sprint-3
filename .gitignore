@@ -4,5 +4,4 @@ package-lock.json
 
 .github
 .idea
-.env
 .env.dev
