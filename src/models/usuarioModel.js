@@ -6,7 +6,7 @@ function cadastrar(nome, email, senha, nickname, fkMentor) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email, senha, nickname, fkMentor) VALUES ('${nome}', '${email}', '${senha}', '${nickname}', ${fkMentor});
+        INSERT INTO Usuario (nome, email, senha, nickname, fkMentor) VALUES ('${nome}', '${email}', '${senha}', '${nickname}', ${fkMentor});
     `;
     console.log("Cadastrando usuário no sistema: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -36,7 +36,7 @@ function atualizarPerfil(nome, senha, nickname, notificacao, idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function atualizarPerfil():", nome, senha, nickname, notificacao, idUsuario);
 
     var instrucaoSql = `
-    UPDATE usuario SET nome = '${nome}', senha = '${senha}', nickname = '${nickname}', notificacao = ${notificacao} WHERE idUsuario = ${idUsuario};
+    UPDATE Usuario SET nome = '${nome}', senha = '${senha}', nickname = '${nickname}', notificacao = ${notificacao} WHERE idUsuario = ${idUsuario};
     `;
     console.log("Atualizando usuário no sistema: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
