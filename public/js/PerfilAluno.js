@@ -177,9 +177,7 @@ function mostrarSecao(secao) {
  }
 }
 
-/**
- * Pré-preenche os campos do formulário com os dados salvos na sessão
- */
+
 function preencherCamposEdicao() {
  const campoNome = document.getElementById('edit-nome');
  const campoNick = document.getElementById('edit-nick');
@@ -198,9 +196,7 @@ function preencherCamposEdicao() {
  });
 }
 
-/**
- * Valida e salva as alterações do perfil
- */
+
 function salvarPerfil() {
  const nome = document.getElementById('edit-nome').value.trim();
  const nick = document.getElementById('edit-nick').value.trim();
