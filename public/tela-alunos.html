@@ -359,14 +359,14 @@
           </div>
           <strong>${winRate}%</strong>
         </div>
-        <div class="qtd-pontos">
-          <small>Elo</small>
-          <strong>${a.pontos}</strong>
-        </div>
-        <div class="qtd-camp">
-          <small>Ranking</small>
-          <strong>${a.posicaoRanking}º</strong>
-        </div>
+      </div>
+      <div class="qtd-pontos">
+        <small>Elo</small>
+        <strong class="elo-placeholder" data-nickname="${a.nickname}">Carregando...</strong>
+      </div>
+      <div class="qtd-camp">
+        <small>Ranking</small>
+        <strong>${a.posicaoRanking}º</strong>
       </div>
       <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
     </div>
