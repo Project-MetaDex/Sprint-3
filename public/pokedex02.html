@@ -1,333 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex 02</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/pokedex02.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Pokedex Detalhes | MetaDex</title>
+ <link rel="stylesheet" href="css/global.css">
+ <link rel="stylesheet" href="css/pokedex02.css">
 </head>
 <body>
-    <!-- Inicio Navbar -->
 
-    <nav class="Nav-Container">
-
-    <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
-    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
-
-    <ul class="Nav-Options">
-        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
-        <li><a href="cadastro.html">Pokedex</a></li>
-        <li><a href="cadastro.html">Ranks</a></li>
-        <li><a href="cadastro.html">Team Buider</a></li>
-        <li><a href="cadastro.html">Battle Simulator</a></li>
-    </ul>
-
-        <div class="Button-Container">
-            <a  href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
-        </div>
-    </nav>
-
-    <aside style="display: none;" class="Side-Container">
-
-    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
-
-    <div class="Side-Flex">
-        <div class="Perfil">
-
-        <img src="assets/icon/Icon-User.svg" alt="">
-        <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
-
-        </div>
-
-        <ul class="Side-Options">
-            <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li> 
-            <li><a href="cadastro.html">Pokedex</a></li>
-            <li><a href="cadastro.html">Ranks</a></li>
-            <li><a href="cadastro.html">Team Buider</a></li>
-            <li><a href="cadastro.html">Battle Simulator</a></li>
-        </ul>
-
-        <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
-    </div>
-    </aside>
-
-    <!-- Fim Navbar -->
-
-
-<main class="pagina-detalhes-pokemon">
-
-    <button class="botao-voltar">
-        Voltar para a Pokédex
-    </button>
-
-    <section class="area-principal">
-
-        <div class="card-imagem-pokemon">
-            <img src="assets/imgs/bulbasaur-Photoroom.png">
-        </div>
-
-        <div class="card-status">
-            <div class="titulo-pokemon">
-                <h1>Bulbasaur</h1>
-                <span>#001</span>
-            </div>
-
-            <div class="tipos-pokemon">
-                <span class="tipo grama">GRAMA</span>
-                <span class="tipo veneno">VENENO</span>
-            </div>
-
-            <hr>
-
-            <h3>Status base</h3>
-
-            <div class="linha-status">
-                <p>HP</p>
-                <div class="barra-status">
-                    <div style="width: 45%;"></div>
-                </div>
-                <span>45</span>
-            </div>
-
-            <div class="linha-status">
-                <p>Ataque</p>
-                <div class="barra-status">
-                    <div style="width: 49%;"></div>
-                </div>
-                <span>49</span>
-            </div>
-
-            <div class="linha-status">
-                <p>Defesa</p>
-                <div class="barra-status">
-                    <div style="width: 49%;"></div>
-                </div>
-                <span>49</span>
-            </div>
-
-            <div class="linha-status">
-                <p>Ataque Esp.</p>
-                <div class="barra-status">
-                    <div style="width: 65%;"></div>
-                </div>
-                <span>65</span>
-            </div>
-
-            <div class="linha-status">
-                <p>Defesa Esp.</p>
-                <div class="barra-status">
-                    <div style="width: 65%;"></div>
-                </div>
-                <span>65</span>
-            </div>
-
-            <div class="linha-status">
-                <p>Velocidade</p>
-                <div class="barra-status">
-                    <div style="width: 45%;"></div>
-                </div>
-                <span>45</span>
-            </div>
-        </div>
-
-        <div class="card-dados-gerais">
-            <h2>Dados Gerais</h2>
-
-            <div class="item-dado">
-                <span></span>
-                <p><strong>Categoria</strong>Pokémon Semente</p>
-            </div>
-
-            <div class="item-dado">
-                <span></span>
-                <p><strong>Altura</strong>0,7 m</p>
-            </div>
-
-            <div class="item-dado">
-                <span></span>
-                <p><strong>Peso</strong>6,9 kg</p>
-            </div>
-
-            <div class="item-dado">
-                <span></span>
-                <p><strong>Habilidade</strong>Espessura</p>
-            </div>
-
-            <div class="item-dado">
-                <span></span>
-                <p><strong>Habilidade Oculta</strong>Clorofila</p>
-            </div>
-
-            <div class="item-dado">
-                <span></span>
-                <p><strong>Gênero</strong>87,5% Macho &nbsp;&nbsp; 12,5% Fêmea</p>
-            </div>
-        </div>
-
-    </section>
-
-    <section class="area-informacoes">
-
-        <div class="card-descricao">
-            <h2> Descrição</h2>
-            <p>
-                Desde o momento em que nasce, uma semente está plantada nas costas deste Pokémon.
-                A semente cresce lentamente.
-            </p>
-        </div>
-
-        <div class="card-fraquezas">
-            <h2> Fraquezas</h2>
-
-            <div class="lista-fraquezas">
-                <span class="fraqueza fogo">FOGO</span>
-                <span class="fraqueza voador">VOADOR</span>
-                <span class="fraqueza psiquico">PSÍQUICO</span>
-                <span class="fraqueza gelo">GELO</span>
-            </div>
-        </div>
-
-    </section>
-
-    <section class="area-evolucao">
-
-        <h2>Linha evolutiva</h2>
-
-        <div class="lista-evolucao">
-
-            <div class="card-evolucao">
-                <img src="assets/imgs/bulbasaur-Photoroom.png" alt="Bulbasaur">
-                <div>
-                    <strong>Bulbasaur</strong>
-                    <span>#001</span>
-                </div>
-            </div>
-
-            <span class="seta-evolucao">→</span>
-
-            <div class="card-evolucao">
-                <img src="assets/imgs/ivysaur-Photoroom.png" alt="Ivysaur">
-                <div>
-                    <strong>Ivysaur</strong>
-                    <span>#002</span>
-                </div>
-            </div>
-
-            <span class="seta-evolucao">→</span>
-
-            <div class="card-evolucao">
-                <img src="assets/imgs/venusaur-Photoroom.png" alt="Venusaur">
-                <div>
-                    <strong>Venusaur</strong>
-                    <span>#003</span>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="area-listas">
-
-        <div class="card-lista">
-            <h2> Lista de Ataques</h2>
-
-            <div class="item-lista">
-                <span>Chicote de Vinha</span>
-                <strong class="tipo-mini grama">GRAMA</strong>
-                <p>45</p>
-            </div>
-
-            <div class="item-lista">
-                <span>Investida</span>
-                <strong class="tipo-mini normal">NORMAL</strong>
-                <p>90</p>
-            </div>
-
-            <div class="item-lista">
-                <span>Presa de Veneno</span>
-                <strong class="tipo-mini veneno">VENENO</strong>
-                <p>15</p>
-            </div>
-
-            <div class="item-lista">
-                <span>Folha Navalha</span>
-                <strong class="tipo-mini grama">GRAMA</strong>
-                <p>55</p>
-            </div>
-
-            <div class="item-lista">
-                <span>Sono em Pó</span>
-                <strong class="tipo-mini grama">GRAMA</strong>
-                <p>-</p>
-            </div>
-
-            <a href="#">Ver todos os ataques </a>
-        </div>
-
-        <div class="card-lista">
-            <h2> Lista de TMs</h2>
-
-            <div class="item-lista">
-                <span>Raio Solar</span>
-                <strong class="tipo-mini grama">GRAMA</strong>
-            </div>
-
-            <div class="item-lista">
-                <span>Bomba de Lodo</span>
-                <strong class="tipo-mini veneno">VENENO</strong>
-            </div>
-
-            <div class="item-lista">
-                <span>Proteção</span>
-                <strong class="tipo-mini normal">NORMAL</strong>
-            </div>
-
-            <div class="item-lista">
-                <span>Retorno</span>
-                <strong class="tipo-mini normal">NORMAL</strong>
-            </div>
-
-            <div class="item-lista">
-                <span>Síntese</span>
-                <strong class="tipo-mini grama">GRAMA</strong>
-            </div>
-
-            <a href="#">Ver todas as TMs </a>
-        </div>
-
-        <div class="card-lista">
-            <h2> Lista de Itens</h2>
-
-            <div class="item-lista">
-                
-                <span>Restos</span>
-            </div>
-
-            <div class="item-lista">
-                <span>Semente Milagrosa</span>
-            </div>
-
-            <div class="item-lista">
-                <span>Eviolita</span>
-            </div>
-
-            <div class="item-lista">
-                <span>Banda Focus</span>
-            </div>
-
-            <div class="item-lista">
-                <span>Pedra da Lua</span>
-            </div>
-
-            <a href="#">Ver todos os itens</a>
-        </div>
-
-    </section>
-
-</main>
+ <!-- Navbar -->
+ <nav class="Nav-Container">
+ <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+ <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <ul class="Nav-Options">
+ <li><a href="index.html">Home</a></li>
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <div class="Button-Container">
+ <a href="#"><img src="assets/imgs/iconeUSER.png" class="user"></a>
+ </div>
+ </nav>
+
+ <aside style="display: none;" class="Side-Container">
+ <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <div class="Side-Flex">
+ <div class="Perfil">
+ <img src="assets/icon/Icon-User.svg" alt="">
+ <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ <ul class="Side-Options">
+ <li><a href="index.html">Home</a></li>
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ </div>
+ </aside>
+
+ <main class="pagina-detalhes-pokemon" id="main-content">
+ <div class="mensagem-carregando">
+ Carregando Pokemon...
+ </div>
+ </main>
+
+ <script src="js/sideBar.js"></script>
+ <script src="js/pokedex02.js"></script>
+<script src="js/navbar.js"></script>
 </body>
 </html>

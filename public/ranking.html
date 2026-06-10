@@ -1,198 +1,170 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Metadex · VGC Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-<link rel="stylesheet" href="css/ranking.css">
-<link rel="stylesheet" href="css/global.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Metadex · Ranks</title>
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="css/ranking.css">
+ <link rel="stylesheet" href="css/global.css">
 </head>
 <body>
 
-  <nav class="Nav-Container">
-    <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
-    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <nav class="Nav-Container">
+ <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+ <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <ul class="Nav-Options">
+ <li><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokédex</a></li>
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <div class="Button-Container">
+ <a href="#"><img src="assets/imgs/iconeUSER.png" class="user"></a>
+ </div>
+ </nav>
 
-    <ul class="Nav-Options">
-      <li><a href="index.html">Home</a></li> 
-      <li><a href="pokedex.html">Pokedex</a></li>
-      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="ranking.html">Ranks</a></li>
-      <li><a href="teamBuilder-List.html">Team Buider</a></li>
-      <li><a href="simulacao1.html">Battle Simulator</a></li>
-    </ul>
+ <aside style="display: none;" class="Side-Container">
+ <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <div class="Side-Flex">
+ <div class="Perfil">
+ <img src="assets/icon/Icon-User.svg" alt="">
+ <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ <ul class="Side-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokédex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ </div>
+ </aside>
 
-        <div class="Button-Container">
-            <a  href="#">
-                <img src="assets/imgs/iconeUSER.png" class="user">
-            </a>
-        </div>
-  </nav>
+ <!-- Página de Ranking (título removido conforme panorama) -->
+ <div class="page active" id="page-ranking">
+ <div class="ranking-page">
+ <p class="page-subtitle">Meta competitivo · Série 2 · Temporada atual</p>
 
-  <aside style="display: none;" class="Side-Container">
-    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <div class="search-wrap">
+ <div class="search-inner" id="search-container">
+ <input type="text" id="global-search" placeholder="Buscar Pokémon pelo nome..." autocomplete="off">
+ <button class="btn-search" onclick="triggerSearch()">Pesquisar</button>
+ <div class="search-dropdown" id="search-dropdown"></div>
+ </div>
+ </div>
 
-    <div class="Side-Flex">
-      <div class="Perfil">
-        <img src="assets/icon/Icon-User.svg" alt="">
-        <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'" >Entrar</button>
-      </div>
+ <div class="ranking-grid">
+ <!-- Card "Pokémon com maior % de uso" — mantido -->
+ <div class="card-lilas span-full">
+ <div class="card-title">Pokémon com maior % de uso</div>
+ <div class="usage-list" id="usage-list">
+ <div class="sk" style="height:46px;border-radius:10px"></div>
+ <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
+ <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
+ <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
+ <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
+ </div>
+ </div>
 
-      <ul class="Side-Options">
-        <li class="Selected" ><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="#">Home</a></li> 
-        <li><a href="cadastro.html">Pokedex</a></li>
-        <li><a href="cadastro.html">Ranks</a></li>
-        <li><a href="cadastro.html">Team Buider</a></li>
-        <li><a href="cadastro.html">Battle Simulator</a></li>
-      </ul>
+ <!-- Card "Jogadores com maior pontuação" — mantido (span-full) -->
+ <div class="card-lilas span-full">
+ <div class="card-title">Jogadores com maior pontuação</div>
+ <div class="players-list" id="players-list">
+ <div class="sk" style="height:52px;border-radius:12px"></div>
+ <div class="sk" style="height:52px;border-radius:12px;margin-top:8px"></div>
+ <div class="sk" style="height:52px;border-radius:12px;margin-top:8px"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-      <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
-    </div>
-  </aside>
+ <!-- Página de detalhes do Pokémon — link para pokedex02 -->
+ <div class="page" id="page-detail">
+ <div class="detail-page">
+ <button class="back-btn" onclick="showRanking()">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+ <polyline points="15 18 9 12 15 6"/>
+ </svg>
+ Voltar ao Ranking
+ </button>
 
-  <div class="page active" id="page-ranking">
-    <div class="ranking-page">
-      <h1>METADEX · VGC </h1>
-      <p class="page-subtitle">Meta competitivo · Série 2 · Temporada atual</p>
+ <div class="detail-top">
+ <div class="pokemon-selecionado">
+ <div class="poke-img-wrap">
+ <img id="detail-img" src="" alt="" style="display:none">
+ <div id="detail-img-placeholder" class="img-placeholder"></div>
+ </div>
+ <div class="status-container">
+ <h2 id="detail-name">—</h2>
+ <div class="type-badges" id="detail-types"></div>
+ <div id="detail-stats">
+ <div class="sk" style="height:120px;border-radius:8px"></div>
+ </div>
+ <!-- Botão para detalhes completos na Pokédex -->
+ <button class="btn-ver-pokedex" id="btn-ver-pokedex" style="display:none"
+ onclick="irParaPokedex()">
+ Ver detalhes completos na Pokédex >
+ </button>
+ </div>
+ </div>
 
-      <div class="search-wrap">
-        <div class="search-inner" id="search-container">
-          <input type="text" id="global-search" placeholder="Buscar Pokémon pelo nome..." autocomplete="off">
-          <button class="btn-search" onclick="triggerSearch()">Pesquisar</button>
-          <div class="search-dropdown" id="search-dropdown"></div>
-        </div>
-      </div>
+ <div class="slots-ataque-selecionado">
+ <h2>Ataques mais utilizados</h2>
+ <div id="detail-moves" style="width:100%;display:flex;flex-direction:column;gap:8px">
+ <div class="sk" style="height:52px;border-radius:14px"></div>
+ <div class="sk" style="height:52px;border-radius:14px;margin-top:4px"></div>
+ <div class="sk" style="height:52px;border-radius:14px;margin-top:4px"></div>
+ <div class="sk" style="height:52px;border-radius:14px;margin-top:4px"></div>
+ </div>
+ </div>
+ </div>
 
-      <div class="ranking-grid">
-        <div class="card-lilas span-full">
-          <div class="card-title">Times com maior pontuação</div>
-          <div class="team-list" id="team-list">
-            <div class="sk" style="height:52px;border-radius:14px"></div>
-            <div class="sk" style="height:52px;border-radius:14px;margin-top:8px"></div>
-            <div class="sk" style="height:52px;border-radius:14px;margin-top:8px"></div>
-          </div>
-        </div>
+ <div class="detail-bottom">
+ <div class="tabs-wrap">
+ <div class="button-troca">
+ <button class="active" onclick="switchTab(this,'tab-pokemon')">Pokémon</button>
+ </div>
+ <div class="container-principal-pokemon">
+ <div class="pesquisa">
+ <input type="text" id="poke-search" placeholder="Pesquisar..." autocomplete="off">
+ <button onclick="filterPokeCards()">Pesquisar</button>
+ </div>
+ <div class="tab-panel active" id="tab-pokemon">
+ <div class="cards-escolha" id="poke-cards-grid"></div>
+ </div>
+ </div>
+ </div>
 
-        <div class="card-lilas">
-          <div class="card-title">Pokémon com maior % de uso</div>
-          <div class="usage-list" id="usage-list">
-            <div class="sk" style="height:46px;border-radius:10px"></div>
-            <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
-            <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
-            <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
-            <div class="sk" style="height:46px;border-radius:10px;margin-top:8px"></div>
-          </div>
-        </div>
+ <div class="tabs-wrap">
+ <div class="button-troca">
+ <button class="active" onclick="switchTab(this,'tab-parceiros')">Parceiros</button>
+ <button onclick="switchTab(this,'tab-itens')">Itens</button>
+ <button onclick="switchTab(this,'tab-ataques')">Ataques</button>
+ </div>
+ <div class="container-principal-pokemon">
+ <div class="tab-panel active" id="tab-parceiros">
+ <div class="partners-grid" id="partners-grid">
+ <div class="detail-loading" style="grid-column:1/-1">Carregando parceiros…</div>
+ </div>
+ </div>
+ <div class="tab-panel" id="tab-itens">
+ <div class="items-list-inner" id="items-detail-list"></div>
+ </div>
+ <div class="tab-panel" id="tab-ataques">
+ <div style="padding:12px;display:flex;flex-direction:column;gap:8px" id="ataques-detail-list"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
 
-        <div class="card-lilas">
-          <div class="card-title">Itens mais usados (global)</div>
-          <div class="item-list" id="item-list">
-            <div class="sk" style="height:38px;border-radius:9px"></div>
-            <div class="sk" style="height:38px;border-radius:9px;margin-top:8px"></div>
-            <div class="sk" style="height:38px;border-radius:9px;margin-top:8px"></div>
-            <div class="sk" style="height:38px;border-radius:9px;margin-top:8px"></div>
-          </div>
-        </div>
-
-        <div class="card-lilas span-full">
-          <div class="card-title">Jogadores com maior pontuação</div>
-          <div class="players-list" id="players-list">
-            <div class="sk" style="height:52px;border-radius:12px"></div>
-            <div class="sk" style="height:52px;border-radius:12px;margin-top:8px"></div>
-            <div class="sk" style="height:52px;border-radius:12px;margin-top:8px"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="page" id="page-detail">
-    <div class="detail-page">
-      <button class="back-btn" onclick="showRanking()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-        Voltar ao Ranking
-      </button>
-
-      <h1 id="detail-heading">DETALHES DO POKÉMON</h1>
-
-      <div class="detail-top">
-        <div class="pokemon-selecionado">
-          <div class="poke-img-wrap">
-            <img id="detail-img" src="" alt="" style="display:none">
-            <div id="detail-img-placeholder" class="img-placeholder">🔴</div>
-          </div>
-          <div class="status-container">
-            <h2 id="detail-name">—</h2>
-            <div class="type-badges" id="detail-types"></div>
-            <div id="detail-stats">
-              <div class="sk" style="height:120px;border-radius:8px"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="slots-ataque-selecionado">
-          <h2>Ataques mais utilizados</h2>
-          <div id="detail-moves" style="width:100%;display:flex;flex-direction:column;gap:8px">
-            <div class="sk" style="height:52px;border-radius:14px"></div>
-            <div class="sk" style="height:52px;border-radius:14px;margin-top:4px"></div>
-            <div class="sk" style="height:52px;border-radius:14px;margin-top:4px"></div>
-            <div class="sk" style="height:52px;border-radius:14px;margin-top:4px"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="detail-bottom">
-        <div class="tabs-wrap">
-          <div class="button-troca">
-            <button class="active" onclick="switchTab(this,'tab-pokemon')">Pokémon</button>
-          </div>
-          <div class="container-principal-pokemon">
-            <div class="pesquisa">
-              <input type="text" id="poke-search" placeholder="Pesquisar..." autocomplete="off">
-              <button onclick="filterPokeCards()">Pesquisar</button>
-            </div>
-            <div class="tab-panel active" id="tab-pokemon">
-              <div class="cards-escolha" id="poke-cards-grid"></div>
-            </div>
-            <div class="tab-panel" id="tab-mod-b">
-              <div style="padding:28px;text-align:center;color:#888;font-size:13px">Em desenvolvimento...</div>
-            </div>
-            <div class="tab-panel" id="tab-mod-c">
-              <div style="padding:28px;text-align:center;color:#888;font-size:13px">Em desenvolvimento...</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="tabs-wrap">
-          <div class="button-troca">
-            <button class="active" onclick="switchTab(this,'tab-parceiros')">Parceiros</button>
-            <button onclick="switchTab(this,'tab-itens')">Itens</button>
-            <button onclick="switchTab(this,'tab-ataques')">Ataques</button>
-          </div>
-          <div class="container-principal-pokemon">
-          
-            <div class="tab-panel active" id="tab-parceiros">
-              <div class="partners-grid" id="partners-grid">
-                <div class="detail-loading" style="grid-column:1/-1">Carregando parceiros…</div>
-              </div>
-            </div>
-            <div class="tab-panel" id="tab-itens">
-              <div class="items-list-inner" id="items-detail-list"></div>
-            </div>
-            <div class="tab-panel" id="tab-ataques">
-              <div style="padding:12px;display:flex;flex-direction:column;gap:8px" id="ataques-detail-list"></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-<script src="js/ranking.js"></script>
-
+ <script src="js/ranking.js"></script>
+ <script src="js/sideBar.js"></script>
+<script src="js/navbar.js"></script>
 </body>
 </html>

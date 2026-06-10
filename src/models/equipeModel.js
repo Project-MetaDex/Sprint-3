@@ -71,6 +71,7 @@ function buscarEquipe(idEquipe, idUsuario){
         ep.Ataque2,
         ep.Ataque3,
         ep.Ataque4,
+        ep.HP,
         ep.Attack,
         ep.Defense,
         ep.SpAtk,
@@ -181,6 +182,7 @@ function salvarPokemonEquipe(idEquipe, pokemon){
                 Ataque2,
                 Ataque3,
                 Ataque4,
+                HP,
                 Attack,
                 Defense,
                 SpAtk,
@@ -193,11 +195,12 @@ function salvarPokemonEquipe(idEquipe, pokemon){
                 ${formatarTexto(pokemon.Ataque2)},
                 ${formatarTexto(pokemon.Ataque3)},
                 ${formatarTexto(pokemon.Ataque4)},
-                ${pokemon.Attack},
-                ${pokemon.Defense},
-                ${pokemon.SpAtk},
-                ${pokemon.SpDef},
-                ${pokemon.Speed}
+                ${Number(pokemon.HP) || 0},
+                ${Number(pokemon.Attack) || 0},
+                ${Number(pokemon.Defense) || 0},
+                ${Number(pokemon.SpAtk) || 0},
+                ${Number(pokemon.SpDef) || 0},
+                ${Number(pokemon.Speed) || 0}
             );
             `;
 

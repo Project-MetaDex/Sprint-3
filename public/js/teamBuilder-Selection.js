@@ -227,11 +227,76 @@ function persistirTimeSelecionado(){
 
     for (let i = 0; i < 6; i++) {
         sessionStorage.removeItem(`POKEMON${i}`);
+        sessionStorage.removeItem(`pokemon${i + 1}`);
     }
 
     for (let i = 0; i < pokemonSelected.length; i++) {
         sessionStorage.setItem(`POKEMON${i}`, JSON.stringify(pokemonSelected[i]));
+        sessionStorage.setItem(`pokemon${i + 1}`, JSON.stringify(montarPokemonParaSalvar(pokemonSelected[i])));
     }
+}
+
+function limparPokemonsTemporarios(){
+    for (let i = 0; i < 6; i++) {
+        sessionStorage.removeItem(`POKEMON${i}`);
+        sessionStorage.removeItem(`pokemon${i + 1}`);
+    }
+
+    sessionStorage.removeItem("TOTAL_POKEMONS_TIME");
+    sessionStorage.removeItem("POKEMON_EDITANDO");
+}
+
+function montarPokemonParaSalvar(pokemon){
+    var ataques = pokemon.ataquesSelecionados || [];
+    var status = pokemon.statusSelecionados || {};
+
+    return {
+        idPokemon: Number(pokemon.idPokemon || pokemon.fkPokemon || pokemon.id),
+        nome: pokemon.nome || pokemon.name,
+        Ataque1: pegarNomeAtaque(ataques[0] || pokemon.moves?.[0]),
+        Ataque2: pegarNomeAtaque(ataques[1] || pokemon.moves?.[1]),
+        Ataque3: pegarNomeAtaque(ataques[2] || pokemon.moves?.[2]),
+        Ataque4: pegarNomeAtaque(ataques[3] || pokemon.moves?.[3]),
+        HP: Number(status.HP ?? status.hp ?? pegarStatusBase(pokemon, 'hp')),
+        Attack: Number(status.Attack ?? status.attack ?? status.ataque ?? pegarStatusBase(pokemon, 'attack')),
+        Defense: Number(status.Defense ?? status.defense ?? status.defesa ?? pegarStatusBase(pokemon, 'defense')),
+        SpAtk: Number(status.SpAtk ?? status.ataqueEsp ?? pegarStatusBase(pokemon, 'special-attack')),
+        SpDef: Number(status.SpDef ?? status.defesaEsp ?? pegarStatusBase(pokemon, 'special-defense')),
+        Speed: Number(status.Speed ?? status.velocidade ?? pegarStatusBase(pokemon, 'speed'))
+    };
+}
+
+function pegarNomeAtaque(ataque){
+    if (!ataque) {
+        return null;
+    }
+
+    return ataque.nome || ataque.name || ataque.move?.name || ataque;
+}
+
+function pegarStatusBase(pokemon, nomeStatus){
+    var statusEncontrado = pokemon.stats?.find(status => status.stat && status.stat.name == nomeStatus);
+    return statusEncontrado ? statusEncontrado.base_stat : 0;
+}
+
+function montarPokemonsParaSalvar(){
+    var totalSalvo = Number(sessionStorage.getItem("TOTAL_POKEMONS_TIME"));
+    var pokemonsParaSalvar = [];
+
+    for (let i = 0; i < totalSalvo; i++) {
+        var pokemonSalvo = sessionStorage.getItem(`pokemon${i + 1}`);
+
+        if (!pokemonSalvo) {
+            var pokemonCompleto = sessionStorage.getItem(`POKEMON${i}`);
+            pokemonSalvo = pokemonCompleto ? JSON.stringify(montarPokemonParaSalvar(JSON.parse(pokemonCompleto))) : null;
+        }
+
+        if (pokemonSalvo) {
+            pokemonsParaSalvar.push(JSON.parse(pokemonSalvo));
+        }
+    }
+
+    return pokemonsParaSalvar;
 }
 
 function restaurarTimeSelecionado(){
@@ -302,6 +367,7 @@ async function carregarEquipeEditando(){
             });
 
             pokemonApi.statusSelecionados = {
+                hp: pokemonBanco.HP,
                 attack: pokemonBanco.Attack,
                 defense: pokemonBanco.Defense,
                 ataqueEsp: pokemonBanco.SpAtk,
@@ -322,7 +388,11 @@ async function carregarEquipeEditando(){
 
 
 async function salvarSelecao() {
-    if (!pokemonSelected.length) {
+    persistirTimeSelecionado();
+
+    var pokemonsParaSalvar = montarPokemonsParaSalvar();
+
+    if (!pokemonsParaSalvar.length) {
         alert("Selecione pelo menos um Pokémon antes de continuar.");
         return;
     }
@@ -351,7 +421,7 @@ async function salvarSelecao() {
                 idEquipeServer: idEquipeEditando,
                 nomeServer: nomeTime,
                 idUsuarioServer: idUsuario,
-                pokemonsServer: pokemonSelected
+                pokemonsServer: pokemonsParaSalvar
             })
         });
 
@@ -361,7 +431,8 @@ async function salvarSelecao() {
         }
 
         sessionStorage.removeItem("TIME_EDITANDO");
-    sessionStorage.removeItem("NOME_TIME_SELECIONADO");
+        sessionStorage.removeItem("NOME_TIME_SELECIONADO");
+        limparPokemonsTemporarios();
         location.href = "teamBuilder-List.html";
     } catch (error) {
         console.error("Erro ao salvar equipe:", error);

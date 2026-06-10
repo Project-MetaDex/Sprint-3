@@ -20,10 +20,10 @@
     <ul class="Nav-Options">
       <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Tela Inicial</a>
       </li>
-      <li><a href="cadastro.html">Pokedex</a></li>
-      <li><a href="cadastro.html">Ranking</a></li>
-      <li><a href="cadastro.html">Simulações</a></li>
-      <li><a href="cadastro.html">Alunos</a></li>
+      <li><a href="pokedex.html">Pokedex</a></li>
+      <li><a href="ranking.html">Ranking</a></li>
+      <li><a href="simulacao.html">Simulações</a></li>
+      <li><a href="tela-alunos.html">Alunos</a></li>
     </ul>
     <div class="Button-Container">
       <a href="#">
@@ -107,6 +107,7 @@
     </div>
   </div>
 
+<script src="js/navbar.js"></script>
 </body>
 
 </html>
@@ -305,29 +306,57 @@
   let paginaAtual = 1;
   let dadosGlobais = []; // guarda os alunos para a paginação poder acessar
 
-  function renderPagina(pagina) {
-    paginaAtual = pagina;
-    const alunos = dadosGlobais;
-    const totalPaginas = Math.ceil(alunos.length / POR_PAGINA);
-    const inicio = (pagina - 1) * POR_PAGINA;
-    const fatia = alunos.slice(inicio, inicio + POR_PAGINA);
 
-    document.getElementById('listaScroll').innerHTML = fatia.map(a => `
-      <div class="info-aluno">
-        <div class="imagem-perfil">${iniciaisNome(a.nome)}</div>
-        <div class="nome">
-          <small>Nome</small>
-          <strong>${a.nome}</strong>
-        </div>
-        <div class="tx-vitoria">
-          <small>Taxa de Vitória</small>
-          <div class="container-bar">
-            <div class="skill-bar">
-              <div class="bar-preenchida"
-                   style="width:${a.winRate}%; background:${corBarra(a.winRate)};"></div>
-            </div>
-            <strong>${a.winRate}%</strong>
+  async function buscarElo(nickname) {
+        try{
+
+            const res = await fetch(`https://pokemonshowdown.com/users/${nickname}.json`);
+
+            if(!res.ok){
+                throw new Error(`Usuário não encontrado Status: ${res.status}`);
+                return;
+            }
+
+            var user = await res.json()
+
+            var elo = user.ratings?.gen9championsvgc2026regma?.elo;
+
+            if(elo !== undefined ){
+                return Math.round(elo);
+            }else{
+                console.log("Usuário ainda nao possue elo")
+                return "---";
+            }
+
+
+        }catch (error) {
+            console.error("Falha ao buscar os dados de Usuário:", error);
+        }
+
+    }
+
+  function renderPagina(pagina) {
+  paginaAtual = pagina;
+  const alunos = dadosGlobais;
+  const totalPaginas = Math.ceil(alunos.length / POR_PAGINA);
+  const inicio = (pagina - 1) * POR_PAGINA;
+  const fatia = alunos.slice(inicio, inicio + POR_PAGINA);
+
+  document.getElementById('listaScroll').innerHTML = fatia.map(a => `
+    <div class="info-aluno">
+      <div class="imagem-perfil">${iniciaisNome(a.nome)}</div>
+      <div class="nome">
+        <small>Nome</small>
+        <strong>${a.nome}</strong>
+      </div>
+      <div class="tx-vitoria">
+        <small>Taxa de Vitória</small>
+        <div class="container-bar">
+          <div class="skill-bar">
+            <div class="bar-preenchida"
+                 style="width:${a.winRate}%; background:${corBarra(a.winRate)};"></div>
           </div>
+          <strong>${a.winRate}%</strong>
         </div>
         <div class="qtd-pontos">
           <small>Elo</small>
@@ -339,19 +368,37 @@
         </div>
         <button class="btn-verPerfil" onclick="irParaAluno(${a.idUsuario})">Ver Perfil</button>
       </div>
-    `).join('');
+      <div class="qtd-pontos">
+        <small>Elo</small>
+        <strong class="elo-placeholder" data-nickname="${a.nickname}">Carregando...</strong>
+      </div>
+      <div class="qtd-camp">
+        <small>Ranking</small>
+        <strong>${a.posicaoRanking}º</strong>
+      </div>
+      <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
+    </div>
+  `).join('');
 
-    const pag = document.getElementById('paginacao');
-    if (totalPaginas <= 1) { pag.innerHTML = ''; return; }
+  // === PASSO CRUCIAL: Atualizar os Elos de forma assíncrona após renderizar ===
+  document.querySelectorAll('.elo-placeholder').forEach(async (elemento) => {
+    const nickname = elemento.getAttribute('data-nickname');
+    const eloObtido = await buscarElo(nickname);
+    elemento.innerHTML = eloObtido;
+  });
 
-    let html = `<span>${inicio + 1}–${Math.min(inicio + POR_PAGINA, alunos.length)} de ${alunos.length}</span>`;
-    html += `<button class="btn-pag" onclick="renderPagina(${pagina - 1})" ${pagina === 1 ? 'disabled' : ''}>&#8249;</button>`;
-    for (let i = 1; i <= totalPaginas; i++) {
-      html += `<button class="btn-pag ${i === pagina ? 'ativo' : ''}" onclick="renderPagina(${i})">${i}</button>`;
-    }
-    html += `<button class="btn-pag" onclick="renderPagina(${pagina + 1})" ${pagina === totalPaginas ? 'disabled' : ''}>&#8250;</button>`;
-    pag.innerHTML = html;
+  // Linhas restantes da paginação...
+  const pag = document.getElementById('paginacao');
+  if (totalPaginas <= 1) { pag.innerHTML = ''; return; }
+
+  let html = `<span>${inicio + 1}–${Math.min(inicio + POR_PAGINA, alunos.length)} de ${alunos.length}</span>`;
+  html += `<button class="btn-pag" onclick="renderPagina(${pagina - 1})" ${pagina === 1 ? 'disabled' : ''}>&#8249;</button>`;
+  for (let i = 1; i <= totalPaginas; i++) {
+    html += `<button class="btn-pag ${i === pagina ? 'ativo' : ''}" onclick="renderPagina(${i})">${i}</button>`;
   }
+  html += `<button class="btn-pag" onclick="renderPagina(${pagina + 1})" ${pagina === totalPaginas ? 'disabled' : ''}>&#8250;</button>`;
+  pag.innerHTML = html;
+}
 
   // =========================================================
   // TROCA DE ABAS

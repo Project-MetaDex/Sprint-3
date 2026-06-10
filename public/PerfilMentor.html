@@ -1,261 +1,258 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Mentor</title>
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/PerfilMentor.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Perfil do Mentor</title>
+ <link rel="stylesheet" href="css/global.css">
+ <link rel="stylesheet" href="css/PerfilMentor.css">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-
 <body>
 
-    <nav class="Nav-Container">
-        <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
-        <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
-        <ul class="Nav-Options">
-            <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
-            <li><a href="cadastro.html">Pokedex</a></li>
-            <li><a href="cadastro.html">Ranks</a></li>
-            <li><a href="cadastro.html">Team Buider</a></li>
-            <li><a href="cadastro.html">Battle Simulator</a></li>
-        </ul>
-        <div class="Button-Container">
-            <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
-            <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
-        </div>
-    </nav>
+ <nav class="Nav-Container">
+ <img onclick="Side('Open')" id="options" src="assets/icon/Icon-Hanburguer.svg" alt="">
+ <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <ul class="Nav-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <div class="Button-Container">
+ <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
+ <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ </nav>
 
-    <aside style="display: none;" class="Side-Container">
-        <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
-        <div class="Side-Flex">
-            <div class="Perfil">
-                <img src="assets/icon/Icon-User.svg" alt="">
-                <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
-            </div>
-            <ul class="Side-Options">
-                <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a>
-                </li>
-                <li><a href="cadastro.html">Pokedex</a></li>
-                <li><a href="cadastro.html">Ranks</a></li>
-                <li><a href="cadastro.html">Team Buider</a></li>
-                <li><a href="cadastro.html">Battle Simulator</a></li>
-            </ul>
-            <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
-        </div>
-    </aside>
+ <aside style="display: none;" class="Side-Container">
+ <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <div class="Side-Flex">
+ <div class="Perfil">
+ <img src="assets/icon/Icon-User.svg" alt="">
+ <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ <ul class="Side-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
+ <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ </div>
+ </aside>
 
-    <!--             FIM DA Navbar               -->
+ <!-- FIM DA Navbar -->
 
-    <main class="pagina-aluno">
-        <div class="conteudo-aluno">
-            <aside class="perfil-sidebar">
-                <div class="perfil-card">
-                    <div class="avatar-box">
-                        <img class="imagem-perfil" src="assets/imgs/foto_User_perfil.png" alt="Foto da mentora">
-                    </div>
+ <main class="pagina-aluno">
+ <div class="conteudo-aluno">
+ <aside class="perfil-sidebar">
+ <div class="perfil-card">
+ <div class="avatar-box">
+ <img class="imagem-perfil" src="assets/imgs/foto_User_perfil.png" alt="Foto da mentora">
+ </div>
 
-                    <h1 id="nome" class="nome-aluno">Mentor</h1>
-                    <span class="tipo-aluno">Mentor Competitivo</span>
+ <h1 id="nome" class="nome-aluno">Fernanda Caramico</h1>
+ <span class="tipo-aluno">Mentor Competitivo</span>
 
-                    <nav class="opcoes-perfil" aria-label="Menu do perfil">
-                        <a class="opcao-menu opcao-ativa" href="#" id="menu-visao" onclick="mostrarSecao('visao-geral'); return false;">
-                            <span class="icone-menu"><i class="bi bi-grid"></i></span>
-                            <span>Visão geral</span>
-                        </a>
+ <nav class="opcoes-perfil" aria-label="Menu do perfil">
+ <a class="opcao-menu opcao-ativa" href="#" id="menu-visao" onclick="mostrarSecao('visao-geral'); return false;">
+ <span class="icone-menu"><i class="bi bi-grid"></i></span>
+ <span>Visão geral</span>
+ </a>
 
-                        <a class="opcao-menu" href="#" id="menu-editar" onclick="mostrarSecao('editar-perfil'); return false;">
-                            <span class="icone-menu"><i class="bi bi-person"></i></span>
-                            <span>Editar perfil</span>
-                        </a>
+ <a class="opcao-menu" href="#" id="menu-editar" onclick="mostrarSecao('editar-perfil'); return false;">
+ <span class="icone-menu"><i class="bi bi-person"></i></span>
+ <span>Editar perfil</span>
+ </a>
 
-                        <a class="opcao-menu" href="tela-alunos.html">
-                            <span class="icone-menu"><i class="bi bi-people"></i></span>
-                            <span>Alunos</span>
-                        </a>
+ <a class="opcao-menu" href="tela-alunos.html">
+ <span class="icone-menu"><i class="bi bi-people"></i></span>
+ <span>Alunos</span>
+ </a>
 
-                        <a class="opcao-menu opcao-sair" href="#" onclick="sairDaConta()">
-                            <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
-                            <span>Sair da conta</span>
-                        </a>
-                    </nav>
-                </div>
-            </aside>
+ <a class="opcao-menu opcao-sair" href="index.html">
+ <span class="icone-menu"><i class="bi bi-box-arrow-left"></i></span>
+ <span>Sair da conta</span>
+ </a>
+ </nav>
+ </div>
+ </aside>
 
-            <section class="area-principal" id="secao-visao-geral">
-                <div class="card-sobre">
-                    <div class="titulo-com-icone">
-                        <img src="assets/imgs/pokebolaIcon04-Photoroom.png" width="40" alt="">
-                        <h2>Status</h2>
-                    </div>
+ <section class="area-principal" id="secao-visao-geral">
+ <div class="card-sobre">
+ <div class="titulo-com-icone">
+ <img src="assets/imgs/pokebolaIcon04-Photoroom.png" width="40" alt="">
+ <h2>Status</h2>
+ </div>
 
-                    <div class="informacoes-aluno">
-                        <div class="caixa-informacao">
-                            <span class="icone-informacao"><i class="bi bi-trophy"></i></span>
-                            <div class="texto-informacao">
-                                <span class="rotulo-informacao">Formato favorito</span>
-                                <span class="valor-informacao">2V2</span>
-                            </div>
-                        </div>
+ <div class="informacoes-aluno">
+ <div class="caixa-informacao">
+ <span class="icone-informacao"><i class="bi bi-trophy"></i></span>
+ <div class="texto-informacao">
+ <span class="rotulo-informacao">Formato favorito</span>
+ <span class="valor-informacao">2V2</span>
+ </div>
+ </div>
 
-                        <div class="caixa-informacao">
-                            <span class="icone-informacao"><i class="bi bi-globe-americas"></i></span>
-                            <div class="texto-informacao">
-                                <span class="rotulo-informacao">Região</span>
-                                <span class="valor-informacao">Brasil</span>
-                            </div>
-                        </div>
+ <div class="caixa-informacao">
+ <span class="icone-informacao"><i class="bi bi-globe-americas"></i></span>
+ <div class="texto-informacao">
+ <span class="rotulo-informacao">Região</span>
+ <span class="valor-informacao">Brasil</span>
+ </div>
+ </div>
 
-                        <div class="caixa-informacao">
-                            <span class="icone-informacao"><i class="bi bi-person-badge"></i></span>
-                            <div class="texto-informacao">
-                                <span class="rotulo-informacao">Membro desde</span>
-                                <span id="dtCadastro" class="valor-informacao">Mês Ano</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+ <div class="caixa-informacao">
+ <span class="icone-informacao"><i class="bi bi-person-badge"></i></span>
+ <div class="texto-informacao">
+ <span class="rotulo-informacao">Membro desde</span>
+ <span class="valor-informacao">Mar 2024</span>
+ </div>
+ </div>
+ </div>
+ </div>
 
-                <div class="cards-estatisticas">
-                    <div class="titulo-info">
-                        <img src="assets/imgs/pokebolaIcon04-Photoroom.png" width="40" alt="">
-                        <h2>Informações da mentoria</h2>
-                    </div>
+ <div class="cards-estatisticas">
+ <div class="titulo-info">
+ <img src="assets/imgs/pokebolaIcon04-Photoroom.png" width="40" alt="">
+ <h2>Informações da mentoria</h2>
+ </div>
 
-                    <div class="cards-estatisticas-lista">
-                        <div class="card-estatistica card-ativos">
-                            <div class="circulo-icone">
-                                <span class="icone-estatistica"><i class="bi bi-mortarboard"></i></span>
-                            </div>
-                            <span class="titulo-estatistica">Alunos Ativos</span>
-                            <span id="qtdAlunos" class="numero-estatistica">-</span>
-                        </div>
+ <div class="cards-estatisticas-lista">
+ <div class="card-estatistica card-ativos">
+ <div class="circulo-icone">
+ <span class="icone-estatistica"><i class="bi bi-mortarboard"></i></span>
+ </div>
+ <span class="titulo-estatistica">Alunos Ativos</span>
+ <span class="numero-estatistica">24</span>
+ </div>
 
-                        <div class="card-estatistica card-risco">
-                            <div class="circulo-icone">
-                                <span class="icone-estatistica"><i class="bi bi-calendar-week"></i></span>
-                            </div>
-                            <span class="titulo-estatistica">Alunos em Risco</span>
-                            <span id="qtdAlunosRisco" class="numero-estatistica">-</span>
-                        </div>
+ <div class="card-estatistica card-risco">
+ <div class="circulo-icone">
+ <span class="icone-estatistica"><i class="bi bi-calendar-week"></i></span>
+ </div>
+ <span class="titulo-estatistica">Alunos em Risco</span>
+ <span class="numero-estatistica">4</span>
+ </div>
 
-                        <div class="card-estatistica card-destaque">
-                            <div class="circulo-icone">
-                                <span class="icone-grupo"><i class="bi bi-people"></i></span>
-                            </div>
-                            <span class="titulo-estatistica">Alunos em Destaque</span>
-                            <span id="qtdAlunosDestaque" class="numero-estatistica">-</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+ <div class="card-estatistica card-destaque">
+ <div class="circulo-icone">
+ <span class="icone-grupo"><i class="bi bi-people"></i></span>
+ </div>
+ <span class="titulo-estatistica">Alunos em Destaque</span>
+ <span class="numero-estatistica">3</span>
+ </div>
+ </div>
+ </div>
+ </section>
 
-            <section class="area-principal" id="secao-editar-perfil" style="display:none;">
-                <div class="card-sobre editar-card">
-                    <div class="cabecalho-editar">
-                        <div class="titulo-com-icone" style="padding-bottom: 0;">
-                            <span class="icone-titulo-edit"><i class="bi bi-person-gear"></i></span>
-                            <h2>Editar Perfil</h2>
-                        </div>
-                        <button class="btn-deletar-conta" type="button" onclick="deletarConta()">
-                            <i class="bi bi-trash3"></i>
-                            Deletar conta
-                        </button>
-                    </div>
+ <section class="area-principal" id="secao-editar-perfil" style="display:none;">
+ <div class="card-sobre editar-card">
+ <div class="cabecalho-editar">
+ <div class="titulo-com-icone" style="padding-bottom: 0;">
+ <span class="icone-titulo-edit"><i class="bi bi-person-gear"></i></span>
+ <h2>Editar Perfil</h2>
+ </div>
+ <button class="btn-deletar-conta" type="button" onclick="deletarConta()">
+ <i class="bi bi-trash3"></i>
+ Deletar conta
+ </button>
+ </div>
 
-                    <div class="editar-form">
+ <div class="editar-form">
 
-                        <div class="campo-grupo">
-                            <label class="campo-label" for="edit-nome">
-                                <i class="bi bi-person-fill"></i>
-                                Nome do mentor
-                            </label>
-                            <input class="campo-input" type="text" id="edit-nome" placeholder="Seu nome completo">
-                        </div>
+ <div class="campo-grupo">
+ <label class="campo-label" for="edit-nome">
+ <i class="bi bi-person-fill"></i>
+ Nome do mentor
+ </label>
+ <input class="campo-input" type="text" id="edit-nome" placeholder="Seu nome completo">
+ </div>
 
-                        <div class="divisor-secao"><span>Segurança</span></div>
+ <div class="divisor-secao"><span>Segurança</span></div>
 
-                        <div class="campo-grupo">
-                            <label class="campo-label" for="edit-senha-atual">
-                                <i class="bi bi-lock-fill"></i>
-                                Senha atual
-                            </label>
-                            <div class="input-senha-wrap">
-                                <input class="campo-input" type="password" id="edit-senha-atual" placeholder="Digite sua senha atual">
-                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-atual', this)">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+ <div class="campo-grupo">
+ <label class="campo-label" for="edit-senha-atual">
+ <i class="bi bi-lock-fill"></i>
+ Senha atual
+ </label>
+ <div class="input-senha-wrap">
+ <input class="campo-input" type="password" id="edit-senha-atual" placeholder="Digite sua senha atual">
+ <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-atual', this)">
+ <i class="bi bi-eye"></i>
+ </button>
+ </div>
+ </div>
 
-                        <div class="campo-grupo">
-                            <label class="campo-label" for="edit-senha-nova">
-                                <i class="bi bi-lock"></i>
-                                Nova senha
-                            </label>
-                            <div class="input-senha-wrap">
-                                <input class="campo-input" type="password" id="edit-senha-nova" placeholder="Digite a nova senha">
-                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-nova', this)">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+ <div class="campo-grupo">
+ <label class="campo-label" for="edit-senha-nova">
+ <i class="bi bi-lock"></i>
+ Nova senha
+ </label>
+ <div class="input-senha-wrap">
+ <input class="campo-input" type="password" id="edit-senha-nova" placeholder="Digite a nova senha">
+ <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-nova', this)">
+ <i class="bi bi-eye"></i>
+ </button>
+ </div>
+ </div>
 
-                        <div class="campo-grupo">
-                            <label class="campo-label" for="edit-senha-conf">
-                                <i class="bi bi-lock-fill"></i>
-                                Confirmar nova senha
-                            </label>
-                            <div class="input-senha-wrap">
-                                <input class="campo-input" type="password" id="edit-senha-conf" placeholder="Repita a nova senha">
-                                <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-conf', this)">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                        </div>
+ <div class="campo-grupo">
+ <label class="campo-label" for="edit-senha-conf">
+ <i class="bi bi-lock-fill"></i>
+ Confirmar nova senha
+ </label>
+ <div class="input-senha-wrap">
+ <input class="campo-input" type="password" id="edit-senha-conf" placeholder="Repita a nova senha">
+ <button class="btn-olho" type="button" onclick="toggleSenha('edit-senha-conf', this)">
+ <i class="bi bi-eye"></i>
+ </button>
+ </div>
+ </div>
 
-                        <div class="divisor-secao"><span>Preferências</span></div>
+ <div class="divisor-secao"><span>Preferências</span></div>
 
-                        <div class="campo-grupo campo-toggle-grupo">
-                            <div class="toggle-info">
-                                <span class="campo-label toggle-label">
-                                    <i class="bi bi-bell-fill"></i>
-                                    Notificações
-                                </span>
-                                <span class="toggle-desc">Receba alertas sobre seus alunos e mentorias</span>
-                            </div>
-                            <label class="switch" for="toggle-notif" aria-label="Ativar notificações">
-                                <input type="checkbox" id="toggle-notif" checked>
-                                <span class="slider">
-                                    <span class="slider-icon on"><i class="bi bi-bell-fill"></i></span>
-                                    <span class="slider-icon off"><i class="bi bi-bell-slash-fill"></i></span>
-                                </span>
-                            </label>
-                        </div>
+ <div class="campo-grupo campo-toggle-grupo">
+ <div class="toggle-info">
+ <span class="campo-label toggle-label">
+ <i class="bi bi-bell-fill"></i>
+ Notificações
+ </span>
+ <span class="toggle-desc">Receba alertas sobre seus alunos e mentorias</span>
+ </div>
+ <label class="switch" for="toggle-notif" aria-label="Ativar notificações">
+ <input type="checkbox" id="toggle-notif" checked>
+ <span class="slider">
+ <span class="slider-icon on"><i class="bi bi-bell-fill"></i></span>
+ <span class="slider-icon off"><i class="bi bi-bell-slash-fill"></i></span>
+ </span>
+ </label>
+ </div>
 
-                        <div class="toast-feedback" id="toast-feedback" style="display:none;"></div>
+ <div class="toast-feedback" id="toast-feedback" style="display:none;"></div>
 
-                        <div class="editar-acoes">
-                            <button class="btn-cancelar" type="button" onclick="mostrarSecao('visao-geral')">
-                                <i class="bi bi-x-lg"></i>
-                                Cancelar
-                            </button>
-                            <button class="btn-salvar" type="button" onclick="salvarPerfil()">
-                                <i class="bi bi-check-lg"></i>
-                                Salvar mudanças
-                            </button>
-                        </div>
+ <div class="editar-acoes">
+ <button class="btn-cancelar" type="button" onclick="mostrarSecao('visao-geral')">
+ <i class="bi bi-x-lg"></i>
+ Cancelar
+ </button>
+ <button class="btn-salvar" type="button" onclick="salvarPerfil()">
+ <i class="bi bi-check-lg"></i>
+ Salvar mudanças
+ </button>
+ </div>
 
-                    </div>
-                </div>
-            </section>
+ </div>
+ </div>
+ </section>
 
-        </div>
-    </main>
+ </div>
+ </main>
 
-    <script src="js/PerfilMentor.js"></script>
+ <script src="js/PerfilMentor.js"></script>
+<script src="js/navbar.js"></script>
 </body>
-
 </html>

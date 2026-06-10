@@ -2,186 +2,187 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <meta charset="UTF-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 
-  <title>MetaDex | Cadastro</title>
+ <title>MetaDex | Cadastro</title>
 
-  <script src="./js/sessao.js"></script>
+ <script src="./js/sessao.js"></script>
 
-  <link rel="stylesheet" href="css/LandingPage.css">
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/cadastro.css" />
-  <link rel="stylesheet" href="css/pokedex.css">
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <script src="js/sideBar.js"></script>
+ <link rel="stylesheet" href="css/LandingPage.css">
+ <link rel="stylesheet" href="css/global.css">
+ <link rel="stylesheet" href="css/cadastro.css" />
+ <link rel="stylesheet" href="css/pokedex.css">
+ <link rel="preconnect" href="https://fonts.gstatic.com" />
+ <script src="js/sideBar.js"></script>
 </head>
 
 <body>
 
-  <!-- Inicio Navbar -->
+ <!-- Inicio Navbar -->
 
-  <nav class="Nav-Container">
+ <nav class="Nav-Container">
 
-    <img onclick="Side('Open')" id="options" src="./assets/icon/Icon-Hanburguer.svg" alt="">
-    <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ <img onclick="Side('Open')" id="options" src="./assets/icon/Icon-Hanburguer.svg" alt="">
+ <img id="logo" src="./assets/icon/Logo-Nav.svg" alt="">
 
-    <ul class="Nav-Options">
-      <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
-      <li><a href="pokedex.html">Pokedex</a></li>
-      <li><a href="ranking.html">Ranks</a></li>
-      <li><a href="teamBuilder-List.html">Team Buider</a></li>
-      <li><a href="simulacao1.html">Battle Simulator</a></li>
-    </ul>
+ <ul class="Nav-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
 
-    <div class="Button-Container">
-      <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
-      <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
-    </div>
-  </nav>
+ <div class="Button-Container">
+ <button class="Button-Nav Cadastro" onclick="window.location.href='./cadastro.html'">Cadastre-se</button>
+ <button class="Button-Nav Login" onclick="window.location.href='./login.html'">Entrar</button>
+ </div>
+ </nav>
 
-  <aside style="display: none;" class="Side-Container">
+ <aside style="display: none;" class="Side-Container">
 
-    <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
+ <button onclick="Side('Close')"><img id="Close-Side" src="assets/icon/Icon-Close.svg" alt=""></button>
 
-    <div class="Side-Flex">
-      <div class="Perfil">
+ <div class="Side-Flex">
+ <div class="Perfil">
 
-        <img src="assets/icon/Icon-User.svg" alt="">
-        <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
+ <img src="assets/icon/Icon-User.svg" alt="">
+ <button class="Button-Side Login-Side" onclick="window.location.href='./login.html'">Entrar</button>
 
-      </div>
+ </div>
 
-      <ul class="Side-Options">
-        <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
-        <li><a href="cadastro.html">Pokedex</a></li>
-        <li><a href="cadastro.html">Ranks</a></li>
-        <li><a href="cadastro.html">Team Buider</a></li>
-        <li><a href="cadastro.html">Battle Simulator</a></li>
-      </ul>
+ <ul class="Side-Options">
+ <li class="Selected"><img src="./assets/icon/Icon-NavSelected.svg" alt=""><a href="index.html">Home</a></li>
+ <li><a href="pokedex.html">Pokedex</a></li>
+ <li><a href="ranking.html">Ranks</a></li>
+ <li><a href="teamBuilder-List.html">Team Builder</a></li>
+ <li><a href="simulacao.html">Battle Simulator</a></li>
+ </ul>
 
-      <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
-    </div>
-  </aside>
+ <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="">
+ </div>
+ </aside>
 
-  <!-- Fim Navbar -->
+ <!-- Fim Navbar -->
 
-  <div class="formulario-container">
+ <div class="formulario-container">
 
-    <div class="main-cadastro">
-      <h1 class="titulo01">INICIE SUA JORNADA<br>COMPETITIVA</h1>
-      <p class="titulo02">Crie sua conta para acessar o meta e ferramentas de ponta.</p>
+ <div class="main-cadastro">
+ <h1 class="titulo01">INICIE SUA JORNADA<br>COMPETITIVA</h1>
+ <p class="titulo02">Crie sua conta para acessar o meta e ferramentas de ponta.</p>
 
-      <div class="div-informacoes">
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
-          <input id="nome" type="text" placeholder="Nome Completo" required>
-        </div>
+ <div class="div-informacoes">
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
+ <input id="nome" type="text" placeholder="Nome Completo" required>
+ </div>
 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
-          <input id="nickname" type="text" placeholder="Nickname" required>
-        </div>
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon04-Photoroom.png" alt="Ícone">
+ <input id="nickname" type="text" placeholder="Nickname" required>
+ </div>
 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone">
-          <input id="email" type="email" placeholder="Endereço de E-mail" required>
-        </div>
-        
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone">
-          <input id="tokenMentor" type="text" placeholder="Token do mentor" required>
-        </div>
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone">
+ <input id="email" type="email" placeholder="Endereço de E-mail" required>
+ </div>
+ 
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon03.png-Photoroom.png" alt="Ícone">
+ <input id="tokenMentor" type="text" placeholder="Token do mentor" required>
+ </div>
 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone">
-          <input id="senha" type="password" placeholder="Sua Senha" required>
-        </div>
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone">
+ <input id="senha" type="password" placeholder="Sua Senha" required>
+ </div>
 
-        <div class="input-informacoes">
-          <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone">
-          <input id="confimacaoSenha" type="password" placeholder="Confirme sua Senha" required>
-        </div>
+ <div class="input-informacoes">
+ <img class="icon" src="assets/imgs/pokebolaIcon02.png-Photoroom.png" alt="Ícone">
+ <input id="confimacaoSenha" type="password" placeholder="Confirme sua Senha" required>
+ </div>
 
 
-      </div>
+ </div>
 
-      <a href="#" class="botao" onclick="realizarCadastro()">CADASTRE-SE AGORA!</a>
-      <div class="ja-tem-conta">
-        Já tem conta? <a href="login.html">Faça Login</a>
-      </div>
-    </div>
+ <a href="#" class="botao" onclick="realizarCadastro()">CADASTRE-SE AGORA!</a>
+ <div class="ja-tem-conta">
+ Já tem conta? <a href="login.html">Faça Login</a>
+ </div>
+ </div>
 
-    <div class="imagem-charmander">
-      <img class="fundo-pc" src="assets/imgs/FundoCadastro-Photoroom.png" alt="Fundo">
-      <img class="fundo-ipad" src="assets/imgs/FundoIpadMini.png" alt="Fundo">
-      <img class="charmander" src="assets/imgs/charmanderSENTADO-Photoroom.png" alt="Charizard">
-    </div>
+ <div class="imagem-charmander">
+ <img class="fundo-pc" src="assets/imgs/FundoCadastro-Photoroom.png" alt="Fundo">
+ <img class="fundo-ipad" src="assets/imgs/FundoIpadMini.png" alt="Fundo">
+ <img class="charmander" src="assets/imgs/charmanderSENTADO-Photoroom.png" alt="Charizard">
+ </div>
 
-  </div>
+ </div>
+<script src="js/navbar.js"></script>
 </body>
 
 </html>
 
 <script>
 
-  function realizarCadastro() {
+ function realizarCadastro() {
 
-    var nomeVar = nome.value;
-    var nicknameVar = nickname.value;
-    var emailVar = email.value;
-    var senhaVar = senha.value;
-    var confimacaoSenhaVar = confimacaoSenha.value;
-    var tokenVar = tokenMentor.value;
+ var nomeVar = nome.value;
+ var nicknameVar = nickname.value;
+ var emailVar = email.value;
+ var senhaVar = senha.value;
+ var confimacaoSenhaVar = confimacaoSenha.value;
+ var tokenVar = tokenMentor.value;
 
-    if (nomeVar == "" || nicknameVar == "" || emailVar == "" || senhaVar == "" || confimacaoSenhaVar == "" || tokenVar == "") {
-      alert("Por favor, preencha todos os campos!");
-      return false;
-    } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
-      alert("Por favor, insira um endereço de e-mail válido!");
-      return false;
-    } else if (senhaVar.length < 8) {
-      alert("A senha deve conter pelo menos 8 caracteres!");
-      return false;
-    } if (senhaVar != confimacaoSenhaVar) {
-      alert("A senha e a confirmação de senha não coincidem!");
-      return false;
-    }
+ if (nomeVar == "" || nicknameVar == "" || emailVar == "" || senhaVar == "" || confimacaoSenhaVar == "" || tokenVar == "") {
+ alert("Por favor, preencha todos os campos!");
+ return false;
+ } else if (emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
+ alert("Por favor, insira um endereço de e-mail válido!");
+ return false;
+ } else if (senhaVar.length < 8) {
+ alert("A senha deve conter pelo menos 8 caracteres!");
+ return false;
+ } if (senhaVar != confimacaoSenhaVar) {
+ alert("A senha e a confirmação de senha não coincidem!");
+ return false;
+ }
 
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        nomeServer: nomeVar,
-        nicknameServer: nicknameVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        tokenServer: tokenVar
-      })
-    })
-      .then(function (resposta) {
-        if (resposta.ok) {
-          resposta.json().then(function (dadosUsuario) {
-            console.log("Cadastro realizado com sucesso!")
+ fetch("/usuarios/cadastrar", {
+ method: "POST",
+ headers: {
+ "Content-Type": "application/json"
+ },
+ body: JSON.stringify({
+ nomeServer: nomeVar,
+ nicknameServer: nicknameVar,
+ emailServer: emailVar,
+ senhaServer: senhaVar,
+ tokenServer: tokenVar
+ })
+ })
+ .then(function (resposta) {
+ if (resposta.ok) {
+ resposta.json().then(function (dadosUsuario) {
+ console.log("Cadastro realizado com sucesso!")
 
-            // AÇÕES 
-            window.location = "login.html";
+ // AÇÕES 
+ window.location = "login.html";
 
-          });
-        } else {
-          console.log("Erro ao realizar cadastro: Dados invalidos")
-        }
-      }).catch(function (erroDeRede) {
+ });
+ } else {
+ console.log("Erro ao realizar cadastro: Dados invalidos")
+ }
+ }).catch(function (erroDeRede) {
 
-        console.log("Erro de conexão com o servidor:", erroDeRede);
+ console.log("Erro de conexão com o servidor:", erroDeRede);
 
-      });
+ });
 
-    return false;
-  }
+ return false;
+ }
 
 </script>

@@ -365,8 +365,16 @@ function salvarStatusPokemonAtual() {
 
     pokemonAtual.statusSelecionados = {
         hp: statusPokemon.hp,
+        HP: statusPokemon.hp,
+        ataque: statusPokemon.ataque,
+        defesa: statusPokemon.defesa,
         attack: statusPokemon.ataque,
         defense: statusPokemon.defesa,
+        Attack: statusPokemon.ataque,
+        Defense: statusPokemon.defesa,
+        SpAtk: statusPokemon.ataqueEsp,
+        SpDef: statusPokemon.defesaEsp,
+        Speed: statusPokemon.velocidade,
         ataqueEsp: statusPokemon.ataqueEsp,
         defesaEsp: statusPokemon.defesaEsp,
         velocidade: statusPokemon.velocidade
@@ -374,6 +382,20 @@ function salvarStatusPokemonAtual() {
 
     pokemon[pokemonEditandoIndex] = pokemonAtual;
     sessionStorage.setItem(`POKEMON${pokemonEditandoIndex}`, JSON.stringify(pokemonAtual));
+    sessionStorage.setItem(`pokemon${pokemonEditandoIndex + 1}`, JSON.stringify({
+        idPokemon: Number(pokemonAtual.idPokemon || pokemonAtual.fkPokemon || pokemonAtual.id),
+        nome: pokemonAtual.nome || pokemonAtual.name,
+        Ataque1: pokemonAtual.ataquesSelecionados?.[0]?.nome || null,
+        Ataque2: pokemonAtual.ataquesSelecionados?.[1]?.nome || null,
+        Ataque3: pokemonAtual.ataquesSelecionados?.[2]?.nome || null,
+        Ataque4: pokemonAtual.ataquesSelecionados?.[3]?.nome || null,
+        HP: statusPokemon.hp,
+        Attack: statusPokemon.ataque,
+        Defense: statusPokemon.defesa,
+        SpAtk: statusPokemon.ataqueEsp,
+        SpDef: statusPokemon.defesaEsp,
+        Speed: statusPokemon.velocidade
+    }));
 }
 
 function calcularTotalStatus() {

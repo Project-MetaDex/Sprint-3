@@ -1,5 +1,10 @@
 window.onload = function () {
 
+     var nomeSalvo = sessionStorage.getItem('NOME_USUARIO');
+ if (nomeSalvo) {
+ document.getElementById('nome').textContent = nomeSalvo;
+ }
+
     // Preenche o nome do mentor vindo do sessionStorage
     var nomeSalvo = sessionStorage.getItem('NOME_USUARIO');
     if (nomeSalvo) {
