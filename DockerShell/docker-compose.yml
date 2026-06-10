@@ -41,7 +41,7 @@ services:
     environment:
       - DB_HOST=database
       - DB_PORT=3306
-      - DB_DATABASE=metadex
+      - DB_NAME=metadex
       - DB_USER=admin_metadex
       - DB_PASSWORD=Meta2309
       - SMTP_HOST=smtp.gmail.com
@@ -64,7 +64,7 @@ services:
       - AMBIENTE_PROCESSO=producao
       - DB_HOST=database
       - DB_PORT=3306
-      - DB_NAME=metadex
+      - DB_DATABASE=metadex
       - DB_USER=admin_metadex
       - DB_PASSWORD=Meta2309
     depends_on:
