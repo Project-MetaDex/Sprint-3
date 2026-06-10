@@ -33,12 +33,12 @@ CREATE TABLE Usuario (
     tokenMentor     VARCHAR(8),
     nickname        VARCHAR(50),
     dataCadastro   DATETIME DEFAULT CURRENT_TIMESTAMP,
-    posicaoRanking  INT,
-    totalBatalhas   INT,
-    qtdVitorias     INT,
-    qtdDerrotas     INT,
-    qtsEmpates      INT,
-    notificacao     TINYINT,
+    posicaoRanking  INT DEFAULT 0,
+    totalBatalhas   INT DEFAULT 0,
+    qtdVitorias     INT DEFAULT 0,
+    qtdDerrotas     INT DEFAULT 0,
+    qtsEmpates      INT DEFAULT 0,
+    notificacao     TINYINT DEFAULT true,
     CONSTRAINT fk_usuario_mentor
         FOREIGN KEY (fkMentor) REFERENCES Usuario (idUsuario)
 			ON DELETE CASCADE
