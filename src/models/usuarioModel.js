@@ -83,7 +83,7 @@ function listarAlunos(idMentor) {
 
     (
         SELECT MAX(ds.dataPartida)
-        FROM DadosShowdown ds
+        FROM dadosShowdown ds
         WHERE ds.fkUsuario = u.idUsuario
     ) AS ultimaBatalha
 
