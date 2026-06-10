@@ -76,7 +76,7 @@ function listarAlunos(idMentor) {
     DATEDIFF(NOW(), u.dataCadastro) AS dias,
 
     (
-        SELECT MAX(e.dtCriacao)
+        SELECT MAX(e.dataCriacao)
         FROM Equipe e
         WHERE e.fkUsuario = u.idUsuario
     ) AS ultimaEquipe,
