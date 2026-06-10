@@ -22,7 +22,7 @@
  <li><a href="pokedex.html">Pokedex</a></li>
  <li><a href="ranking.html">Ranks</a></li>
  <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="simulacao.html">Battle Simulator</a></li>
+ <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
  </ul>
  <div class="Button-Container">
  <a href="#">
@@ -48,7 +48,7 @@
  <li><a href="pokedex.html">Pokedex</a></li>
  <li><a href="ranking.html">Ranks</a></li>
  <li><a href="teamBuilder-List.html">Team Builder</a></li>
- <li><a href="simulacao.html">Battle Simulator</a></li>
+ <li><a href="selecionar-simulacao.html">Battle Simulator</a></li>
  </ul>
  <img class="Side-Logo" src="./assets/icon/Logo-Nav.svg" alt="" />
  </div>
@@ -192,9 +192,15 @@
  <!-- INICIO DO EDITAR PERFIL -->
  <section class="perfil-main" id="secao-editar-perfil" style="display:none;">
  <article class="painel-card editar-card">
+ <div class="cabecalho-editar">
  <div class="titulo-com-icone">
  <span class="icone-titulo"><i class="bi bi-person-gear"></i></span>
  <h2>Editar Perfil</h2>
+ </div>
+ <button class="btn-deletar-conta" type="button" onclick="deletarConta()">
+ <i class="bi bi-trash3"></i>
+ Deletar conta
+ </button>
  </div>
 
  <div class="editar-form">
@@ -261,7 +267,6 @@
  </div>
  </div>
 
- =
  <div class="divisor-secao"><span>Preferências</span></div>
 
  <div class="campo-grupo campo-toggle-grupo">
