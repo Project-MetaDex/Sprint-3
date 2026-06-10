@@ -354,7 +354,7 @@
         <div class="container-bar">
           <div class="skill-bar">
             <div class="bar-preenchida"
-                 style="width:${a.winRate}%; background:${corBarra(a.winRate)};"></div>
+                 style="width:${a.winRate == null ? 0 : a.winRate}%; background:${corBarra(a.winRate == null ? 0 : a.winRate)};"></div>
           </div>
           <strong>${a.winRate}%</strong>
         </div>
@@ -366,15 +366,6 @@
           <small>Ranking</small>
           <strong>${a.posicaoRanking}º</strong>
         </div>
-        <button class="btn-verPerfil" onclick="irParaAluno(${a.idUsuario})">Ver Perfil</button>
-      </div>
-      <div class="qtd-pontos">
-        <small>Elo</small>
-        <strong class="elo-placeholder" data-nickname="${a.nickname}">Carregando...</strong>
-      </div>
-      <div class="qtd-camp">
-        <small>Ranking</small>
-        <strong>${a.posicaoRanking}º</strong>
       </div>
       <button class="btn-verPerfil" onclick="irParaAluno()">Ver Perfil</button>
     </div>
