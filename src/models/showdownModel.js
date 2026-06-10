@@ -8,12 +8,12 @@ function dadosShowdown(idUsuario) {
         COUNT(*) AS totalBatalhas, 
         SUM(CASE WHEN resultado = 'Vitória' THEN 1 ELSE 0 END) AS vitorias,
         ROUND((SUM(CASE WHEN resultado = 'Vitória' THEN 1 ELSE 0 END) / COUNT(*)) * 100, 1) AS winRate
-            FROM dadosShowdown WHERE fkUsuario = ${idUsuario} AND dataPartida >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
+            FROM DadosShowdown WHERE fkUsuario = ${idUsuario} AND dataPartida >= DATE_SUB(NOW(), INTERVAL 6 MONTH)
                 GROUP BY MONTH(dataPartida), DATE_FORMAT(dataPartida, '%b') ORDER BY MONTH(dataPartida) ASC;
 
     `;
 
-    console.log("Puxando dados da tabela dadosShowdown: \n" + instrucaoSql);
+    console.log("Puxando dados da tabela DadosShowdown: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 

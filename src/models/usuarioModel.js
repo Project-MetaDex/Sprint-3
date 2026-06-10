@@ -15,7 +15,7 @@ function cadastrar(nome, email, senha, nickname, fkMentor) {
 function autenticar(nome, email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function autenticar(): ", nome, email, senha)
     var instrucaoSql = `
-        SELECT idUsuario, nome, email, nickname, tokenMentor, dataCadastro, notificacao FROM usuario 
+        SELECT idUsuario, nome, email, nickname, tokenMentor, dataCadastro, notificacao FROM Usuario 
         WHERE nome = '${nome}' AND email = '${email}' AND senha = '${senha}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -26,7 +26,7 @@ function buscarMentorPorToken(tokenMentor) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarMentorPorToken():", tokenMentor);
 
     var instrucaoSql = `
-        SELECT idUsuario FROM usuario WHERE tokenMentor = '${tokenMentor}';
+        SELECT idUsuario FROM Usuario WHERE tokenMentor = '${tokenMentor}';
     `;
     console.log("Buscando mentor pelo token: " + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -46,7 +46,7 @@ function buscarSenhaAtual(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function buscarSenhaAtual():", idUsuario);
 
     var instrucaoSql = `
-        SELECT senha FROM usuario WHERE idUsuario = ${idUsuario};
+        SELECT senha FROM Usuario WHERE idUsuario = ${idUsuario};
     `;
     console.log("Buscando a senha atual do usuário: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -56,7 +56,7 @@ function deletarConta(idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function deletarConta():", idUsuario);
 
     var instrucaoSql = `
-    DELETE FROM usuario WHERE idUsuario = ${idUsuario};
+    DELETE FROM Usuario WHERE idUsuario = ${idUsuario};
     `;
     console.log("Deletando usuário do sistema: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
