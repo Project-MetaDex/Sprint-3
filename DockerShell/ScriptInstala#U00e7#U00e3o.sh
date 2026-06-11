@@ -43,7 +43,7 @@ git clone https://github.com/Project-MetaDex/Sprint-3.git
 echo "=================================================="
 echo "=> Copiando docker-compose.yml para /home/ubuntu..."
 
-sudo cp "$REPO_DIR"/DockerCompose/docker-compose.yml /home/ubuntu/docker-compose.yml
+sudo cp "$REPO_DIR"/DockerShell/docker-compose.yml /home/ubuntu/docker-compose.yml
 
 # ENTRANDO NO DIRETÓRIO HOME E RODANDO O DOCKER COMPOSE
 echo "=================================================="
