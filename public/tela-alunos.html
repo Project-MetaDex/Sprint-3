@@ -314,12 +314,12 @@
 
             if(!res.ok){
                 throw new Error(`Usuário não encontrado Status: ${res.status}`);
-                return;
+                return "---";
             }
 
             var user = await res.json()
 
-            var elo = user.ratings?.gen9championsvgc2026regma?.elo;
+            var elo = user.ratings?.gen9championsvgc2026regma?.elo?? 0;
 
             if(elo !== undefined ){
                 return Math.round(elo);
@@ -331,6 +331,7 @@
 
         }catch (error) {
             console.error("Falha ao buscar os dados de Usuário:", error);
+            return "---";
         }
 
     }
