@@ -79,6 +79,9 @@ var genFiltro = 0;
 var simSalvaPendente = null;
 var simSalvaAplicada = false;
 
+// id da simulacao em edicao (null = criar nova); usado para decidir INSERT vs UPDATE
+var idSimulacaoEditando = null;
+
 // guarda o resultado da ultima simulacao executada (para salvar no banco)
 var ultimoResultado = null;
 var ultimoLog = "";
@@ -192,11 +195,20 @@ function carregarSimulacaoSalva(simId) {
  return r.json();
  })
  .then(function (sim) {
+ idSimulacaoEditando = simId;
  simSalvaPendente = {
  resultado: sim.Resultado,
  log: sim.Log,
  meuAtaques: [sim.usuarioAtaque1, sim.usuarioAtaque2, sim.usuarioAtaque3, sim.usuarioAtaque4],
- advAtaques: [sim.adversarioAtaque1, sim.adversarioAtaque2, sim.adversarioAtaque3, sim.adversarioAtaque4]
+ advAtaques: [sim.adversarioAtaque1, sim.adversarioAtaque2, sim.adversarioAtaque3, sim.adversarioAtaque4],
+ meuStats: {
+ "hp": sim.usuarioHP, "attack": sim.usuarioAttack, "defense": sim.usuarioDefense,
+ "special-attack": sim.usuarioSpAtk, "special-defense": sim.usuarioSpDef, "speed": sim.usuarioSpeed
+ },
+ advStats: {
+ "hp": sim.adversarioHP, "attack": sim.adversarioAttack, "defense": sim.adversarioDefense,
+ "special-attack": sim.adversarioSpAtk, "special-defense": sim.adversarioSpDef, "speed": sim.adversarioSpeed
+ }
  };
  iniciarBatalha(
  { id: sim.idPokemonUsuario, name: sim.nomePokemonUsuario },
@@ -316,7 +328,9 @@ function desenharStats(lado) {
  var base = s.base_stat;
  var ev = L.evs[stat] || 0;
  var iv = L.ivs[stat] !== undefined ? L.ivs[stat] : 31;
- var total = calcularStatTotal(base, ev, iv);
+ var total = (L.statsSalvos && L.statsSalvos[stat] != undefined)
+ ? L.statsSalvos[stat]
+ : calcularStatTotal(base, ev, iv);
  var pct = Math.min(100, Math.round((base / 255) * 100));
  var valor = L.modo === "ev" ? ev : iv;
  var passo = L.modo === "ev" ? PASSO_EV : 1;
@@ -352,6 +366,11 @@ function desenharStats(lado) {
 
 function ajustarStat(lado, stat, delta) {
  var L = lados[lado];
+
+ // Ao mexer manualmente, abandona o valor salvo e passa a usar o calculo por EV/IV
+ if (L.statsSalvos && L.statsSalvos[stat] != undefined) {
+ delete L.statsSalvos[stat];
+ }
 
  if (L.modo === "ev") {
  var atual = L.evs[stat] || 0;
@@ -664,9 +683,25 @@ function tentarAplicarSimSalva() {
  if (!lados.meu.dados || !lados.adv.dados) return;
  simSalvaAplicada = true;
 
+ aplicarStatsSalvos("meu", simSalvaPendente.meuStats);
+ aplicarStatsSalvos("adv", simSalvaPendente.advStats);
  aplicarAtaquesSalvos("meu", simSalvaPendente.meuAtaques);
  aplicarAtaquesSalvos("adv", simSalvaPendente.advAtaques);
  mostrarResultadoSalvo(simSalvaPendente);
+}
+
+// Restaura os stats finais salvos como override (a tela edita via EV/IV, mas
+// o banco guarda o total). O override vale ate o usuario ajustar aquele stat.
+function aplicarStatsSalvos(lado, stats) {
+ if (!stats) return;
+ var L = lados[lado];
+ L.statsSalvos = {};
+ for (var chave in stats) {
+ if (stats[chave] != undefined && stats[chave] != null) {
+ L.statsSalvos[chave] = Number(stats[chave]);
+ }
+ }
+ desenharStats(lado);
 }
 
 function aplicarAtaquesSalvos(lado, ataques) {
@@ -694,8 +729,13 @@ function mostrarResultadoSalvo(sim) {
  else if (sim.resultado === "derrota") rotulo = capitalizar(lados.adv.name) + " venceu!";
  else if (sim.resultado === "empate") rotulo = "Empate tecnico";
 
+ // Restaura o resultado salvo para permitir salvar/atualizar sem re-simular
+ ultimoResultado = sim.resultado || ultimoResultado;
+ ultimoLog = sim.log || ultimoLog;
+
  var html = '<div class="resultado-titulo">' + rotulo + '</div>';
  if (sim.log) html += '<p class="resultado-detalhe">' + sim.log + '</p>';
+ html += '<button class="btn-simular" style="margin-top:14px" onclick="salvarSimulacaoNoBanco()">Salvar alterações</button>';
 
  res.innerHTML = html;
  res.classList.add("visivel");
@@ -709,7 +749,9 @@ function montarLadoParaBanco(lado) {
  var s = L.dados.stats[i];
  var ev = L.evs[s.stat.name] || 0;
  var iv = L.ivs[s.stat.name] !== undefined ? L.ivs[s.stat.name] : 31;
- statValor[s.stat.name] = calcularStatTotal(s.base_stat, ev, iv);
+ statValor[s.stat.name] = (L.statsSalvos && L.statsSalvos[s.stat.name] != undefined)
+ ? L.statsSalvos[s.stat.name]
+ : calcularStatTotal(s.base_stat, ev, iv);
  }
 
  return {
@@ -749,7 +791,15 @@ function salvarSimulacaoNoBanco() {
  adversarioServer: montarLadoParaBanco("adv")
  };
 
- fetch("/simulacoes/salvarSimulacao", {
+ // Se ha uma simulacao carregada, edita (UPDATE); senao, cria (INSERT)
+ var ehEdicao = idSimulacaoEditando != null;
+ var rota = ehEdicao ? "/simulacoes/editarSimulacao" : "/simulacoes/salvarSimulacao";
+
+ if (ehEdicao) {
+ payload.idSimulacaoServer = idSimulacaoEditando;
+ }
+
+ fetch(rota, {
  method: "POST",
  headers: { "Content-Type": "application/json" },
  body: JSON.stringify(payload)
@@ -759,7 +809,7 @@ function salvarSimulacaoNoBanco() {
  return r.json();
  })
  .then(function () {
- alert("Simulação salva com sucesso!");
+ alert(ehEdicao ? "Simulação atualizada com sucesso!" : "Simulação salva com sucesso!");
  window.location.href = "selecionar-simulacao.html";
  })
  .catch(function (erro) {

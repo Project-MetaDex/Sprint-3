@@ -8,6 +8,11 @@ router.post("/salvarSimulacao", function (req, res) {
     simulacaoController.salvarSimulacao(req, res);
 });
 
+// Rota para editar uma simulação existente
+router.post("/editarSimulacao", function (req, res) {
+    simulacaoController.editarSimulacao(req, res);
+});
+
 // Rota para listar as simulações de um usuário
 router.post("/listarSimulacoes", function (req, res) {
     simulacaoController.listarSimulacoes(req, res);

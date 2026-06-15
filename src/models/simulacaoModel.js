@@ -55,38 +55,7 @@ function criarSimulacao(simulacao) {
         .then(function (resultadoSimulacao) {
             var idSimulacao = resultadoSimulacao.insertId;
 
-            var instrucaoAdversario = `
-            INSERT INTO SimulacaoAdversario (
-                fkSimulacao,
-                PokemonAdversario,
-                Ataque1,
-                Ataque2,
-                Ataque3,
-                Ataque4,
-                HP,
-                Attack,
-                Defense,
-                SpAtk,
-                SpDef,
-                Speed
-            ) VALUES (
-                ${idSimulacao},
-                ${Number(adversario.idPokemon)},
-                ${formatarObrigatorio(adversario.Ataque1)},
-                ${formatarObrigatorio(adversario.Ataque2)},
-                ${formatarObrigatorio(adversario.Ataque3)},
-                ${formatarObrigatorio(adversario.Ataque4)},
-                ${Number(adversario.HP) || 0},
-                ${Number(adversario.Attack) || 0},
-                ${Number(adversario.Defense) || 0},
-                ${Number(adversario.SpAtk) || 0},
-                ${Number(adversario.SpDef) || 0},
-                ${Number(adversario.Speed) || 0}
-            );
-            `;
-
-            console.log("Salvando adversário da simulação: \n" + instrucaoAdversario);
-            return database.executar(instrucaoAdversario)
+            return inserirAdversario(idSimulacao, adversario)
                 .then(function () {
                     return {
                         idSimulacao: idSimulacao,
@@ -188,6 +157,109 @@ function excluirSimulacao(idSimulacao, idUsuario) {
         });
 }
 
+function editarSimulacao(simulacao) {
+    logDeAcesso("function editarSimulacao()", simulacao);
+
+    var idSimulacao = Number(simulacao.idSimulacao);
+    var idUsuario = Number(simulacao.idUsuario);
+    var usuario = simulacao.usuario;
+    var adversario = simulacao.adversario;
+
+    var instrucaoBusca = `
+    SELECT idSimulacaoUsuario FROM SimulacaoUsuario
+        WHERE idSimulacaoUsuario = ${idSimulacao} AND fkUsuario = ${idUsuario};
+    `;
+
+    console.log("Verificando simulação para edição: \n" + instrucaoBusca);
+
+    return database.executar(instrucaoBusca)
+        .then(function (resultadoBusca) {
+            if (resultadoBusca.length == 0) {
+                return Promise.reject("Simulação não encontrada para este usuário.");
+            }
+
+            return garantirPokemonCadastrado(usuario);
+        })
+        .then(function () {
+            return garantirPokemonCadastrado(adversario);
+        })
+        .then(function () {
+            var instrucaoUpdate = `
+            UPDATE SimulacaoUsuario SET
+                fkPokemonUsuario = ${Number(usuario.idPokemon)},
+                Resultado = ${formatarTexto(simulacao.resultado)},
+                Ataque1 = ${formatarObrigatorio(usuario.Ataque1)},
+                Ataque2 = ${formatarObrigatorio(usuario.Ataque2)},
+                Ataque3 = ${formatarObrigatorio(usuario.Ataque3)},
+                Ataque4 = ${formatarObrigatorio(usuario.Ataque4)},
+                HP = ${Number(usuario.HP) || 0},
+                Attack = ${Number(usuario.Attack) || 0},
+                Defense = ${Number(usuario.Defense) || 0},
+                SpAtk = ${Number(usuario.SpAtk) || 0},
+                SpDef = ${Number(usuario.SpDef) || 0},
+                Speed = ${Number(usuario.Speed) || 0},
+                Log = ${formatarTexto(simulacao.log)}
+            WHERE idSimulacaoUsuario = ${idSimulacao} AND fkUsuario = ${idUsuario};
+            `;
+
+            console.log("Editando simulação: \n" + instrucaoUpdate);
+            return database.executar(instrucaoUpdate);
+        })
+        .then(function () {
+            var instrucaoDelete = `
+            DELETE FROM SimulacaoAdversario WHERE fkSimulacao = ${idSimulacao};
+            `;
+
+            console.log("Limpando adversário antigo da simulação: \n" + instrucaoDelete);
+            return database.executar(instrucaoDelete);
+        })
+        .then(function () {
+            return inserirAdversario(idSimulacao, adversario);
+        })
+        .then(function () {
+            return {
+                idSimulacao: idSimulacao,
+                fkUsuario: idUsuario,
+                resultado: simulacao.resultado
+            };
+        });
+}
+
+function inserirAdversario(idSimulacao, adversario) {
+    var instrucaoAdversario = `
+    INSERT INTO SimulacaoAdversario (
+        fkSimulacao,
+        PokemonAdversario,
+        Ataque1,
+        Ataque2,
+        Ataque3,
+        Ataque4,
+        HP,
+        Attack,
+        Defense,
+        SpAtk,
+        SpDef,
+        Speed
+    ) VALUES (
+        ${Number(idSimulacao)},
+        ${Number(adversario.idPokemon)},
+        ${formatarObrigatorio(adversario.Ataque1)},
+        ${formatarObrigatorio(adversario.Ataque2)},
+        ${formatarObrigatorio(adversario.Ataque3)},
+        ${formatarObrigatorio(adversario.Ataque4)},
+        ${Number(adversario.HP) || 0},
+        ${Number(adversario.Attack) || 0},
+        ${Number(adversario.Defense) || 0},
+        ${Number(adversario.SpAtk) || 0},
+        ${Number(adversario.SpDef) || 0},
+        ${Number(adversario.Speed) || 0}
+    );
+    `;
+
+    console.log("Salvando adversário da simulação: \n" + instrucaoAdversario);
+    return database.executar(instrucaoAdversario);
+}
+
 function garantirPokemonCadastrado(pokemon) {
     var instrucaoSql = `
     INSERT INTO Pokemon (idPokemon, nome) VALUES (${Number(pokemon.idPokemon)}, ${formatarTexto(pokemon.nome)})
@@ -216,6 +288,7 @@ function formatarObrigatorio(valor) {
 
 module.exports = {
     criarSimulacao,
+    editarSimulacao,
     listarSimulacoes,
     buscarSimulacao,
     excluirSimulacao
